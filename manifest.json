@@ -1,0 +1,18 @@
+{
+    "manifest_version": 3,
+    "name": "LMS RANEPA Helper",
+    "description": "Облегчает работу с СДО РАНХиГС",
+    "author": "tankalxat34",
+    "version": "0.1.0",
+
+
+    "action": {
+        "default_icon": "icon.png",
+        "default_popup": "default/popup/popup.html"
+    },
+    "icons": {
+        "128": "icon.png"
+    },
+
+    "homepage_url": "https://github.com/tankalxat34/lms-ranepa-helper"
+}
