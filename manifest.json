@@ -4,6 +4,7 @@
     "description": "Облегчает работу с СДО РАНХиГС",
     "author": "tankalxat34",
     "version": "0.1.0",
+    "homepage_url": "https://github.com/tankalxat34/lms-ranepa-helper",
 
 
     "action": {
@@ -14,5 +15,34 @@
         "128": "icon.png"
     },
 
-    "homepage_url": "https://github.com/tankalxat34/lms-ranepa-helper"
+
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "storage",
+        "scripting"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+
+
+    "content_scripts": [
+        {
+            "matches": [ "*://lms.ranepa.ru/*" ],
+            "js": [ "scripts/common.js" ]
+        },
+        {
+            "matches": [ "*://lms.ranepa.ru/my/*" ],
+            "js": [ "scripts/my/my.js" ],
+            "html": [ "nodes/my/mainBlock.html" ]
+        }
+    ],
+
+    "web_accessible_resources": [
+        {
+          "resources": [ "*.js", "*.html", "*.css", "scripts/*", "nodes/*" ],
+          "matches": [ "*://lms.ranepa.ru/*" ]
+        }
+      ]
 }
