@@ -40,7 +40,7 @@
         {
             "matches": [ "*://lms.ranepa.ru/mod/quiz/attempt.php?*", "*://lms-dpo.ranepa.ru/mod/quiz/attempt.php?*" ],
             "js": [ "scripts/mod/quiz/attempt/attempt.js" ],
-            "html": [ "nodes/my/mainBlock.html" ]
+            "html": [ "nodes/mod/quiz/attempt/mainBlock.html" ]
         }
     ],
 

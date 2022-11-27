@@ -67,6 +67,8 @@ function fillButtons(qtext="qtext") {
     for (let answerNode of answerNodes) {
 
         let answerButtonDiv = document.createElement("div");
+        answerButtonDiv.id = "helper-operate-answer"
+        answerButtonDiv.innerHTML += `<h5>Поиск вопроса</h5>`
 
         var questionText = questionTexts[questionIndex];
 
@@ -90,16 +92,6 @@ function fillButtons(qtext="qtext") {
 
 
 
-function addQuickAnswer(qtext="qtext") {
-    /* 
-        Добавляет текст быстрого ответа из Яндекса в каждый вопрос теста
-    */
-    
-    let questionTexts = getQuestions(qtext);
-}
-
-
-
 function addMainBlock() {
     /*
         Добавляет блок для управления тестом
@@ -108,7 +100,17 @@ function addMainBlock() {
         - 
     */
     
-    return 0;
+    let mainBlock = document.createElement("div")
+    mainBlock.classList = "col-12 pt-3 pb-3"
+
+    fetch(chrome.runtime.getURL("nodes/mod/quiz/attempt/mainBlock.html"))
+    .then(res => res.text())
+    .then(html => {
+        mainBlock.innerHTML = html;
+        document.getElementById("page-header").append(mainBlock)
+     })
+
 }
 
 fillButtons();
+addMainBlock();
