@@ -36,6 +36,11 @@
             "matches": [ "*://lms.ranepa.ru/my/*", "*://lms-dpo.ranepa.ru/my/*" ],
             "js": [ "scripts/my/my.js" ],
             "html": [ "nodes/my/mainBlock.html" ]
+        },
+        {
+            "matches": [ "*://lms.ranepa.ru/mod/quiz/attempt.php?*", "*://lms-dpo.ranepa.ru/mod/quiz/attempt.php?*" ],
+            "js": [ "scripts/mod/quiz/attempt/attempt.js" ],
+            "html": [ "nodes/my/mainBlock.html" ]
         }
     ],
 
@@ -44,5 +49,5 @@
           "resources": [ "*.js", "*.html", "*.css", "scripts/*", "nodes/*" ],
           "matches": [ "*://lms.ranepa.ru/*", "*://lms-dpo.ranepa.ru/*" ]
         }
-      ]
+    ]
 }
