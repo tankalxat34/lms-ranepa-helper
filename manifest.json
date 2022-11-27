@@ -29,11 +29,11 @@
 
     "content_scripts": [
         {
-            "matches": [ "*://lms.ranepa.ru/*" ],
+            "matches": [ "*://lms.ranepa.ru/*", "*://lms-dpo.ranepa.ru/*" ],
             "js": [ "scripts/common.js" ]
         },
         {
-            "matches": [ "*://lms.ranepa.ru/my/*" ],
+            "matches": [ "*://lms.ranepa.ru/my/*", "*://lms-dpo.ranepa.ru/my/*" ],
             "js": [ "scripts/my/my.js" ],
             "html": [ "nodes/my/mainBlock.html" ]
         }
@@ -42,7 +42,7 @@
     "web_accessible_resources": [
         {
           "resources": [ "*.js", "*.html", "*.css", "scripts/*", "nodes/*" ],
-          "matches": [ "*://lms.ranepa.ru/*" ]
+          "matches": [ "*://lms.ranepa.ru/*", "*://lms-dpo.ranepa.ru/*" ]
         }
       ]
 }
