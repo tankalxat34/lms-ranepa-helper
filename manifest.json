@@ -3,7 +3,7 @@
     "name": "LMS RANEPA Helper",
     "description": "Облегчает работу с СДО РАНХиГС",
     "author": "tankalxat34",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "homepage_url": "https://github.com/tankalxat34/lms-ranepa-helper",
 
 
@@ -41,6 +41,10 @@
             "matches": [ "*://lms.ranepa.ru/mod/quiz/attempt.php?*", "*://lms-dpo.ranepa.ru/mod/quiz/attempt.php?*" ],
             "js": [ "scripts/mod/quiz/attempt/attempt.js" ],
             "html": [ "nodes/mod/quiz/attempt/mainBlock.html" ]
+        },
+        {
+            "matches": [ "*://lms.ranepa.ru/mod/resource/view.php?*", "*://lms-dpo.ranepa.ru/mod/resource/view.php?*" ],
+            "js": [ "scripts/mod/resource/view.js" ]
         }
     ],
 
