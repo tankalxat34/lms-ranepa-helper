@@ -1,17 +1,62 @@
 <div class="card ">
     <div class="card-body ">
         <div class="d-sm-flex align-items-center">
-            <div id="helper-test_services-1">
-                <form action="https://yandex.ru/search/" target="_blank">
-                    <h4>Поиск в Яндекс</h4>
-                    <p>Введите здесь свой поисковый запрос - результаты поиска откроются в Яндексе на соседней вкладке</p>
-                    <div style="display: flex;">
-                        <input id="helper-yandex_entry" type="text" name="text" class="form-control" style="width: 90%; margin: 0 5px;" placeholder="Введите запрос и нажмите Enter...">
-                        <button class="btn btn-primary" style="padding: 0 20px;">Поиск</button>
-                    </div>
-                    
-                </form>
+        </div>
+        <div id="helper-test_services-1">
+            <form action="https://yandex.ru/search/" target="_blank">
+                <h4>Поиск в Яндекс</h4>
+                <p>Введите здесь свой поисковый запрос - результаты поиска откроются в Яндексе на соседней вкладке</p>
+                <div style="display: flex;">
+                    <input id="helper-yandex_entry" type="text" name="text" class="form-control" style="width: 90%; margin: 0 5px;" placeholder="Введите запрос и нажмите Enter...">
+                    <button class="btn btn-primary" style="padding: 0 20px;">Поиск</button>
+                </div>
+                
+            </form>
+        </div>
+        <br>
+        <div class="d-sm-flex align-items-center">
+            <div id="helper-test_services-2">
+                <h4>Экспорт ответов</h4>
+                <small style="color: green;">Функционал в разработке, может работать нестабильно</small>
+                <p>Экспортируйте свои вопросы и ответы в машиночитаемый файл и отправьте его сокурсникам, чтобы помочь им пройти этот же тест</p>
+                <!-- <a id="helper-btn-export_answers" href="#" class="btn btn-primary" onclick="document.helper.downloadFileFromText('name.txt', 'hello world')"><i class="fa fa-download"></i> Экспорт в JSON</a> -->
+                <a id="helper-btn-export_answers" href="#" class="btn btn-primary" onclick="exportAnswers()"><i class="fa fa-download"></i> Экспорт в JSON</a>
+            </div>
+            <br>
+            <div id="helper-test_services-3">
+                <h4>Импорт ответов</h4>
+                <small style="color: green;">Функционал в разработке, может работать нестабильно</small>
+                <p>Если у вас есть json-файл ответов, полученный от одногруппника, вы можете загрузить его сюда, чтобы проставить ответы в этом тесте автоматически</p>
+                <!-- <a id="helper-btn-export_answers" href="#" class="btn btn-primary" onclick="document.helper.downloadFileFromText('name.txt', 'hello world')"><i class="fa fa-download"></i> Экспорт в JSON</a> -->
+                <!-- <a id="helper-btn-import_answers" href="#" class="btn btn-primary" onclick="document.helper.importAnswers()"><i class="fa fa-arrow-up"></i> Импорт из JSON</a> -->
+                <input type="file" id="helper-btn-import_answers" class="btn btn-secondary" accept="application/json"></input>
             </div>
         </div>
     </div>
 </div>
+
+<!-- 
+    for (const entry of new FormData(document.querySelector("#responseform"))) {
+    output = entry[0] + "=" + entry[1] + "\r";
+    console.log(output)
+    }
+    9827138
+    VM21011:3 q628420:6_:sequencecheck=2
+    VM21011:3 q628420:6_answer=0
+    VM21011:3 q628420:11_:sequencecheck=2
+    VM21011:3 q628420:11_answer=3
+    VM21011:3 q628420:18_:sequencecheck=2
+    VM21011:3 q628420:18_answer=2
+    VM21011:3 q628420:7_:sequencecheck=2
+    VM21011:3 q628420:7_answer=0
+    VM21011:3 q628420:2_:sequencecheck=2
+    VM21011:3 q628420:2_answer=2
+    VM21011:3 attempt=608806
+    VM21011:3 thispage=3
+    VM21011:3 nextpage=-1
+    VM21011:3 timeup=0
+    VM21011:3 sesskey=ysv861myrT
+    VM21011:3 scrollpos=
+    VM21011:3 slots=6,11,18,7,2
+
+ -->

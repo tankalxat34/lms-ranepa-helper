@@ -37,7 +37,7 @@ function getQuestions(qtext) {
     /* 
         Возвращает список всех вопросов на странице
     */
-    
+
     let questionNodes = document.getElementsByClassName(qtext);
     let answersArray = new Array();
 
@@ -54,13 +54,13 @@ function getQuestions(qtext) {
 
 
 
-function fillButtons(qtext="qtext") {
+function fillButtons(qtext = "qtext") {
     /* 
         Заполняет блоки с вопросами кнопками с поисковыми системами 
     */
 
     let questionTexts = getQuestions(qtext);
-    
+
     let answerNodes = document.getElementsByClassName("answer");
 
     var questionIndex = 0
@@ -68,15 +68,16 @@ function fillButtons(qtext="qtext") {
 
         let answerButtonDiv = document.createElement("div");
         answerButtonDiv.id = "helper-operate-answer"
-        answerButtonDiv.innerHTML += `<h5>Поиск вопроса</h5>`
+        // answerButtonDiv.innerHTML += `<h5>Поиск вопроса</h5>`
+        // answerButtonDiv.style.marginTop = "5px";
 
         var questionText = questionTexts[questionIndex];
 
         for (let system of Object.keys(INTERNET_PATTERNS)) {
-            
+
             let button = document.createElement("a");
             button.classList = "btn btn-secondary";
-            button.style.margin = "0 5px";
+            button.style.margin = "5px 5px";
             button.target = "_blank";
 
             button.href = INTERNET_PATTERNS[system].url + questionText.replaceAll(" ", INTERNET_PATTERNS[system].replacedSpace);
@@ -99,18 +100,20 @@ function addMainBlock() {
         - заполнить ответами
         - 
     */
-    
+
     let mainBlock = document.createElement("div")
     mainBlock.classList = "col-12 pt-3 pb-3"
 
     fetch(chrome.runtime.getURL("nodes/mod/quiz/attempt/mainBlock.html"))
-    .then(res => res.text())
-    .then(html => {
-        mainBlock.innerHTML = html;
-        document.getElementById("page-header").append(mainBlock)
-     })
-
+        .then(res => res.text())
+        .then(html => {
+            mainBlock.innerHTML = html;
+            document.getElementById("page-header").append(mainBlock)
+        })
 }
+
+
 
 fillButtons();
 addMainBlock();
+
