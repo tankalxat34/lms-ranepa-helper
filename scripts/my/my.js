@@ -28,6 +28,7 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
                 <br>
                 <a href="${json[0].zipball_url}" class="btn btn-primary"><i class="fa fa-download"></i> Скачать v${json[0].name}</a>
             </details>`.replaceAll("\r\n", "<br>")
+            showAlert(`Доступна новая версия расширения LMS RANEPA Helper: ${json[0].name}<br><br>Настоятельно рекомендуется обновить его до актуального состояния, чтобы получить доступ к последним функциям и возможностям!`, "warning")
         } else {
             extentionNode.innerHTML = `<small style="color: grey;">Установлена актуальная версия</small>`
         }

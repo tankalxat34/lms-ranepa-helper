@@ -4,18 +4,27 @@ function clearResponseForm() {
     /*
         Очищает всю форму
     */
-    document.querySelector("#responseform").reset()
+    document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM).reset()
 
-    // document.querySelectorAll("a[class='btn btn-link ml-3 mt-n1 mb-n1']")
 
-    for (const entry of new FormData(document.querySelector("#responseform"))) {
-        // output = entry[0] + "=" + entry[1] + "\r";
+    for (let clearBtn of document.querySelectorAll("a[class='btn btn-link ml-3 mt-n1 mb-n1']")) {
+        clearBtn.click()
+    }
+
+    for (const entry of new FormData(document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM))) {
 
         let name = entry[0]
         let value = entry[1]
 
+        
         if (name.slice(0, 1) === "q" && "0123456789".includes(name.slice(1, 2)) && !name.includes("sequencecheck")) {
-            document.querySelector(`input[name='${name}']`).checked = false
+            // console.log(name, value)
+            // console.log(document.querySelector(`input[type='checkbox'][name='${name}']`))
+            try {
+                document.querySelector(`input[name='${name}']`).checked = false
+            } catch {
+                null;
+            }
         }
     }
 }
@@ -33,20 +42,14 @@ function exportAnswers() {
         let filename = `attempt${M.cfg.sesskey}_${new Date().getTime()}.json`
 
 
-        for (const entry of new FormData(document.querySelector("#responseform"))) {
+        for (const entry of new FormData(document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM))) {
             // output = entry[0] + "=" + entry[1] + "\r";
 
             let id = entry[0]
             let value = entry[1]
 
             if (id.slice(0, 1) === "q" && "0123456789".includes(id.slice(1, 2)) && !id.includes("sequencecheck")) {
-                // let output = {
-                //     name: id,
-                //     selected: value,
-                //     backend_number: id.split("_")[0].split(":")[1],
-                //     querySelector: "0123456789".includes(id.slice(-1)) ? "#" + (id).replace(":", "\\:") : "#" + (id + value).replace(":", "\\:"),
-                // }
-                // questionsObject.push(output)
+
                 questionsObject[id] = {
                     backend_number: id.split("_")[0].split(":")[1],
                     selected: value,
@@ -62,7 +65,6 @@ function exportAnswers() {
         
         exportData.test_id = _test_id
         exportData.questions = questionsObject
-        // exportData.test_id = id.slice(1, 8)
         
         showAlert("Скачанный файл вы можете отправить своим одногруппникам, у которых установлен LMS RANEPA Helper. С помощью расширения они смогут в этот тест загрузить все ответы из полученного json файла. Скачать расширение можно <a href=\"https://github.com/tankalxat34/lms-ranepa-helper\" target=\"_blank\">здесь</a>. Также можно <a href=\"https://vk.com/share.php?url=https://github.com/tankalxat34/lms-ranepa-helper\" target=\"_blank\">поделиться расширением</a>.")
 
@@ -147,10 +149,8 @@ function importAnswers(e) {
 
 
 // entrypoint
-window.onload = () => {
-    document.getElementById("helper-btn-import_answers").onchange = e => {
-        importAnswers(e);
-    }
+window.onload = () => {    
+    $('#helper-btn-import_answers').on('change', function(e) { importAnswers(e) })
 
     document.querySelector(".submitbtns").innerHTML += ` <a id="helper-btn-export_answers-2" href="#" class="btn btn-secondary" onclick="exportAnswers()"><i class="fa fa-download"></i> Экспорт в JSON</a>`
 }
