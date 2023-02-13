@@ -25,6 +25,11 @@ const INTERNET_PATTERNS = {
         url: "https://www.bing.com/search?q=",
         replacedSpace: "+",
         name: "Bing"
+    },
+    nigma: {
+        url: "https://xn--80aforc.xn--p1acf/index.php?query=",
+        replacedSpace: "+",
+        name: "Нигма"
     }
 }
 
@@ -38,15 +43,16 @@ function getQuestions(qtext) {
         Возвращает список всех вопросов на странице
     */
 
-    let questionNodes = document.getElementsByClassName(qtext);
+    let questionNodes = document.querySelectorAll("div.qtext")
+
     let answersArray = new Array();
 
     for (let i = 0; i < questionNodes.length; i++) {
         let questionText = questionNodes[i].innerText;
-        if (questionNodes[i].childNodes[0].nodeName !== "#text") {
-            questionText = questionNodes[i].childNodes[0].innerText;
-        }
-        answersArray.push(questionText);
+        // if (questionNodes[i].childNodes[0].nodeName !== "#text") {
+        //     questionText = questionNodes[i].childNodes[0].innerText;
+        // }
+        answersArray.push(questionText.replaceAll("\n", " ").replaceAll("  ", " "));
     }
 
     return Object.assign(answersArray)
@@ -54,7 +60,8 @@ function getQuestions(qtext) {
 
 
 
-function fillButtons(qtext = "qtext") {
+
+function fillButtons(qtext = ".qtext") {
     /* 
         Заполняет блоки с вопросами кнопками с поисковыми системами 
     */

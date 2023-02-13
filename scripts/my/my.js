@@ -14,7 +14,7 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
     }
     extentionNode.innerHTML = replacedText
 
-    document.getElementById("block-region-side-pre").before(extentionNode)
+    document.getElementById("block-region-content").before(extentionNode)
     return document.querySelector("#available_new_version")
 })
 .then(extentionNode => {
@@ -23,7 +23,7 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
     .then(json => {
         if (json[0].name !== MANIFEST.version) {
             extentionNode.innerHTML = `<details>
-            <summary><b style="color: green;">Доступна версия <a href="${json[0].html_url}">${json[0].name}</a></b></summary>            
+            <summary><b style="color: green;">Доступна версия <a href="${json[0].html_url}" target="_blank">${json[0].name}</a></b></summary>            
                 ${json[0].body}
                 <br>
                 <a href="${json[0].zipball_url}" class="btn btn-primary"><i class="fa fa-download"></i> Скачать v${json[0].name}</a>

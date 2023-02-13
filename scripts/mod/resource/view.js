@@ -3,29 +3,6 @@ let source_src = document.querySelector("source").src
 let source_format = document.querySelector("source").type
 
 
-function showAlert(text, classList = "alert alert-info alert-block fade in  alert-dismissible") {
-    // html = `<div class=${classList} role="alert">
-    // ${text}
-    // <button type="button" class="close" data-dismiss="alert">
-    //     <span aria-hidden="true">×</span>
-    //     <span class="sr-only">Отклонить это уведомление</span>
-    // </button>
-    // </div>`
-
-    html = `${text}
-    <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">×</span>
-        <span class="sr-only">Отклонить это уведомление</span>
-    </button>`
-
-    div = document.createElement("div")
-    div.classList = classList
-    div.role = "alert"
-    div.innerHTML = html
-
-    document.querySelector("#user-notifications").appendChild(div)
-
-}
 
 if (document.querySelector("source") && source_format.split("/")[0] === "video") {
 

@@ -8,6 +8,12 @@ function clearResponseForm() {
 
 
     for (let clearBtn of document.querySelectorAll("a[class='btn btn-link ml-3 mt-n1 mb-n1']")) {
+        // для старого интерфейса СДО
+        clearBtn.click()
+    }
+
+    for (let clearBtn of document.querySelectorAll('a[role="button"][href="#"][tabindex="0"]')) {
+        // для нового интерфейса СДО, более универсальный
         clearBtn.click()
     }
 
@@ -83,7 +89,7 @@ function importAnswers_Handler(json_object) {
     */
 
     // проверка на то, на какой странице находится пользователь
-    if (document.querySelector("input[name='thispage']").value === json_object.thispage) {
+    // if (document.querySelector("input[name='thispage']").value === json_object.thispage) {
 
         // Очищаем форму
         clearResponseForm()
@@ -120,11 +126,11 @@ function importAnswers_Handler(json_object) {
         
         showAlert(`<p>Ответы из файла успешно импортированы!</p><p><span style="color: red;">Перед отправкой не забудьте ВНИМАТЕЛЬНО проверить проставленные ответы!</span></p>`)
     
-    } else {
+    // } else {
 
-        showAlert(`<p>Этот файл не содержит ответы для данной страницы</p><p>Ответы предназначены для страницы: ${json_object.thispage}. Текущая страница: ${document.querySelector("input[name='thispage']").value}</p>`, "warning")
+    //     showAlert(`<p>Этот файл не содержит ответы для данной страницы</p><p>Ответы предназначены для страницы: ${json_object.thispage}. Текущая страница: ${document.querySelector("input[name='thispage']").value}</p>`, "warning")
     
-    }
+    // }
 }
 
 
