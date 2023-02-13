@@ -1,20 +1,54 @@
 <div class="card-body p-3">
-    
-    <details>
-        <summary><b>Сокращатель ссылок</b></summary>
 
-        <div class="p-3">
-            <!-- https://clck.ru/--?url=https://ya.ru -->
-            <p>Быстрый доступ к популярному сокращателю ссылок <a href="https://clck.ru">clck.ru</a>. Помогает значительно понизить длину любой ссылки</p>
-            <!-- <form action="https://clck.ru/--">
-                <input type="url" name="url" class="form-control" placeholder="Вставьте url сюда..." style="max-width: 40%;">
-                <input type="submit" value="Сократить" class="btn btn-primary">
-            </form> -->
-            <div style="display: flex;">
-                <input type="url" name="url" id="helper-urlshorter_input" class="form-control" placeholder="Вставьте url сюда..." style="max-width: 40%;">
-                <input type="button" id="helper-urlshorter_create" value="Сократить" class="btn btn-primary" onclick="">
+    <div class="container text-left">
+        <div class="row">
+            <div class="col">
+                <b>Сокращатель ссылок</b>
+
+                <p>Быстрый доступ к популярному сокращателю ссылок <a href="https://clck.ru" target="_blank">clck.ru</a>
+                    от <a href="http://www.yandex.ru/" target="_blank">Яндекса</a>. Работает согласно <a
+                        href="https://clck.ru/nospamplease" target="_blank">правилам использования сервиса</a>.</p>
+                <div style="display: flex;">
+                    <input type="url" name="url" id="helper-urlshorter_input" class="form-control"
+                        placeholder="Вставьте url сюда..." style="max-width: 80%;">
+                    <input type="button" id="helper-urlshorter_create" value="Сократить" class="btn btn-primary"
+                        onclick="">
+                </div>
             </div>
-        </div>
-    </details>
 
+            <div class="col">
+                <b>Генератор библиографического описания</b>
+
+                <p>Сервис генерирует библиографическое описание литературы согласно национальному стандарту РФ ГОСТ 7.0.5-2008 «Библиографическая ссылка. Общие требования и правила составления».</p>
+                <select id="helper-rugost_selector" class="form-select custom-select" aria-label="Меню типов источников">
+                    <option value="0" selected>Книга</option>
+                    <option value="1">Статья из журнала</option>
+                    <option value="2">Статья из сборника</option>
+                    <option value="3">Диссертация или автореферат</option>
+                    <option value="4">Интернет-ресурс</option>
+                </select>
+
+                <div id="helper-rugost_s0" class="helper-rugost_raw" style="display: auto;">
+                    <h6>Книга</h6>
+                </div>
+    
+                <div id="helper-rugost_s1" class="helper-rugost_raw" style="display: none;">
+                    <h6>Статья из журнала</h6>
+                </div>
+    
+                <div id="helper-rugost_s2" class="helper-rugost_raw" style="display: none;">
+                    <h6>Статья из сборника</h6>
+                </div>
+    
+                <div id="helper-rugost_s3" class="helper-rugost_raw" style="display: none;">
+                    <h6>Диссертация или автореферат</h6>
+                </div>
+    
+                <div id="helper-rugost_s4" class="helper-rugost_raw" style="display: none;">
+                    <h6>Интернет-ресурс</h6>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>

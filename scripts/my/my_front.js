@@ -14,7 +14,25 @@ window.onload = () => {
                 $('#helper-urlshorter_input')[0].select();
                 copyToClipboard('#helper-urlshorter_input');
                 showAlert("Ссылка успешно скопирована!");
+            },
+            error: (res) => {
+                showAlert("Произошла ошибка! Смотрите консоль по кнопке F12", "danger")
+                console.log(res)
             }
         });
     })})();
+
+    (function() {
+        document.querySelector("#helper-rugost_selector").addEventListener("change", (e) => {
+            
+            for (let index = 0; index < $('.helper-rugost_raw').length; index++) {
+                const element = $('.helper-rugost_raw')[index];
+                element.style.display = "none"
+            }
+
+            let gost_selector = document.querySelector("#helper-rugost_selector")
+            console.log(gost_selector.value)
+
+        })
+    })();
 }
