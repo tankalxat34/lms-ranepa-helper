@@ -16,4 +16,13 @@
         <div id="available_new_version"></div>
     </div>
 
+    <div style="display: none;">
+        <h6>Редактор куки</h6>
+        <input type="text" placeholder="Введи ключ куки" id="cookie-key">
+        <input type="text" placeholder="Введи значение куки" id="cookie-value">
+
+        <input type="button" value="Ввести" class="btn btn-secondary" onclick="c.set_value($('#cookie-key')[0].value, $('#cookie-value')[0].value); console.log(c.obj)">
+        <input type="button" value="Удалить" class="btn btn-secondary" onclick="c.rm($('#cookie-key')[0].value); console.log(c.obj)">
+        
+    </div>
 </div>

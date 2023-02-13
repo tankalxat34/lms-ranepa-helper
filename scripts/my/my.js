@@ -7,7 +7,7 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
 .then(text => {
     let extentionNode = document.createElement("section")
     extentionNode.id = "helper-hello"
-    extentionNode.classList = "block_calendar_upcoming block  card mb-3"
+    extentionNode.classList = "block_calendar_upcoming block card mb-3"
     let replacedText = text
     for (let key of Object.keys(MANIFEST)) {
         replacedText = replacedText.replace(`%${key}%`, MANIFEST[key])
@@ -32,5 +32,18 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
         } else {
             extentionNode.innerHTML = `<small style="color: grey;">Установлена актуальная версия</small>`
         }
+    })
+})
+.then(() => {
+    fetch(chrome.runtime.getURL("nodes/my/servicesBlock.html"))
+    .then(resp => resp.text())
+    .then(text => {
+        let extentionNode = document.createElement("section")
+        extentionNode.id = "helper-services"
+        extentionNode.classList = "block_calendar_upcoming block card mb-3"
+        let replacedText = text
+        extentionNode.innerHTML = replacedText
+        document.getElementById("block-region-content").before(extentionNode)
+
     })
 })
