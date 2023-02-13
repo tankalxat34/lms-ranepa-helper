@@ -1,10 +1,27 @@
 # RANEPA Helper
 
-<a href="https://github.com/tankalxat34/lms-ranepa-helper/releases"><img src="https://img.shields.io/badge/dynamic/json?url=https://api.github.com/repos/tankalxat34/lms-ranepa-helper/releases&label=Версия&query=$[0].name&color=%23990000&style=for-the-badge"></a>
+<!-- <img src="https://img.shields.io/badge/dynamic/json?url=https://api.github.com/repos/tankalxat34/lms-ranepa-helper/releases&label=Версия&query=$[0].name&color=%23990000&style=for-the-badge"> -->
 
-Расширение для браузеров на базе Chromium, облегчающее работу с [СДО РАНХиГС](https://lms.ranepa.ru/).
+Расширение для браузеров на базе Chromium, облегчающее работу с [СДО РАНХиГС](https://lms.ranepa.ru/) и [ДПО РАНХиГС](https://lms-dpo.ranepa.ru/).
 
 **Все последние версии расширения можно найти [здесь](https://github.com/tankalxat34/lms-ranepa-helper/releases).**
+
+## Скачать
+
+- **Последняя стабильная версия:** *[тык](https://github.com/tankalxat34/lms-ranepa-helper/releases)*.
+- Версия в разработке: *[тык](https://github.com/tankalxat34/lms-ranepa-helper/archive/refs/heads/main.zip)*.
+
+## Установка
+
+1. Перейдите в меню расширений вашего браузера.
+2. Включите режим разработчика.
+3. Скачанный архив распакуйте в любую папку на вашем компьютере.
+4. В меню расширений вашего браузера нажмите на кнопку "Загрузить распакованное расширение".
+5. Если расширение успешно загрузилось - оно появится в списке установленных расширений.
+6. Перезагрузите вкладку с СДО, если она была ранее открыта.
+7. Если все установилось корректно - на главной странице СДО вы увидете приветственный блок.
+
+<img src="https://github.com/tankalxat34/lms-ranepa-helper/raw/repo_content/block_lms_helper.png">
 
 ## Функционал расширения
 
@@ -12,18 +29,33 @@
 
 - Кнопка скачивания видео;
 - Поисковая строка Яндекс в каждом тесте;
-- Кнопки для поиска в интернете для каждого теста;
-- Приветственный фрейм на главной странице с кнопками "Поделиться", "GitHub" и "tankalxat34";
+- Возможность моментально сохранить ответы на тест в Moodle, чтобы вернуться к этому тесту позже, не потеряв свои ответы;
+- Безопасная перезагрузка страницы с тестом, если функционал расширения по каким-либо причинам не работает;
+- Кнопки для поиска вопроса в интернете для каждого теста;
 - Возможность экспортировать ответы из теста;
 - Возможность импортировать ответы от вашего друга в такой же тест;
+- Приветственный блок на главной странице;
+- Возможность обновить расширение не покидая СДО или ДПО;
 
 В будущем планируется реализовать следующие возможности:
 - Различные встроенные сервисы-помошники для студентов:
   - генератор библиографических ссылок для курсовых работ и научных статей
   - автономный ToDo список задач на день
   - *и многое другое...*
+  
+## Скриншоты
+### Главное меню
+<img src="https://github.com/tankalxat34/lms-ranepa-helper/raw/repo_content/block_lms_helper_my.png">
 
-## Скачивание
+### Попытка теста
+<img src="https://github.com/tankalxat34/lms-ranepa-helper/raw/repo_content/block_lms_helper_test.png">
 
-- **Последняя стабильная версия:** *[тык](https://github.com/tankalxat34/lms-ranepa-helper/releases)*.
-- Нестабильная, но самая последняя версия: *[тык](https://github.com/tankalxat34/lms-ranepa-helper/archive/refs/heads/main.zip)*.
+### Импорт ответов из JSON
+После загрузки специального JSON файла, который ранее создал ваш друг в этом же тесте, все ответы на странице будут автоматически загружены в и поставлены точно так же, как и у вашего друга.
+
+**Функция находится в разработке и может работать не корректно! Проверяйте загруженные ответы. По любым вопросам пишите [сюда](https://vk.com/tankalxat34)**
+
+<img src="https://github.com/tankalxat34/lms-ranepa-helper/raw/repo_content/block_lms_helper_import.png">
+
+### Кнопка для скачивания любых видео
+<img src="https://github.com/tankalxat34/lms-ranepa-helper/raw/repo_content/block_lms_helper_video.png">
