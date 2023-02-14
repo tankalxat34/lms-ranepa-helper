@@ -33,6 +33,16 @@ function addScript(text, document_place = document.body) {
     document_place.appendChild(script)
 }
 
+function addSrcScriptToEnd(src) {
+    _script = document.createElement("script")
+    if (!src.includes("http")) {
+        _script.src = chrome.runtime.getURL(src)
+    } else {
+        _script.src = src
+    }
+    document.body.appendChild(_script)
+}
+
 function addSrcScript(src) {
     _script = document.createElement("script")
     if (!src.includes("http")) {
@@ -88,12 +98,7 @@ function showAlert(text, type_of_alert = "info", classList = "alert alert-%type_
 
 function copyToClipboard(element) {
     navigator.clipboard.writeText($(element).val())
-    // var $temp = $("<input>");
-    // $("body").append($temp);
-    // $temp.val($(element).text()).select();
-    // document.execCommand("copy");
-    // $temp.remove();
-  }
+}
 
 
 function downloadFileFromText(filename, content) {
