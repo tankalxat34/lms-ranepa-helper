@@ -8,8 +8,6 @@ function addListenersToServices() {
      * Для сокращателя ссылок
      */
     document.querySelector('#helper-urlshorter_create').addEventListener("click", () => {
-        console.log("urlshort click")
-
         fetch("https://clck.ru/--?json=true&url=" + encodeURIComponent(document.querySelector('#helper-urlshorter_input').value))
         .then(res => res.json())
         .then(json => {
@@ -23,16 +21,18 @@ function addListenersToServices() {
      * Для генератора ГОСТ
      */
     document.querySelector("#helper-rugost_selector").addEventListener("change", () => {
-        console.log("rugost_selector change")
         
+        let gost_selector = document.querySelector("#helper-rugost_selector")
+
         for (let index = 0; index < document.querySelectorAll('.helper-rugost_raw').length; index++) {
             const element = document.querySelectorAll('.helper-rugost_raw')[index];
-            element.style.display = "none"
+            
+            element.hidden = true;
+            
+            if (element.id === "helper-rugost_s".concat(gost_selector.value)) {
+                element.hidden = false;
+            }
         }
-    
-        let gost_selector = document.querySelector("#helper-rugost_selector")
-        console.log(gost_selector.value)
-    
     });
 }
 
