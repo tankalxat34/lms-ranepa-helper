@@ -54,6 +54,22 @@ function addListenersToServices() {
         let pages_count = document.querySelector("#helper-rugost-pages_count-s0")
 
         textarea_result.value = `${author.value.split(",")[0].trim()} ${title.value} / ${author.value}. — ${num_redaction.value}. — ${city.value} : ${publisher.value}, ${year.value}. — ${pages_count.value} c. — Текст : непосредственный.`
+    });
+
+    /**
+     * Привязка события keup для ГОСТ Статьи из журнала
+     */
+    document.querySelector("#helper-rugost_s1").addEventListener("keyup", () => {
+        let textarea_result = document.querySelector("#helper-rugost-result-s1")
+
+        let author = document.querySelector("#helper-rugost-author-s1")
+        let title = document.querySelector("#helper-rugost-title-s1")
+        let magazine_title = document.querySelector("#helper-rugost-magazine_title-s1")
+        let magazine_number = document.querySelector("#helper-rugost-magazine_number-s1")
+        let page = document.querySelector("#helper-rugost-page-s1")
+        let year = document.querySelector("#helper-rugost-year-s1")
+
+        textarea_result.value = `${author.value.split(",")[0].trim()} ${title.value} / ${author.value}. — Текст : непосредственный // ${magazine_title.value}. — ${year.value}. — № ${magazine_number.value}. — С. ${page.value}.`
     })
 }
 
