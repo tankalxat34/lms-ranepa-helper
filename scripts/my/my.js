@@ -71,6 +71,23 @@ function addListenersToServices() {
 
         textarea_result.value = `${author.value.split(",")[0].trim()} ${title.value} / ${author.value}. — Текст : непосредственный // ${magazine_title.value}. — ${year.value}. — № ${magazine_number.value}. — С. ${page.value}.`
     })
+
+    /**
+     * Привязка события keup для ГОСТ Статьи из сборника
+     */
+    document.querySelector("#helper-rugost_s2").addEventListener("keyup", () => {
+        let textarea_result = document.querySelector("#helper-rugost-result-s2")
+
+        let author = document.querySelector("#helper-rugost-author-s2")
+        let title = document.querySelector("#helper-rugost-title-s2")
+        let sbornik_title = document.querySelector("#helper-rugost-sbornik_title-s2")
+        let page = document.querySelector("#helper-rugost-page-s2")
+        let city = document.querySelector("#helper-rugost-city-s2")
+        let publisher = document.querySelector("#helper-rugost-publisher-s2")
+        let year = document.querySelector("#helper-rugost-year-s2")
+
+        textarea_result.value = `${author.value.split(",")[0].trim()} ${title.value} / ${author.value}. — Текст : непосредственный // ${sbornik_title.value}. — ${city.value} : ${publisher.value}, ${year.value}. — С. ${page.value}.`
+    })
 }
 
 
