@@ -15,7 +15,7 @@
                 </div>
             </div>
 
-            <div class="col">
+            <div class="col" id="helper-service-rugost">
                 <b>Генератор библиографического описания</b>
 
                 <p>Сервис генерирует библиографическое описание литературы согласно национальному стандарту <a href="https://www.ifap.ru/library/gost/7052008.pdf" target="_blank">РФ ГОСТ 7.0.5-2008 «Библиографическая ссылка. Общие требования и правила составления»</a>.</p>
@@ -32,22 +32,21 @@
                 <div id="helper-rugost_s0" class="helper-rugost_raw" hidden>
                     <!-- <h6>Книга</h6> -->
 
-                    <input type="text" class="helper-rugost-author form-control" style="margin: 7px;" placeholder="Фамилии и инициалы авторов (через запятую): Сидоров А.Н., Иванов В.И.">
+                    <input type="text" id="helper-rugost-author-s0" class="helper-rugost-author form-control" style="margin: 7px;" placeholder="Фамилии и инициалы авторов (через запятую): Сидоров А.Н., Иванов В.И.">
                     
-                    <input type="text" class="helper-rugost-title form-control" style="margin: 7px;" placeholder="Название книги">
+                    <input type="text" id="helper-rugost-title-s0" class="helper-rugost-title form-control" style="margin: 7px;" placeholder="Название книги">
                     
-                    <input type="text" class="helper-rugost-num_redaction form-control" style="margin: 7px;" placeholder="Номер издания">
+                    <input type="text" id="helper-rugost-num_redaction-s0" class="helper-rugost-num_redaction form-control" style="margin: 7px;" placeholder="Номер издания">
                     
-                    <input type="text" class="helper-rugost-city form-control" style="margin: 7px;" placeholder="Город издания">
+                    <input type="text" id="helper-rugost-city-s0" class="helper-rugost-city form-control" style="margin: 7px;" placeholder="Город издания">
                     
-                    <input type="text" class="helper-rugost-publisher form-control" style="margin: 7px;" placeholder="Издательство">
+                    <input type="text" id="helper-rugost-publisher-s0" class="helper-rugost-publisher form-control" style="margin: 7px;" placeholder="Издательство">
                     
-                    <input type="number" class="helper-rugost-year form-control" style="margin: 7px;" placeholder="Год издания">
+                    <input type="number" id="helper-rugost-year-s0" class="helper-rugost-year form-control" style="margin: 7px;" placeholder="Год издания">
                     
-                    <input type="number" class="helper-rugost-pages_count form-control" style="margin: 7px;" placeholder="Число страниц в книге">
+                    <input type="number" id="helper-rugost-pages_count-s0" class="helper-rugost-pages_count form-control" style="margin: 7px;" placeholder="Число страниц в книге">
 
-                    <!-- <textarea name="result" id="helper-rugost-result" cols="30" rows="10" class=""></textarea> -->
-                    <textarea class="form-control" placeholder="Результат появится здесь..." id="helper-rugost-result" style="height: 100px; margin: 7px;" onclick="this.select()"></textarea>
+                    <textarea class="form-control" placeholder="Результат появится здесь..." id="helper-rugost-result-s0" style="height: 100px; margin: 7px;" onclick="this.select(); navigator.clipboard.writeText(this.value);"></textarea>
                 </div>
 
                 <div id="helper-rugost_s1" class="helper-rugost_raw" hidden>

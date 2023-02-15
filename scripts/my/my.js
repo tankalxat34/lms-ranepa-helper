@@ -2,6 +2,10 @@
 const MANIFEST = chrome.runtime.getManifest()
 
 
+// const PATTERNS = {
+//     s0: `${author} ${title} / ${author}, ${author2}. — ${num_redaction}. — ${city} : ${publisher}, ${year}. — ${pages_count} c. — Текст : непосредственный.`
+// }
+
 
 function addListenersToServices() {
     /**
@@ -34,6 +38,23 @@ function addListenersToServices() {
             }
         }
     });
+
+    /**
+     * Привязка события keyup для ГОСТ
+     */
+    document.querySelector("#helper-rugost_s0").addEventListener("keyup", () => {
+        let textarea_result = document.querySelector("#helper-rugost-result-s0")
+
+        let author = document.querySelector("#helper-rugost-author-s0")
+        let title = document.querySelector("#helper-rugost-title-s0")
+        let num_redaction = document.querySelector("#helper-rugost-num_redaction-s0")
+        let city = document.querySelector("#helper-rugost-city-s0")
+        let publisher = document.querySelector("#helper-rugost-publisher-s0")
+        let year = document.querySelector("#helper-rugost-year-s0")
+        let pages_count = document.querySelector("#helper-rugost-pages_count-s0")
+
+        textarea_result.value = `${author.value.split(",")[0].trim()} ${title.value} / ${author.value}. — ${num_redaction.value}. — ${city.value} : ${publisher.value}, ${year.value}. — ${pages_count.value} c. — Текст : непосредственный.`
+    })
 }
 
 
