@@ -5,13 +5,15 @@
             <div class="col">
                 <b>Сокращатель ссылок</b>
 
-                <p>Быстрый доступ к популярному сокращателю ссылок <a href="https://clck.ru" target="_blank">clck.ru</a>
-                    от <a href="http://www.yandex.ru/" target="_blank">Яндекса</a>. Работает согласно <a
-                        href="https://clck.ru/nospamplease" target="_blank">правилам использования сервиса</a>.</p>
+                <p>Быстрый доступ к популярному сокращателю ссылок <a href="https://clck.ru" target="_blank">clck.ru</a> от <a href="http://www.yandex.ru/" target="_blank">Яндекса</a>. Работает согласно <a href="https://clck.ru/nospamplease" target="_blank">правилам использования сервиса</a>.</p>
                 <div style="display: flex;">
-                    <input type="url" name="url" id="helper-urlshorter_input" class="form-control"
-                        placeholder="Вставьте url сюда..." style="max-width: 80%;">
+                    <input type="search" name="url" id="helper-urlshorter_input" class="form-control" placeholder="Вставьте url сюда..." style="max-width: 80%;">
                     <input type="button" id="helper-urlshorter_create" value="Сократить" class="btn btn-primary" style="margin-left: 6px;">
+                    <input type="button" id="helper-urlshorter_remove" value="Очистить" class="btn btn-secondary" style="margin-left: 6px;">
+                </div>
+
+                <div style="text-align: center; justify-content: center; margin: 7px;">
+                    <img src="" alt="QR появится здесь. Если этого не произошло - скорее всего вы слишком часто отправляете запросы. Попробуйте позднее" id="helper-qrmaker_img" width="125px" hidden>
                 </div>
             </div>
 
@@ -24,17 +26,19 @@
                 <b>Генератор библиографического описания</b>
 
                 <p>Сервис генерирует библиографическое описание литературы согласно национальному стандарту <a href="https://www.ifap.ru/library/gost/7052008.pdf" target="_blank">РФ ГОСТ 7.0.5-2008 «Библиографическая ссылка. Общие требования и правила составления»</a>. При нажатии на поле с результатом ссылка скопируется автоматически.</p>
-                <select id="helper-rugost_selector" class="form-select custom-select"
-                    aria-label="Меню типов источников">
-                    <option value="-1" selected>(Выберите источник...)</option>
-                    <option value="0">Книга</option>
-                    <option value="1">Статья из журнала</option>
-                    <option value="2">Статья из сборника</option>
-                    <option value="3">Диссертация или автореферат</option>
-                    <option value="4">Интернет-ресурс</option>
-                </select>
-
-                <!-- <button class="btn btn-secondary">Очистить</button> -->
+                <div style="display: flex;">
+                    <select id="helper-rugost_selector" class="form-select custom-select"
+                        aria-label="Меню типов источников">
+                        <option value="-1" selected>(Выберите источник...)</option>
+                        <option value="0">Книга</option>
+                        <option value="1">Статья из журнала</option>
+                        <option value="2">Статья из сборника</option>
+                        <!-- <option value="3">Диссертация или автореферат</option> -->
+                        <option value="4">Интернет-ресурс</option>
+                    </select>
+    
+                    <button id="helper-rugost-btn_clear" class="btn btn-secondary" style="margin-left: 7px;">Очистить</button>
+                </div>
 
                 <div id="helper-rugost_s0" class="helper-rugost_raw" hidden>
                     <!-- <h6>Книга</h6> -->
@@ -118,6 +122,13 @@
 
                 </div>
             </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <b>Сервис</b>
+            </div>
+
         </div>
     </div>
 </div>

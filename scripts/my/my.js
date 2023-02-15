@@ -20,6 +20,12 @@ function addListenersToServices() {
             navigator.clipboard.writeText(document.querySelector('#helper-urlshorter_input').value)
         })
     });
+
+    document.querySelector('#helper-urlshorter_remove').addEventListener("click", () => {
+        document.querySelector("#helper-qrmaker_img").removeAttribute("src")
+        document.querySelector("#helper-qrmaker_img").hidden = true
+        document.querySelector("#helper-urlshorter_input").value = ""
+    });
     
     /**
      * Для генератора ГОСТ
@@ -38,6 +44,25 @@ function addListenersToServices() {
             }
         }
     });
+
+    /**
+     * Кнопка очистки формы для ГОСТ
+     */
+    document.querySelector("#helper-rugost-btn_clear").addEventListener("click", () => {
+        let gost_selector = document.querySelector("#helper-rugost_selector")
+        let selector = "#helper-rugost_s".concat(gost_selector.value)
+        let elements = document.querySelectorAll(`div${selector} > input`)
+
+        if (gost_selector.value !== "-1") {
+            for (let index = 0; index < elements.length; index++) {
+                const element = elements[index];
+                element.value = ""
+            }
+    
+            document.querySelector(`div${selector} > textarea`).value = ""
+        }
+
+    })
 
     /**
      * Привязка события keyup для ГОСТ Книги
@@ -109,6 +134,8 @@ function addListenersToServices() {
             textarea_result.value = `${title.value}. — Текст : электронный // ${web_title.value} : [сайт]. — URL: ${web_url.value} (дата обращения: ${date.toLocaleDateString()}).`
         }
     })
+
+
 }
 
 
