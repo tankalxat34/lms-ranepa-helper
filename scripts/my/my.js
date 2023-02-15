@@ -40,7 +40,7 @@ function addListenersToServices() {
     });
 
     /**
-     * Привязка события keyup для ГОСТ
+     * Привязка события keyup для ГОСТ Книги
      */
     document.querySelector("#helper-rugost_s0").addEventListener("keyup", () => {
         let textarea_result = document.querySelector("#helper-rugost-result-s0")
@@ -87,6 +87,27 @@ function addListenersToServices() {
         let year = document.querySelector("#helper-rugost-year-s2")
 
         textarea_result.value = `${author.value.split(",")[0].trim()} ${title.value} / ${author.value}. — Текст : непосредственный // ${sbornik_title.value}. — ${city.value} : ${publisher.value}, ${year.value}. — С. ${page.value}.`
+    })
+
+    // ${author, value} ${title.value} / value} ${author. — Текст : электронный // ${web_title.value} : [сайт]. — URL: ${web_url.value} (дата обращения: 15.02.2023).
+    /**
+     * Привязка события keup для ГОСТ Интернет-ресурс
+     */
+    document.querySelector("#helper-rugost_s4").addEventListener("keyup", () => {
+        let textarea_result = document.querySelector("#helper-rugost-result-s4")
+
+        let author = document.querySelector("#helper-rugost-author-s4")
+        let title = document.querySelector("#helper-rugost-title-s4")
+        let web_title = document.querySelector("#helper-rugost-web_title-s4")
+        let web_url = document.querySelector("#helper-rugost-web_url-s4")
+
+        let date = new Date()
+        
+        if (author.value) {
+            textarea_result.value = `${author.value.split(",")[0].trim()} ${title.value} / ${author.value}. — Текст : электронный // ${web_title.value} : [сайт]. — URL: ${web_url.value} (дата обращения: ${date.getDate()}.${date.getMonth()}.${date.getFullYear()}).`
+        } else {
+            textarea_result.value = `${title.value}. — Текст : электронный // ${web_title.value} : [сайт]. — URL: ${web_url.value} (дата обращения: ${date.getDate()}.${date.getMonth()}.${date.getFullYear()}).`
+        }
     })
 }
 

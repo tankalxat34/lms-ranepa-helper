@@ -16,6 +16,11 @@
             </div>
 
             <div class="col" id="helper-service-rugost">
+                <style>
+                    textarea.helper-rugost {
+                        height: 150px;
+                    }
+                </style>
                 <b>Генератор библиографического описания</b>
 
                 <p>Сервис генерирует библиографическое описание литературы согласно национальному стандарту <a href="https://www.ifap.ru/library/gost/7052008.pdf" target="_blank">РФ ГОСТ 7.0.5-2008 «Библиографическая ссылка. Общие требования и правила составления»</a>. При нажатии на поле с результатом ссылка скопируется автоматически.</p>
@@ -28,6 +33,8 @@
                     <option value="3">Диссертация или автореферат</option>
                     <option value="4">Интернет-ресурс</option>
                 </select>
+
+                <!-- <button class="btn btn-secondary">Очистить</button> -->
 
                 <div id="helper-rugost_s0" class="helper-rugost_raw" hidden>
                     <!-- <h6>Книга</h6> -->
@@ -47,7 +54,7 @@
                     <input type="number" id="helper-rugost-pages_count-s0" class="helper-rugost-pages_count form-control" style="margin: 7px;" placeholder="Число страниц в книге">
 
 
-                    <textarea class="form-control" placeholder="Результат появится здесь..." id="helper-rugost-result-s0" style="height: 100px; margin: 7px;" onclick="this.select(); navigator.clipboard.writeText(this.value);"></textarea>
+                    <textarea class="form-control helper-rugost" placeholder="Результат появится здесь..." id="helper-rugost-result-s0" style="margin: 7px;" onclick="this.select(); navigator.clipboard.writeText(this.value);"></textarea>
                 </div>
 
                 <div id="helper-rugost_s1" class="helper-rugost_raw" hidden>
@@ -66,7 +73,7 @@
                     <input type="number" id="helper-rugost-year-s1" class="helper-rugost-year form-control" style="margin: 7px;" placeholder="Год">
                     
 
-                    <textarea class="form-control" placeholder="Результат появится здесь..." id="helper-rugost-result-s1" style="height: 100px; margin: 7px;" onclick="this.select(); navigator.clipboard.writeText(this.value);"></textarea>
+                    <textarea class="form-control helper-rugost" placeholder="Результат появится здесь..." id="helper-rugost-result-s1" style="margin: 7px;" onclick="this.select(); navigator.clipboard.writeText(this.value);"></textarea>
                 </div>
 
                 <div id="helper-rugost_s2" class="helper-rugost_raw" hidden>
@@ -87,7 +94,7 @@
                     <input type="text" id="helper-rugost-page-s2" class="helper-rugost-page form-control" style="margin: 7px;" placeholder="Страницы: 191-207">
                     
 
-                    <textarea class="form-control" placeholder="Результат появится здесь..." id="helper-rugost-result-s2" style="height: 100px; margin: 7px;" onclick="this.select(); navigator.clipboard.writeText(this.value);"></textarea>
+                    <textarea class="form-control helper-rugost" placeholder="Результат появится здесь..." id="helper-rugost-result-s2" style="margin: 7px;" onclick="this.select(); navigator.clipboard.writeText(this.value);"></textarea>
 
                 </div>
 
@@ -96,7 +103,19 @@
                 </div>
 
                 <div id="helper-rugost_s4" class="helper-rugost_raw" hidden>
-                    <h6>Интернет-ресурс</h6>
+                    <!-- <h6>Интернет-ресурс</h6> -->
+                    
+                    <input type="text" id="helper-rugost-author-s4" class="helper-rugost-author form-control" style="margin: 7px;" placeholder="(необязательно) Фамилии и инициалы автора (авторов, через запятую)">
+                    
+                    <input type="text" id="helper-rugost-title-s4" class="helper-rugost-title form-control" style="margin: 7px;" placeholder="Заголовок статьи (веб-страницы)">
+                    
+                    <input type="text" id="helper-rugost-web_title-s4" class="helper-rugost-web_title form-control" style="margin: 7px;" placeholder="Название сайта">
+                    
+                    <input type="url" id="helper-rugost-web_url-s4" class="helper-rugost-web_url form-control" style="margin: 7px;" placeholder="Ссылка на страницу">
+                    
+
+                    <textarea class="form-control helper-rugost" placeholder="Результат появится здесь..." id="helper-rugost-result-s4" style="margin: 7px;" onclick="this.select(); navigator.clipboard.writeText(this.value);"></textarea>
+
                 </div>
             </div>
         </div>
