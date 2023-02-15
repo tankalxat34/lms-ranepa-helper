@@ -171,6 +171,10 @@ try {
         case "/my/":
             addSrcScript("scripts/my/my_front.js")        
             break;
+        
+        case "/user/preferences.php":
+            addSrcScript("scripts/user/preferences/preferences_front.js")        
+            break;
     
         default:
             break;
