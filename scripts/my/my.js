@@ -104,9 +104,9 @@ function addListenersToServices() {
         let date = new Date()
         
         if (author.value) {
-            textarea_result.value = `${author.value.split(",")[0].trim()} ${title.value} / ${author.value}. — Текст : электронный // ${web_title.value} : [сайт]. — URL: ${web_url.value} (дата обращения: ${date.getDate()}.${date.getMonth()}.${date.getFullYear()}).`
+            textarea_result.value = `${author.value.split(",")[0].trim()} ${title.value} / ${author.value}. — Текст : электронный // ${web_title.value} : [сайт]. — URL: ${web_url.value} (дата обращения: ${date.toLocaleDateString()}).`
         } else {
-            textarea_result.value = `${title.value}. — Текст : электронный // ${web_title.value} : [сайт]. — URL: ${web_url.value} (дата обращения: ${date.getDate()}.${date.getMonth()}.${date.getFullYear()}).`
+            textarea_result.value = `${title.value}. — Текст : электронный // ${web_title.value} : [сайт]. — URL: ${web_url.value} (дата обращения: ${date.toLocaleDateString()}).`
         }
     })
 }
