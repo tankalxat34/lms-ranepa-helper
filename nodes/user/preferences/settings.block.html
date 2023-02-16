@@ -1,7 +1,77 @@
+<style>
+div.helper-settings div {
+    margin: 20px 0px;
+}
+</style>
+
 <h2>Настройки расширения</h2>
+<p>Наведите курсор на настройку, чтобы узнать о ней подробнее.</p>
+<p style="color: green;">Все настройки расширения хранятся в cookie СДО, поэтому, не очищайте cookie для этого сайта, чтобы не потерять настройки!</p>
 <div class="block card">
-    <div class="card-body">
-        <p>text</p>
+    <div class="card-body helper-settings">
+        <h4>Общее</h4>
+        <div class="custom-control custom-switch" id="helper-settings-div-test_checkbox">
+            <input type="checkbox" class="custom-control-input" id="helper-settings-test_checkbox">
+            <label class="custom-control-label" for="helper-settings-test_checkbox">Тестовый чекбокс</label>
+            <!-- <a class="btn btn-link p-0" role="button" data-container="body" data-toggle="popover" data-placement="right" data-content="<div class=&quot;no-overflow&quot;><p>Вы можете выбрать формат отображения времени: 12- или 24-часовой. Если выбрать настройку «по умолчанию», то формат будет автоматически выбираться в зависимости от используемого на сайте языка.</p></div> " data-html="true" tabindex="0" data-trigger="focus" data-original-title="" title="">
+                <i class="icon fa fa-question-circle text-info fa-fw " title="Справка по использованию элемента «Формат времени»" role="img" aria-label="Справка по использованию элемента «Тестовый чекбокс»"></i>
+            </a> -->
+        </div>
+
+        <h4>Обновления</h4>
+        <div class="custom-control custom-switch" id="helper-settings-div-get_newest_commit_message">
+            <input type="checkbox" class="custom-control-input" id="helper-settings-get_newest_commit_message">
+            <label class="custom-control-label" for="helper-settings-get_newest_commit_message">Получать уведомления о выходе версий "в разработке"</label>
+        </div>
+
+        <h4>Сервисы и возможности</h4>
+        <div class="custom-control custom-switch" id="helper-settings-div-show_services">
+            <input type="checkbox" class="custom-control-input" id="helper-settings-show_services" checked>
+            <label class="custom-control-label" for="helper-settings-show_services">Отображать сервисы на главной странице</label>
+        </div>
+
+        <div class="dropdown-divider"></div>
+
+        <div class="custom-control custom-switch" id="helper-settings-div-show_clck">
+            <input type="checkbox" class="custom-control-input" id="helper-settings-show_clck" checked>
+            <label class="custom-control-label" for="helper-settings-show_clck">Отображать сокращатель ссылок</label>
+        </div>
+
+        <div class="custom-control custom-switch" id="helper-settings-div-show_rugost">
+            <input type="checkbox" class="custom-control-input" id="helper-settings-show_rugost" checked>
+            <label class="custom-control-label" for="helper-settings-show_rugost">Отображать генератор библиографического описания</label>
+        </div>
+
+        <div class="dropdown-divider"></div>
+
+        <div class="custom-control custom-switch" id="helper-settings-div-disable_yametrika" title="Включив эту настройку ваши действия в СДО больше не будут отправляться разработчикам СДО. Обычно Яндекс Метрика нужна для сбора данных о действиях пользователей на сайте">
+            <input type="checkbox" class="custom-control-input" id="helper-settings-disable_yametrika" checked>
+            <label class="custom-control-label" for="helper-settings-disable_yametrika">Отключить Яндекс Метрику</label>
+        </div>
+
+        <div class="dropdown-divider"></div>
+
+
+        <h4>Провинутые настройки</h4>
+        <p style="color: red;">Настройки ниже очень сильно влияют на работу СДО! Изменяйте их только в том случае, если знаете, что делаете!</p>
+
+        <div>
+            <h5>URL для POST запроса отправки формы в тестах</h5>
+            <p>Позволяет перехватить POST запрос и перенаправить его на ваш сервер в <i>localhost</i> или на любой другой сайт просмотра запросов типа <a href="https://webhook.site" target="_blank">webhook.site</a>. Настройка поможет лучше изучить тело данного запроса. В теории <b>(при наличии собственного сервера)</b> данная настройка может сделать прохождение тестов удачным во всех случаях.</p>
+            <div class="custom-control custom-radio mb-2">
+                <input type="radio" name="message_blocknoncontacts" class="custom-control-input" id="helper-settings-form_default_url" value="1" checked>
+                <label class="custom-control-label" for="helper-settings-form_default_url">
+                    URL по умолчанию
+                </label>
+            </div>
+            <div class="custom-control custom-radio mb-2" style="display: flex;">
+                <input type="radio" name="message_blocknoncontacts" class="custom-control-input" id="helper-settings-form_user_url" value="1">
+                <label class="custom-control-label" for="helper-settings-form_user_url">
+                    Свой:
+                </label>
+                <input type="url" class="form-control" style="max-width: 450px; margin-left: 7px;" placeholder="https://webhook.site/070b9bc8-7bb1-490f-bcc2-73a5ff563de2">
+            </div>
+        </div>
     </div>
 
 </div>
