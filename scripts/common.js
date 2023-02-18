@@ -103,7 +103,7 @@ function copyToClipboard(element) {
 
 function downloadFileFromText(filename, content) {
     var a = document.createElement('a');
-    var blob = new Blob([ content ], {type : "text/plain;charset=UTF-8"});
+    var blob = new Blob([content], { type: "text/plain;charset=UTF-8" });
     a.href = window.URL.createObjectURL(blob);
     a.download = filename;
     a.style.display = 'none';
@@ -117,7 +117,7 @@ function downloadFileFromText(filename, content) {
  */
 function addMenuItems() {
     let menu = document.querySelector("#carousel-item-main")
-    
+
     let dropdown_header = document.createElement("div")
     dropdown_header.innerHTML = `<h5>LMS RANEPA Helper</h5>`
     dropdown_header.style.margin = "10px 10px 0px"
@@ -150,11 +150,35 @@ function addMenuItems() {
 
 
 
+function binarySearch(arr, target) {
+    let start = 0;
+    let end = arr.length - 1;
+
+    while (start <= end) {
+        let mid = Math.floor((start + end) / 2);
+
+        if (arr[mid] === target) {
+            return mid;
+        } else if (arr[mid] < target) {
+            start = mid + 1;
+        } else {
+            end = mid - 1;
+        }
+    }
+
+    return -1; // not found in array
+}
+
+
+
+
+
+
 
 try {
 
     // common scripts and functions
-    addSrcScript("scripts/common.js")
+    addSrcScript("scripts/common_front.js")
     addSrcScript("scripts/helper_cookies.js")
     addMenuItems()
 
@@ -165,17 +189,17 @@ try {
     switch (new URL(window.location.href).pathname) {
 
         case "/mod/quiz/attempt.php":
-            addSrcScript("scripts/mod/quiz/attempt/attempt_front.js")        
+            addSrcScript("scripts/mod/quiz/attempt/attempt_front.js")
             break;
-        
+
         case "/my/":
-            addSrcScript("scripts/my/my_front.js")        
+            addSrcScript("scripts/my/my_front.js")
             break;
-        
+
         case "/user/preferences.php":
-            addSrcScript("scripts/user/preferences/preferences_front.js")        
+            addSrcScript("scripts/user/preferences/preferences_front.js")
             break;
-    
+
         default:
             break;
     }
@@ -184,12 +208,5 @@ try {
     // console.log(error)
     null;
 }
-
-
-document.helper = new Object()
-document.helper.showAlert = showAlert
-
-
-
 
 

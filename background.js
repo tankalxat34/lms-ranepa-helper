@@ -1,5 +1,4 @@
 
-
 // chrome.runtime.onInstalled.addListener(
 //     /* Действие, когда расширение было установлено */
 //     (response) => {
