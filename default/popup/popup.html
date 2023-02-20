@@ -18,6 +18,17 @@
         right: 0;
         top: 0;
         background-color: aliceblue;
+        animation: show .35s;
+    }
+
+    @keyframes show {
+        0% {
+            transform: translateX(100%);
+        }
+
+        100% {
+            transform: translateX(0%);
+        }
     }
 
     .navbar-shadow {
@@ -48,7 +59,7 @@
     </button>
 
     <!-- Add the links on the right -->
-    <div class="collapse navbar-collapse" id="navbarNav" style="box-shadow: 0px 0 10px #b4b4b4; border-radius: 10px;">
+    <div class="collapse navbar-collapse" id="navbarNav" style="box-shadow: 0px 0 10px #b4b4b4; border-radius: 10px; height: 100vh;">
         <ul class="navbar-nav ms-auto" style="text-align: left; padding: 10px;">
             <li class="nav-item">
                 <a class="nav-link" href="https://lms.ranepa.ru/" target="_blank">

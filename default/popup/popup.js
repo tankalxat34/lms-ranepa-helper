@@ -39,6 +39,8 @@ function main() {
         }
     });
 
+    document.querySelector("body").onselectstart = () => false;
+
 }
 
 main();
