@@ -13,16 +13,24 @@
     type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://lms.ranepa.ru/theme/styles.php/boost/1676663955_1676269551/all" />
 </head>
+
 <style>
-div.helper-settings div {
-    margin: 20px 0px;
-}
+    div.helper-settings div {
+        margin: 20px 0px;
+    }
+    p,h1,h2,h3,h4,h5,h6 {
+        cursor: default;
+    }
+    input,label {
+        cursor: pointer;
+    }
 </style>
-<body class="mt-5 position-absolute top-50 start-50 translate-middle" style="justify-content: center; max-width: 60%;">
+
+<body class="mt-5 position-absolute top-50 start-50 translate-middle" style="max-width: 70%;">
 
     <h2>Настройки LMS RANEPA Helper</h2>
-    <p>Наведите курсор на настройку, чтобы узнать о ней подробнее. Все настройки расширения хранятся в cookie СДО, поэтому, не очищайте cookie для этого сайта, чтобы не потерять настройки!</p>
-    <div class="block card">
+    <p>Наведите курсор на настройку, чтобы узнать о ней подробнее. Настройки сохраняются автоматически.</p>
+    <div class="block card" id="helper-settings-card">
         <div class="card-body helper-settings">
             <!-- <h4>Общее</h4> -->
             
@@ -33,25 +41,25 @@ div.helper-settings div {
             </div>
             
             <h4>Сервисы и возможности</h4>
-            <div class="custom-control custom-switch" id="helper-settings-div-show_services">
-                <input type="checkbox" class="custom-control-input" id="helper-settings-show_services" checked>
+            <!-- <div class="custom-control custom-switch" id="helper-settings-div-show_services">
+                <input type="checkbox" class="custom-control-input" id="helper-settings-show_services" >
                 <label class="custom-control-label" for="helper-settings-show_services">Отображать сервисы на главной странице</label>
-            </div>
+            </div> -->
             
-            <div class="dropdown-divider"></div>
+            <!-- <div class="dropdown-divider"></div> -->
             
             <div class="custom-control custom-switch" id="helper-settings-div-show_clck">
-                <input type="checkbox" class="custom-control-input" id="helper-settings-show_clck" checked>
+                <input type="checkbox" class="custom-control-input" id="helper-settings-show_clck" >
                 <label class="custom-control-label" for="helper-settings-show_clck">Отображать сокращатель ссылок</label>
             </div>
             
             <div class="custom-control custom-switch" id="helper-settings-div-show_rugost">
-                <input type="checkbox" class="custom-control-input" id="helper-settings-show_rugost" checked>
+                <input type="checkbox" class="custom-control-input" id="helper-settings-show_rugost" >
                 <label class="custom-control-label" for="helper-settings-show_rugost">Отображать генератор библиографического описания</label>
             </div>
             
             <div class="custom-control custom-switch" id="helper-settings-div-show_searchinput_courses">
-                <input type="checkbox" class="custom-control-input" id="helper-settings-show_searchinput_courses" checked>
+                <input type="checkbox" class="custom-control-input" id="helper-settings-show_searchinput_courses" >
                 <label class="custom-control-label" for="helper-settings-show_searchinput_courses">Отображать поиск по вашим курсам  на главной странице</label>
                 <!-- <a class="btn btn-link p-0" role="button" data-container="body" data-toggle="popover" data-placement="right" data-content="<div class=&quot;no-overflow&quot;><p>Вы можете выбрать формат отображения времени: 12- или 24-часовой. Если выбрать настройку «по умолчанию», то формат будет автоматически выбираться в зависимости от используемого на сайте языка.</p></div> " data-html="true" tabindex="0" data-trigger="focus" data-original-title="" title="">
                     <i class="icon fa fa-question-circle text-info fa-fw " title="Справка по использованию элемента «Формат времени»" role="img" aria-label="Справка по использованию элемента «Тестовый чекбокс»"></i>
@@ -60,7 +68,7 @@ div.helper-settings div {
             <div class="dropdown-divider"></div>
     
             <div class="custom-control custom-switch" id="helper-settings-div-disable_yametrika" title="Включив эту настройку ваши действия в СДО больше не будут отправляться разработчикам СДО. Обычно Яндекс Метрика нужна для сбора данных о действиях пользователей на сайте">
-                <input type="checkbox" class="custom-control-input" id="helper-settings-disable_yametrika" checked>
+                <input type="checkbox" class="custom-control-input" id="helper-settings-disable_yametrika" >
                 <label class="custom-control-label" for="helper-settings-disable_yametrika">Отключить Яндекс Метрику</label>
             </div>
     
@@ -69,7 +77,7 @@ div.helper-settings div {
     
             <h4>Провинутые настройки</h4>
             <div class="custom-control custom-switch" id="helper-settings-div-changeable_form_action" title="Включить возможность изменения ссылки для отправки теста. Функция полезна в том случае, если вы хотите изучить тело запроса формы с тестом. Для таких целей подходит webhook.site">
-                <input type="checkbox" class="custom-control-input" id="helper-settings-changeable_form_action" checked>
+                <input type="checkbox" class="custom-control-input" id="helper-settings-changeable_form_action" >
                 <label class="custom-control-label" for="helper-settings-changeable_form_action">Включить возможность изменения URL для POST запроса в тестах</label>
             </div>
     
@@ -78,6 +86,10 @@ div.helper-settings div {
                 <label class="custom-control-label" for="helper-settings-show_hidden_inputs">Отображать скрытые input теги в тестах</label>
             </div>
         </div>
+
+        <!-- <button id="helper-settings-btn_save" class="btn btn-primary m-3" style="max-width: 30%;">Сохранить</button> -->
     </div>
+
+    <script src="options.js"></script>
 </body>
 </html>
