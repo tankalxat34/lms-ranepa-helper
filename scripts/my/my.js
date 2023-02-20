@@ -186,4 +186,32 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
     .then(() => {
         addListenersToServices()
     })
+    .then(() => {
+        // get option names from Chrome Storage
+        chrome.storage.sync.get(["_option_names_array"], (options) => {
+
+            var _opt_names = options["_option_names_array"];
+
+            // load all options from Chrome Storage
+            chrome.storage.sync.get(_opt_names, (options) => {
+
+                let max_counter_services = 0;
+                let disabled_counter_services = 0;
+
+                // show all hidden services if it is be able by user settings
+                for (let index = 0; index < _opt_names.length; index++) {
+                    const name = _opt_names[index];
+                    if (name.slice(0, 1) !== "_" && document.querySelector(`#${name}`)) {
+                        document.querySelector(`#${name}`).hidden = !options[name];
+                        if (!options[name]) disabled_counter_services++;
+                        max_counter_services++;
+                    }
+                }
+
+                // make hidden section with services if that is will be empty
+                if (disabled_counter_services === max_counter_services) document.querySelector("#helper-services").hidden = true;
+            })
+        });
+
+    })
 })

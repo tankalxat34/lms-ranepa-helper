@@ -16,9 +16,11 @@ function getOptionFields() {
 function generateOptionsObj() {
     let formElements = getOptionFields();
     let formData = {};
+    formData["_option_names_array"] = new Array();
 
     for (let i = 0; i < formElements.length; i++) {
         const element = formElements[i];
+        formData["_option_names_array"].push(element.id)
         if (element.id) {
             if (element.type === "checkbox") {
                 formData[element.id] = element.checked;
@@ -58,14 +60,28 @@ function loadOptions() {
 
         for (let index = 0; index < selectors.length; index++) {
             const s = selectors[index];
-            if (document.querySelector(`#${s}`).type === "checkbox") {
-                document.querySelector(`#${s}`).checked = options[s];
-            } else {
-                document.querySelector(`#${s}`).value = options[s];
+            if (s.slice(0, 1) !== "_") {
+                if (document.querySelector(`#${s}`).type === "checkbox") {
+                    document.querySelector(`#${s}`).checked = options[s];
+                } else {
+                    document.querySelector(`#${s}`).value = options[s];
+                }
             }
         }
     });
 }
+
+/*
+Default names (ids) of options:
+
+helper-settings-changeable_form_action
+helper-settings-disable_yametrika
+helper-settings-get_newest_commit_message
+helper-settings-show_clck
+helper-settings-show_hidden_inputs
+helper-settings-show_rugost
+helper-settings-show_searchinput_courses
+*/
 
 document.querySelector("#helper-settings-card").addEventListener("click", saveOptions)
 window.addEventListener("load", loadOptions)

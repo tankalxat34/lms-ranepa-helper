@@ -43,6 +43,10 @@ function addSrcScriptToEnd(src) {
     document.body.appendChild(_script)
 }
 
+
+/**
+ * Добавить скрипт в head
+*/
 function addSrcScript(src) {
     _script = document.createElement("script")
     if (!src.includes("http")) {
@@ -170,50 +174,6 @@ function binarySearch(arr, target) {
 }
 
 
-/**
- * Создает объект с ключами-id и значениями value или cheched
- */
-function generateOptionsObj() {
-    let formElements = document.querySelectorAll("#helper-settings-card input");
-    let formData = {};
-
-    for (let i = 0; i < formElements.length; i++) {
-        const element = formElements[i];
-        if (element.id) {
-            if (element.type === "checkbox") {
-                formData[element.id] = element.checked;
-            } else {
-                formData[element.id] = element.value;
-            }
-        }
-    }
-    return formData;
-}
-
-
-/**
- * Загрузить из памяти Chrome значения опций
- */
-function loadOptions() {
-
-    let formData = generateOptionsObj();
-    let selectors = Object.keys(formData);
-
-    chrome.storage.sync.get(selectors, (options) => {
-
-        for (let index = 0; index < selectors.length; index++) {
-            const s = selectors[index];
-            console.log(options[s]);
-            // if (document.querySelector(`#${s}`).type === "checkbox") {
-            //     document.querySelector(`#${s}`).checked = options[s];
-            // } else {
-            //     document.querySelector(`#${s}`).value = options[s];
-            // }
-        }
-    });
-}
-
-
 
 
 try {
@@ -223,15 +183,23 @@ try {
     addSrcScript("scripts/helper_cookies.js")
     addMenuItems()
 
-    // load options from Chrome Storage
-    chrome.storage.sync.get([
-        'helper-settings-disable_yametrika'
-    ], (options) => {
-        if (options['helper-settings-disable_yametrika']) {
-            addSrcScript("scripts/_services/disableYaMetrika.js");
-        }
-    })
+    // get option names from Chrome Storage
+    chrome.storage.sync.get(["_option_names_array"], (options) => {
 
+        var _opt_names = options["_option_names_array"]
+
+        // load all options from Chrome Storage
+        chrome.storage.sync.get(_opt_names, (options) => {
+
+            console.log(options)
+
+            if (options['helper-settings-disable_yametrika']) {
+                addSrcScript("scripts/_services/disableYaMetrika.js");
+            }
+        })
+    });
+
+    
     // bootstrap addons
     // addSrcScript("https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js")
 
