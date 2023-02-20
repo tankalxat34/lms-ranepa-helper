@@ -210,6 +210,14 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
 
                 // make hidden section with services if that is will be empty
                 if (disabled_counter_services === max_counter_services) document.querySelector("#helper-services").hidden = true;
+
+                if (options["helper-settings-show_searchinput_courses"]) {
+                    document.querySelector("#block-region-content > section > div > h5").innerHTML += `<div class="m-3" style="right: 0; top: 0; position: absolute; display: flex;">
+                        <input type="search" id="helper-settings-show_searchinput_courses" class="form-control mr-2" placeholder="Введите название курса для поиска..." style="min-width: 400px;">
+                        <!-- <button class="btn btn-primary">Искать</button> -->
+                    </div>`
+
+                }
             })
         });
 
