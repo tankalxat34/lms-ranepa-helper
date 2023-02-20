@@ -15,6 +15,15 @@
 </head>
 
 <style>
+    :root {
+        --bg-color: #161616;
+        --fg-color: #e5e5e5;
+        --border-color: var(--fg-color);
+    }
+    * {
+        background-color: var(--bg-color);
+        color: var(--fg-color);
+    }
     div.helper-settings div {
         margin: 20px 0px;
     }
@@ -24,13 +33,27 @@
     input,label {
         cursor: pointer;
     }
+
+    .block,.card {
+        border-color: var(--border-color);
+    }
+
+    .separator {
+        display: flex; align-items: center;
+        justify-content: space-between;
+    }
+    .separator::before,
+    .separator::after {
+        content: ""; flex: 1;
+        border: .1px ridge var(--fg-color);
+    }
 </style>
 
-<body class="mt-5 position-absolute top-50 start-50 translate-middle" style="max-width: 70%;">
+<body class="mt-5 position-absolute top-50 start-50 translate-middle" style="background-color: var(--bg-color); max-width: 70%; overflow: hidden;">
 
     <h2>Настройки LMS RANEPA Helper</h2>
     <p>Наведите курсор на настройку, чтобы узнать о ней подробнее. Настройки сохраняются автоматически.</p>
-    <div class="block card" id="helper-settings-card">
+    <div class="block card" id="helper-settings-card" style="background-color: var(--bg-color);">
         <div class="card-body helper-settings">
             <!-- <h4>Общее</h4> -->
             
@@ -65,14 +88,14 @@
                     <i class="icon fa fa-question-circle text-info fa-fw " title="Справка по использованию элемента «Формат времени»" role="img" aria-label="Справка по использованию элемента «Тестовый чекбокс»"></i>
                 </a> -->
             </div>
-            <div class="dropdown-divider"></div>
+            <div class="separator"></div>
     
             <div class="custom-control custom-switch" id="helper-settings-div-disable_yametrika" title="Включив эту настройку ваши действия в СДО больше не будут отправляться разработчикам СДО. Обычно Яндекс Метрика нужна для сбора данных о действиях пользователей на сайте">
                 <input type="checkbox" class="custom-control-input" id="helper-settings-disable_yametrika" >
                 <label class="custom-control-label" for="helper-settings-disable_yametrika">Отключить Яндекс Метрику</label>
             </div>
     
-            <div class="dropdown-divider"></div>
+            <div class="separator"></div>
     
     
             <h4>Провинутые настройки</h4>
