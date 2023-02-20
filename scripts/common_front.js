@@ -47,7 +47,51 @@ function removeYaMetrika() {
     }
 }
 
+
+/**
+ * Создает объект с ключами-id и значениями value или cheched
+ */
+function generateOptionsObj() {
+    let formElements = document.querySelectorAll("#helper-settings-card input");
+    let formData = {};
+
+    for (let i = 0; i < formElements.length; i++) {
+        const element = formElements[i];
+        if (element.id) {
+            if (element.type === "checkbox") {
+                formData[element.id] = element.checked;
+            } else {
+                formData[element.id] = element.value;
+            }
+        }
+    }
+    return formData;
+}
+
+
+/**
+ * Загрузить из памяти Chrome значения опций
+ */
+function loadOptions() {
+
+    let formData = generateOptionsObj();
+    let selectors = Object.keys(formData);
+
+    chrome.storage.sync.get(selectors, (options) => {
+
+        for (let index = 0; index < selectors.length; index++) {
+            const s = selectors[index];
+            console.log(options[s]);
+            // if (document.querySelector(`#${s}`).type === "checkbox") {
+            //     document.querySelector(`#${s}`).checked = options[s];
+            // } else {
+            //     document.querySelector(`#${s}`).value = options[s];
+            // }
+        }
+    });
+}
+
 window.onload = function() {
     // the scripts that will be used when they are specified in the settings
-    removeYaMetrika()
+    // removeYaMetrika()
 }

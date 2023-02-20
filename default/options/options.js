@@ -63,7 +63,6 @@ function loadOptions() {
             } else {
                 document.querySelector(`#${s}`).value = options[s];
             }
-
         }
     });
 }
