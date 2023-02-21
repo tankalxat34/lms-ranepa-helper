@@ -270,6 +270,15 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
                     filter_only_not100.appendChild(a_filter_only_not100);
 
                     place.appendChild(filter_only_not100);
+
+                    // подключаем корректное отображение фильтра
+                    document.querySelector(".mydashboard-filters-sort-display-box").addEventListener("click", () => {
+                        // скрыть active на всех фильтрах
+                        for (let filter_element of document.querySelectorAll("div.filter-btn-box .filter-btn")) {
+                            filter_element.classList.remove("active");
+                        }
+                        document.querySelector('a[data-value="inprogress"]').classList.add("active");
+                    })
                 }
 
 
