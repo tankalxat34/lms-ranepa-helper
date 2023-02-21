@@ -71,6 +71,27 @@ function loadOptions() {
     });
 }
 
+
+/**
+ * Удалить из памяти Chrome значения опций
+ */
+function clearOptions() {
+
+    for (let index = 0; index < selectors.length; index++) {
+        const s = selectors[index];
+        if (s.slice(0, 1) !== "_") {
+            if (document.querySelector(`#${s}`).type === "checkbox") {
+                document.querySelector(`#${s}`).checked = false;
+            } else {
+                document.querySelector(`#${s}`).value = new String();
+            }
+        }
+    }
+
+    chrome.storage.sync.clear();
+    saveOptions();
+}
+
 /*
 Default names (ids) of options:
 
@@ -83,5 +104,6 @@ helper-settings-show_rugost
 helper-settings-show_searchinput_courses
 */
 
-document.querySelector("#helper-settings-card").addEventListener("click", saveOptions)
-window.addEventListener("load", loadOptions)
+document.querySelector("#helper-settings-options").addEventListener("click", saveOptions);
+document.querySelector("#helper-settings-btn_clear").addEventListener("click", clearOptions);
+window.addEventListener("load", loadOptions);

@@ -6,6 +6,29 @@ const MANIFEST = chrome.runtime.getManifest()
 //     s0: `${author} ${title} / ${author}, ${author2}. — ${num_redaction}. — ${city} : ${publisher}, ${year}. — ${pages_count} c. — Текст : непосредственный.`
 // }
 
+/**
+ * Выполнить регулярное выражение в строке и вернуть `Array`
+ */
+function regex_findall(regex, str) {
+    let m;
+
+    var result = []
+
+    while ((m = regex.exec(str)) !== null) {
+        // This is necessary to avoid infinite loops with zero-width matches
+        if (m.index === regex.lastIndex) {
+            regex.lastIndex++;
+        }
+
+        // The result can be accessed through the `m`-variable.
+        m.forEach((match, groupIndex) => {
+            // console.log(`Found match, group ${groupIndex}: ${match}`);
+            result.push(match);
+        });
+    }
+    return result;
+}
+
 
 function addListenersToServices() {
     /**
@@ -211,6 +234,45 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
                 // make hidden section with services if that is will be empty
                 if (disabled_counter_services === max_counter_services) document.querySelector("#helper-services").hidden = true;
 
+
+                if (options["helper-settings-show_courses_filters"]) {
+                    // Показать только невыполненные
+                    let place = document.querySelector(".mydashboard-filters-grouping");
+                    
+                    let filter_only_not100 = document.createElement("div");
+                    filter_only_not100.classList = "filter-btn-box";
+                    
+                    let a_filter_only_not100 = document.createElement("a");
+                    a_filter_only_not100.id = "helper-settings-show_courses_filters-filter_only_not100"
+                    a_filter_only_not100.classList = "filter-btn";
+                    a_filter_only_not100.href = "#";
+                    a_filter_only_not100.innerText = "Невыполненные";
+
+                    a_filter_only_not100.addEventListener("click", () => {
+                        // скрыть active на всех фильтрах
+                        for (let filter_element of document.querySelectorAll("div.filter-btn-box .filter-btn")) {
+                            filter_element.classList.remove("active");
+                        }
+                        
+                        a_filter_only_not100.classList.add("active");
+                        let cards = document.querySelector("div[data-region=\"paged-content-page\"]").children[0].childNodes;
+                        
+                        for (let card of cards) {
+                            let card_text = card.textContent.replaceAll("\n", " ").trim().toLowerCase();
+                            if (regex_findall(/прогресс: *100\%/gm, card_text)[0] || card_text.includes("100%")) {
+                                card.hidden = true;
+                            } else {
+                                card.hidden = false;
+                            };
+                        };
+                    });
+
+                    filter_only_not100.appendChild(a_filter_only_not100);
+
+                    place.appendChild(filter_only_not100);
+                }
+
+
                 if (options["helper-settings-show_searchinput_courses"]) {
 
                     let place = document.querySelector("#block-region-content > section > div > h5");
@@ -220,13 +282,14 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
                     div_search.style.right = "0";
                     div_search.style.top = "0";
                     div_search.style.position = "absolute";
+                    div_search.style.minWidth = "80%";
 
                     let input_search = document.createElement("input");
-                    input_search.type = "search";
+                    input_search.type = "text";
                     input_search.id = "helper-settings-show_searchinput_courses";
                     input_search.classList = "form-control mr-2";
-                    input_search.placeholder = "Начните вводить название курса для поиска...";
-                    input_search.style.minWidth = "550px";
+                    input_search.placeholder = "Начните вводить название курса/филиал/фио преподавателя для поиска...";
+
 
                     input_search.addEventListener("keyup", () => {
                         let cards = document.querySelector("div[data-region=\"paged-content-page\"]").children[0].childNodes;

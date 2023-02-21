@@ -54,7 +54,7 @@
     <h2>Настройки LMS RANEPA Helper</h2>
     <p>Наведите курсор на настройку, чтобы узнать о ней подробнее. Настройки сохраняются автоматически.</p>
     <div class="block card" id="helper-settings-card" style="background-color: var(--bg-color);">
-        <div class="card-body helper-settings">
+        <div class="card-body helper-settings" id="helper-settings-options">
             <!-- <h4>Общее</h4> -->
             
             <h4>Обновления</h4>
@@ -70,6 +70,8 @@
             </div> -->
             
             <!-- <div class="dropdown-divider"></div> -->
+
+            <h5>Главная страница</h5>
             
             <div class="custom-control custom-switch" id="helper-settings-div-show_clck">
                 <input type="checkbox" class="custom-control-input" id="helper-settings-show_clck" >
@@ -83,10 +85,12 @@
             
             <div class="custom-control custom-switch" id="helper-settings-div-show_searchinput_courses">
                 <input type="checkbox" class="custom-control-input" id="helper-settings-show_searchinput_courses" >
-                <label class="custom-control-label" for="helper-settings-show_searchinput_courses">Отображать поиск по вашим курсам  на главной странице</label>
-                <!-- <a class="btn btn-link p-0" role="button" data-container="body" data-toggle="popover" data-placement="right" data-content="<div class=&quot;no-overflow&quot;><p>Вы можете выбрать формат отображения времени: 12- или 24-часовой. Если выбрать настройку «по умолчанию», то формат будет автоматически выбираться в зависимости от используемого на сайте языка.</p></div> " data-html="true" tabindex="0" data-trigger="focus" data-original-title="" title="">
-                    <i class="icon fa fa-question-circle text-info fa-fw " title="Справка по использованию элемента «Формат времени»" role="img" aria-label="Справка по использованию элемента «Тестовый чекбокс»"></i>
-                </a> -->
+                <label class="custom-control-label" for="helper-settings-show_searchinput_courses">Отображать поиск по вашим курсам</label>
+            </div>
+
+            <div class="custom-control custom-switch" id="helper-settings-div-show_courses_filters" title="Включите эту настройку, чтобы получить доступ к расширенному набору фильтров курсов для главной страницы">
+                <input type="checkbox" class="custom-control-input" id="helper-settings-show_courses_filters" >
+                <label class="custom-control-label" for="helper-settings-show_courses_filters">Отображать фильтры по курсам</label>
             </div>
             <div class="separator"></div>
     
@@ -111,6 +115,7 @@
         </div>
 
         <!-- <button id="helper-settings-btn_save" class="btn btn-primary m-3" style="max-width: 30%;">Сохранить</button> -->
+        <button id="helper-settings-btn_clear" class="btn btn-outline-secondary m-3" style="max-width: 30%;">Сбросить</button>
     </div>
 
     <script src="options.js"></script>
