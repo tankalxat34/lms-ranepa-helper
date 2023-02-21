@@ -100,13 +100,24 @@ function fillButtons(qtext = ".qtext") {
 
 
 
-function addMainBlock() {
-    /*
-        Добавляет блок для управления тестом
-        - поделиться ответами
-        - заполнить ответами
-        - 
-    */
+/**
+ *  Добавляет блок для управления тестом
+// */
+// function addMainBlock() {
+//     let mainBlock = document.createElement("div")
+//     mainBlock.classList = "col-12 pt-3 pb-3"
+
+//     return fetch(chrome.runtime.getURL("nodes/mod/quiz/attempt/mainBlock.html"))
+//         .then(res => res.text())
+//         .then(html => {
+//             mainBlock.innerHTML = html;
+//             document.getElementById("page-header").append(mainBlock)
+//         })
+// }
+
+
+function main() {
+    fillButtons();
 
     let mainBlock = document.createElement("div")
     mainBlock.classList = "col-12 pt-3 pb-3"
@@ -115,12 +126,45 @@ function addMainBlock() {
         .then(res => res.text())
         .then(html => {
             mainBlock.innerHTML = html;
-            document.getElementById("page-header").append(mainBlock)
+            document.getElementById("page-header").append(mainBlock);
         })
+        .then(() => {
+            // get option names from Chrome Storage
+            chrome.storage.sync.get(["_option_names_array"], (options) => {
+        
+                var _opt_names = options["_option_names_array"];
+        
+                // load all options from Chrome Storage
+                chrome.storage.sync.get(_opt_names, (options) => {
+        
+                    if (options["helper-settings-show_hidden_inputs"]) {
+                        let hidden_inputs = document.querySelectorAll("input[type='hidden']")
+                        for (let inp of hidden_inputs) {
+                            inp.type = "text";
+                        }
+                    };
+        
+                    if (options["helper-settings-changeable_form_action"]) {
+
+                        const default_formaction = document.querySelector("#responseform").action;
+
+                        let form_action_input = document.querySelector("#helper-settings-changeable_form_action-input");
+
+                        document.querySelector("#helper-settings-changeable_form_action").hidden = false;
+                        form_action_input.placeholder = document.querySelector("#responseform").action;
+                        
+                        form_action_input.addEventListener("keyup", () => {
+                            document.querySelector("#responseform").action = form_action_input.value;
+
+                            if (form_action_input.value === "") document.querySelector("#responseform").action = default_formaction;
+                        })
+                    }
+                })
+        })
+
+    })
+
+
 }
 
-
-
-fillButtons();
-addMainBlock();
-
+main();

@@ -13,12 +13,9 @@
                 
             </form>
         </div>
-    </div>
-</div>
 
+        <h5 class="mt-3">Работа с формой</h5>
 
-<div class="card" style="margin-top: 20px;">
-    <div class="card-body">
         <button title="Экспортируйте свои ответы в JSON файл и отправьте его одногруппникам, чтобы помочь в прохождении этого теста" id="helper-btn-export_answers-2" class="btn btn-secondary" onclick="exportAnswers()"><i class="fa fa-arrow-down"></i> Экспорт ответов</button>
         
         <label title="Импортируйте ответы, загрузив JSON файл сюда" for="helper-btn-import_answers" style="margin-top: 8px;" class="btn btn-secondary"><i class="fa fa-arrow-up"></i> Импорт ответов</label>
@@ -31,44 +28,28 @@
         
         <button title="Удалить все ответы" class="btn btn-secondary" id="helper-btn-clear_form-2" onclick="clearResponseForm(); showAlert('Форма была очищена')"><i class="fa fa-remove"></i> Очистить форму</button>
         
-        <details>
-            <summary>Описание функционала</summary>
-            <p><i>Если некоторые из представленных сервисов не работают - нажмите <a href="#" onclick="M.mod_quiz.autosave.save_changes(); window.location.reload()"><b>сюда</b></a>.</i></p>
-            <div class="d-sm-flex align-items-center">
-                <div id="helper-test_services-2">
-                    <h4>Экспорт ответов</h4>
-                    <small style="color: green;">Функционал в разработке, может работать нестабильно</small>
-                    <p>Экспортируйте свои вопросы и ответы в машиночитаемый файл и отправьте его сокурсникам, чтобы помочь им пройти этот же тест</p>
-                    <a id="helper-btn-export_answers" href="#" class="btn btn-primary" onclick="exportAnswers()"><i class="fa fa-download"></i> Экспорт в JSON</a>
-                </div>
-                <br>
-                <div id="helper-test_services-3">
-                    <h4>Импорт ответов</h4>
-                    <small style="color: green;">Функционал в разработке, может работать нестабильно</small>
-                    <p>Если у вас есть json-файл ответов, полученный от одногруппника, вы можете загрузить его сюда, чтобы проставить ответы в этом тесте автоматически</p>
-                    <label for="helper-btn-import_answers" class="btn btn-secondary"><i class="fa fa-arrow-up"></i> Импорт ответов</label>
-                    
-                    <input type="file" id="helper-btn-import_answers" style="display: none;" class="btn btn-secondary" accept="application/json" onload="main_attempt_front()"></input>
-                </div>
-            </div>
-            <br>
-            <div class="d-sm-flex align-items-center">
-                <div id="helper-test_services-4">
-                    <h4>Принудительное сохранение</h4>
-                    <p>Нажмите на эту кнопку если хотите, чтобы ваши ответы были мгновенно сохранены в СДО. Функция полезна, когда вам необходимо прерваться и позднее продолжить выполнение бесконечного по времени теста.</p>
-                    <button class="btn btn-primary" id="helper-btn-m_save_changes" onclick="M.mod_quiz.autosave.save_changes(); showAlert('Ответы успешно сохранены в Moodle')"><i class="fa fa-save"></i> Сохранить в Moodle</button>
-                </div>
-                <div id="helper-test_services-4">
-                    <h4>Очистить форму</h4>
-                    <p>Нажмите сюда, если вы действительно хотите удалить все ответы, которые вы дали в этом тесте.</p>
-                    <button class="btn btn-secondary" id="helper-btn-m_save_changes" onclick="clearResponseForm(); showAlert('Форма была очищена')"><i class="fa fa-remove"></i> Очистить форму</button>
-                </div>
-            </div>
-        </details>
+        <div id="helper-settings-changeable_form_action" class="mt-3" hidden>
+            <h5>Ссылка для отправки формы</h5>
+            <p>Вставьте сюда ссылку, по которой будет отправлено содержимое этой формы. Настройка применяется автоматически</p>
+            <input type="url" class="form-control" id="helper-settings-changeable_form_action-input" placeholder="">
+        </div>
+
+        <input type="file" id="helper-btn-import_answers" style="display: none;" class="btn btn-secondary" accept="application/json" onload="main_attempt_front()"></input>
     </div>
 </div>
 
-<!-- 
+
+
+
+<!-- +
+
+    <div id="helper-settings-changeable_form_action" class="block card mb-5">
+        <div class="card-body" id="yui_3_17_2_1_1677001253807_1111">
+            <h5 id="yui_3_17_2_1_1677001253807_1110">Ссылка для отправки формы</h5>
+            <input type="url" class="form-control" id="yui_3_17_2_1_1677001253807_1084" data-initial-value="">
+        </div>
+    </div>
+
     for (const entry of new FormData(document.querySelector("#responseform"))) {
     output = entry[0] + "=" + entry[1] + "\r";
     console.log(output)

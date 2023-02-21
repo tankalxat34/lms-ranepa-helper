@@ -83,38 +83,11 @@ function addButtonToServices() {
     navbar.append(btnServices)
 }
 
-function showAlert(text, type_of_alert = "info", classList = "alert alert-%type_of_alert% alert-block fade in  alert-dismissible") {
-
-    html = `${text}
-    <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">×</span>
-        <span class="sr-only">Отклонить это уведомление</span>
-    </button>`
-
-    div = document.createElement("div")
-    div.classList = classList.replace("%type_of_alert%", type_of_alert)
-    div.role = "alert"
-    div.innerHTML = html
-
-    document.querySelector("#user-notifications").appendChild(div)
-}
-
 
 function copyToClipboard(element) {
     navigator.clipboard.writeText($(element).val())
 }
 
-
-function downloadFileFromText(filename, content) {
-    var a = document.createElement('a');
-    var blob = new Blob([content], { type: "text/plain;charset=UTF-8" });
-    a.href = window.URL.createObjectURL(blob);
-    a.download = filename;
-    a.style.display = 'none';
-    document.body.appendChild(a);
-    a.click();
-    delete a;
-}
 
 /**
  * Добавляет новые кнопки в dropdown menu
