@@ -77,6 +77,9 @@ function loadOptions() {
  */
 function clearOptions() {
 
+    let formData = generateOptionsObj();
+    let selectors = Object.keys(formData);
+
     for (let index = 0; index < selectors.length; index++) {
         const s = selectors[index];
         if (s.slice(0, 1) !== "_") {
