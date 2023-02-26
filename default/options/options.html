@@ -33,6 +33,10 @@
     input,label {
         cursor: pointer;
     }
+    body {
+        background-color: var(--bg-color); 
+        max-width: 70%;
+    }
 
     .block,.card {
         border-color: var(--border-color);
@@ -49,7 +53,7 @@
     }
 </style>
 
-<body class="mt-5 position-absolute top-50 start-50 translate-middle" style="background-color: var(--bg-color); max-width: 70%; overflow: auto;">
+<body class="mt-5 position-absolute top-50 start-50 translate-middle" style="background-color: var(--bg-color); max-width: 70%; overflow: hidden;">
 
     <h2>Настройки LMS RANEPA Helper</h2>
     <p>Наведите курсор на настройку, чтобы узнать о ней подробнее. Настройки сохраняются автоматически.</p>
@@ -101,7 +105,6 @@
                 <input type="checkbox" class="custom-control-input" id="helper-settings-show_courses_filters" >
                 <label class="custom-control-label" for="helper-settings-show_courses_filters">Отображать фильтры по курсам</label>
             </div>
-
             
             <div class="separator"></div>
             
