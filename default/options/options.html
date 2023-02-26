@@ -49,7 +49,7 @@
     }
 </style>
 
-<body class="mt-5 position-absolute top-50 start-50 translate-middle" style="background-color: var(--bg-color); max-width: 70%; overflow: hidden;">
+<body class="mt-5 position-absolute top-50 start-50 translate-middle" style="background-color: var(--bg-color); max-width: 70%; overflow: auto;">
 
     <h2>Настройки LMS RANEPA Helper</h2>
     <p>Наведите курсор на настройку, чтобы узнать о ней подробнее. Настройки сохраняются автоматически.</p>
@@ -115,6 +115,26 @@
             <div class="custom-control custom-switch" id="helper-settings-div-show_hidden_inputs" title="Всегда отображать скрытые поля ввода в тестах. Обычно в таких полях содержится информация, необходимая для отправки формы. Не рекомендуется редактировать эти поля!">
                 <input type="checkbox" class="custom-control-input" id="helper-settings-show_hidden_inputs">
                 <label class="custom-control-label" for="helper-settings-show_hidden_inputs">Отображать скрытые input теги в тестах</label>
+            </div>
+
+            <div class="separator"></div>
+
+
+            <h5>Страница с ресурсом</h5>
+
+            <div class="custom-control custom-switch" id="helper-settings-div-disable_video_title" title="Отключает отображение тега title при наведении курсора на видео (такой прямоугольник, какой вы видите сейчас, будет отключен)">
+                <input type="checkbox" class="custom-control-input" id="helper-settings-disable_video_title">
+                <label class="custom-control-label" for="helper-settings-disable_video_title">Скрывать всплывающее название видео</label>
+            </div>
+
+            <div class="custom-control custom-switch" id="helper-settings-div-show_download_video_button" title="">
+                <input type="checkbox" class="custom-control-input" id="helper-settings-show_download_video_button">
+                <label class="custom-control-label" for="helper-settings-show_download_video_button">Включить кнопку скачивания видео</label>
+            </div>
+
+            <div class="custom-control custom-switch" id="helper-settings-div-show_targetblank_video_button" title="">
+                <input type="checkbox" class="custom-control-input" id="helper-settings-show_targetblank_video_button">
+                <label class="custom-control-label" for="helper-settings-show_targetblank_video_button">Включить кнопку "Открыть видео в новой вкладке"</label>
             </div>
     
             <h4>Провинутые настройки</h4>
