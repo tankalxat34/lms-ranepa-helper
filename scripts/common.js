@@ -154,6 +154,7 @@ try {
     // common scripts and functions
     addSrcScript("scripts/common_front.js")
     addSrcScript("scripts/helper_cookies.js")
+    addSrcScript("scripts/drawdown.js");
     addMenuItems()
 
     // get option names from Chrome Storage
@@ -181,7 +182,6 @@ try {
 
         case "/mod/quiz/attempt.php":
             addSrcScript("scripts/mod/quiz/attempt/attempt_front.js");
-            addSrcScript("scripts/drawdown.js");
             break;
 
         case "/my/":
