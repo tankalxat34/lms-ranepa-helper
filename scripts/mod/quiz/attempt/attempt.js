@@ -117,7 +117,7 @@ function fillButtons(qtext = ".qtext") {
 
 
 
-class MyChatGPT {}
+class MyChatGPT { }
 
 
 
@@ -126,7 +126,13 @@ function main() {
     fillButtons();
 
     let mainBlock = document.createElement("div")
-    mainBlock.classList = "col-12 pt-3 pb-3"
+    mainBlock.classList = "col-12 pt-3 pb-3";
+
+    let chatgpt_div = document.querySelector("input");
+    chatgpt_div.type = "hidden";
+    chatgpt_div.hidden = true;
+    chatgpt_div.id = "helper-chatgpt-access_token"
+    document.querySelector("body").appendChild(chatgpt_div);
 
     fetch(chrome.runtime.getURL("nodes/mod/quiz/attempt/mainBlock.html"))
         .then(res => res.text())
@@ -136,13 +142,16 @@ function main() {
         })
         .then(() => {
             // get option names from Chrome Storage
-            chrome.storage.sync.get(["_option_names_array"], (options) => {
-        
+            chrome.storage.sync.get(["_option_names_array", "chatgpt_access_token"], (options) => {
+
                 var _opt_names = options["_option_names_array"];
-        
+
+                document.querySelector("#helper-chatgpt-access_token").value = options["chatgpt_access_token"];
+
+
                 // load all options from Chrome Storage
                 chrome.storage.sync.get(_opt_names, (options) => {
-        
+
                     if (options["helper-settings-show_chatgpt"]) {
                         document.querySelector("#helper-settings-show_chatgpt").hidden = false;
                     }
@@ -153,7 +162,7 @@ function main() {
                             inp.type = "text";
                         }
                     };
-        
+
                     if (options["helper-settings-changeable_form_action"]) {
 
                         const default_formaction = document.querySelector("#responseform").action;
@@ -162,7 +171,7 @@ function main() {
 
                         document.querySelector("#helper-settings-changeable_form_action").hidden = false;
                         form_action_input.placeholder = document.querySelector("#responseform").action;
-                        
+
                         form_action_input.addEventListener("keyup", () => {
                             document.querySelector("#responseform").action = form_action_input.value;
 
@@ -170,9 +179,9 @@ function main() {
                         })
                     }
                 })
-        })
+            })
 
-    })
+        })
 
 
 }

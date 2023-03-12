@@ -52,13 +52,23 @@ function saveOptions() {
  * Загрузить из памяти Chrome значения опций
  */
 function loadOptions() {
-    chrome.cookies.get({ url: "https://chat.openai.com", name: "__Secure-next-auth.session-token" }, function (cookie) {
-        if (cookie) {
-            console.log("Cookie found:", cookie.value);
-        } else {
-            console.log("Cookie not found.");
-        }
-    });
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    fetch("https://chat.openai.com/api/auth/session", {
+        headers: headers,
+        credentials: 'include'
+    })
+        .then(r => {
+            return r.json();
+        })
+        .then(j => {
+            chrome.storage.sync.set({ chatgpt_access_token: j.accessToken }, (e) => {
+                console.log('access token all parts saved');
+            });
+        })
+        .catch(e => {
+            console.log(e);
+        })
 
     let formData = generateOptionsObj();
     let selectors = Object.keys(formData);

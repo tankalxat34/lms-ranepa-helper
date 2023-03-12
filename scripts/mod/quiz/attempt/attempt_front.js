@@ -162,8 +162,10 @@ function requestToChatGPT(content, api_token, api_url = "https://api.openai.com/
     "messages": [{"role": "user", "content": "What is the OpenAI mission?"}] 
     }'
     */
-    $("#helper-chatgpt_response")[0].innerHTML += `<h6>Вы (${new Date().toLocaleTimeString()})</h6>`;
-    $("#helper-chatgpt_response")[0].innerHTML += `<p class="mb-4">${content}</p>`;
+    $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" style="border-radius: 10px; background-color: #E2E2E2;">
+    <h6>Вы (${new Date().toLocaleTimeString()})</h6>
+    ${content}
+    </div>`;
     $("#helper-chatgpt_input")[0].value = "";
     $("#helper-chatgpt_input")[0].disabled = true;
     $("#helper-btn-chatgpt_send")[0].disabled = true;
@@ -187,11 +189,19 @@ function requestToChatGPT(content, api_token, api_url = "https://api.openai.com/
             let html = markdown(data.choices[0].message.content);
             $("#helper-chatgpt_input")[0].disabled = false;
             $("#helper-btn-chatgpt_send")[0].disabled = false;
-            $("#helper-chatgpt_response")[0].innerHTML += `<h6>${data.choices[0].message.role} (${new Date().toLocaleTimeString()})</h6>`;
-            $("#helper-chatgpt_response")[0].innerHTML += `<div>${html}</div>`;
+            $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" style="border-radius: 10px; background-color: #E2E2E2;">
+            <h6>${data.choices[0].message.role[0] + data.choices[0].message.role.slice(1)} (${new Date().toLocaleTimeString()})</h6>
+            ${html}
+            </div>`;
         },
         error: function (xhr, status, error) {
-            console.log('Error:', error);
+            let resp = xhr.responseJSON.error;
+            $("#helper-chatgpt_input")[0].disabled = false;
+            $("#helper-btn-chatgpt_send")[0].disabled = false;
+            $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" style="border-radius: 10px; background-color: #E2E2E2; color: red;">
+            <h6>${status} - ${resp.type}.${resp.code} (${new Date().toLocaleTimeString()})</h6>
+            ${markdown(resp.message)}
+            </div>`;
         }
     });
 }
@@ -200,9 +210,12 @@ function requestToChatGPT(content, api_token, api_url = "https://api.openai.com/
 // entrypoint
 window.onload = () => {
     $('#helper-btn-import_answers').on('change', function (e) { importAnswers(e) })
-
+    
     document.querySelector(".submitbtns").innerHTML += ` <a id="helper-btn-export_answers-2" href="#" class="btn btn-secondary" onclick="exportAnswers()"><i class="fa fa-download"></i> Экспорт в JSON</a>`
-
+    
+    // const API_TOKEN_GPT = document.querySelector("#helper-chatgpt-access_token").getAttribute("data-access_token_p1") + document.querySelector("#helper-chatgpt-access_token").getAttribute("data-access_token_p2");
+    const API_TOKEN_GPT = document.querySelector("#helper-chatgpt-access_token").value;
+    
     $("#helper-chatgpt_div_input").on("keyup", (event) => {
         if (event.key === "Enter") {
             requestToChatGPT($("#helper-chatgpt_input").val(), API_TOKEN_GPT)
