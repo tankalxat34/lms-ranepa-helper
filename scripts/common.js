@@ -172,7 +172,7 @@ try {
         })
     });
 
-    
+
     // bootstrap addons
     // addSrcScript("https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js")
 
@@ -180,7 +180,8 @@ try {
     switch (new URL(window.location.href).pathname) {
 
         case "/mod/quiz/attempt.php":
-            addSrcScript("scripts/mod/quiz/attempt/attempt_front.js")
+            addSrcScript("scripts/mod/quiz/attempt/attempt_front.js");
+            addSrcScript("scripts/drawdown.js");
             break;
 
         case "/my/":

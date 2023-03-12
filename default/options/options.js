@@ -52,6 +52,13 @@ function saveOptions() {
  * Загрузить из памяти Chrome значения опций
  */
 function loadOptions() {
+    chrome.cookies.get({ url: "https://chat.openai.com", name: "__Secure-next-auth.session-token" }, function (cookie) {
+        if (cookie) {
+            console.log("Cookie found:", cookie.value);
+        } else {
+            console.log("Cookie not found.");
+        }
+    });
 
     let formData = generateOptionsObj();
     let selectors = Object.keys(formData);

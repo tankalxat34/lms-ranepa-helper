@@ -116,6 +116,12 @@ function fillButtons(qtext = ".qtext") {
 // }
 
 
+
+class MyChatGPT {}
+
+
+
+
 function main() {
     fillButtons();
 
@@ -137,6 +143,10 @@ function main() {
                 // load all options from Chrome Storage
                 chrome.storage.sync.get(_opt_names, (options) => {
         
+                    if (options["helper-settings-show_chatgpt"]) {
+                        document.querySelector("#helper-settings-show_chatgpt").hidden = false;
+                    }
+
                     if (options["helper-settings-show_hidden_inputs"]) {
                         let hidden_inputs = document.querySelectorAll("input[type='hidden']")
                         for (let inp of hidden_inputs) {

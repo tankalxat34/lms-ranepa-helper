@@ -15,14 +15,21 @@
         "128": "icon.png"
     },
 
+    "host_permissions": [
+        "*://chat.openai.com/*",
+        "*://lms.ranepa.ru/*",
+        "*://lms-dpo.ranepa.ru/*"
+    ],
 
     "permissions": [
         "tabs",
         "activeTab",
         "storage",
         "scripting",
+        "cookies",
         "downloads"
     ],
+    
     "background": {
         "service_worker": "background.js"
     },
