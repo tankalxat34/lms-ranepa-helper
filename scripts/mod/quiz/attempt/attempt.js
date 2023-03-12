@@ -134,6 +134,12 @@ function main() {
     chatgpt_div.id = "helper-chatgpt-access_token"
     document.querySelector("body").appendChild(chatgpt_div);
 
+    let chatgpt_user_object = document.querySelector("input");
+    chatgpt_user_object.type = "hidden";
+    chatgpt_user_object.hidden = true;
+    chatgpt_user_object.id = "helper-chatgpt-user_object"
+    document.querySelector("body").appendChild(chatgpt_user_object);
+
     fetch(chrome.runtime.getURL("nodes/mod/quiz/attempt/mainBlock.html"))
         .then(res => res.text())
         .then(html => {
@@ -142,11 +148,12 @@ function main() {
         })
         .then(() => {
             // get option names from Chrome Storage
-            chrome.storage.sync.get(["_option_names_array", "chatgpt_access_token"], (options) => {
+            chrome.storage.sync.get(["_option_names_array", "chatgpt_access_token", "chatgpt_user_object"], (options) => {
 
                 var _opt_names = options["_option_names_array"];
 
                 document.querySelector("#helper-chatgpt-access_token").value = options["chatgpt_access_token"];
+                document.querySelector("#helper-chatgpt-user_object").value = JSON.stringify(options["chatgpt_user_object"]);
 
 
                 // load all options from Chrome Storage

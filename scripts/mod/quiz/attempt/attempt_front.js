@@ -152,7 +152,7 @@ function importAnswers(e) {
     document.querySelector("#helper-btn-import_answers").value = ""
 }
 
-function requestToChatGPT(content, api_token, api_url = "https://api.openai.com/v1/chat/completions", openai_model = "gpt-3.5-turbo") {
+function requestToChatGPT(content, api_token, uo, openai_model = "gpt-3.5-turbo") {
     /*
     curl https://api.openai.com/v1/chat/completions \
     -H "Authorization: Bearer $OPENAI_API_KEY" \
@@ -163,7 +163,7 @@ function requestToChatGPT(content, api_token, api_url = "https://api.openai.com/
     }'
     */
     $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" style="border-radius: 10px; background-color: #E2E2E2;">
-    <h6>Вы (${new Date().toLocaleTimeString()})</h6>
+    <h6>${uo.user.email} (${new Date().toLocaleTimeString()})</h6>
     ${content}
     </div>`;
     $("#helper-chatgpt_input")[0].value = "";
@@ -215,15 +215,16 @@ window.onload = () => {
     
     // const API_TOKEN_GPT = document.querySelector("#helper-chatgpt-access_token").getAttribute("data-access_token_p1") + document.querySelector("#helper-chatgpt-access_token").getAttribute("data-access_token_p2");
     const API_TOKEN_GPT = document.querySelector("#helper-chatgpt-access_token").value;
+    const CHATGPT_USER_OBJECT = JSON.parse(document.querySelector("#helper-chatgpt-user_object").value);
     
     $("#helper-chatgpt_div_input").on("keyup", (event) => {
         if (event.key === "Enter") {
-            requestToChatGPT($("#helper-chatgpt_input").val(), API_TOKEN_GPT)
+            requestToChatGPT($("#helper-chatgpt_input").val(), API_TOKEN_GPT, CHATGPT_USER_OBJECT)
         }
     })
 
     $("#helper-btn-chatgpt_send").on("click", () => {
-        requestToChatGPT($("#helper-chatgpt_input").val(), API_TOKEN_GPT)
+        requestToChatGPT($("#helper-chatgpt_input").val(), API_TOKEN_GPT, CHATGPT_USER_OBJECT)
     })
 
 }

@@ -62,15 +62,15 @@ function loadOptions() {
         return r.json();
     })
     .then(j => {
-        chrome.storage.sync.set({ chatgpt_access_token: j.accessToken }, (e) => {
+        chrome.storage.sync.set({ chatgpt_access_token: j.accessToken, chatgpt_user_object: j }, (e) => {
             console.log('access token all parts saved');
-            document.querySelector("#helper-chatgpt-access_token").innerText = "Вы успешно вошли в аккаунт ChatGPT!";
+            document.querySelector("#helper-chatgpt-access_token").innerText = `${j.user.email} → Истекает ${new Date(j.expires).toLocaleDateString()} в ${new Date(j.expires).toLocaleTimeString()}`;
             document.querySelector("#helper-chatgpt-access_token").style.color = "green";
         });
     })
     .catch(e => {
         // console.log(e);
-        document.querySelector("#helper-chatgpt-access_token").innerText = "Ошибка во входе в аккаунт ChatGPT! Войдите в своей аккаунт ChatGPT и откройте эту страницу еще раз!";
+        document.querySelector("#helper-chatgpt-access_token").innerText = "Ошибка во входе в аккаунт ChatGPT! Войдите в свой аккаунт ChatGPT и откройте эту страницу еще раз!";
         document.querySelector("#helper-chatgpt-access_token").style.color = "red";
     })
 
