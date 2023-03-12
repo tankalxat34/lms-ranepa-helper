@@ -164,7 +164,7 @@ function requestToChatGPT(content, api_token, uo, openai_model = "gpt-3.5-turbo"
     */
     $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" style="border-radius: 10px; background-color: #E2E2E2;">
     <h6>${uo.user.email} (${new Date().toLocaleTimeString()})</h6>
-    ${content}
+    ${markdown(content)}
     </div>`;
     $("#helper-chatgpt_input")[0].value = "";
     $("#helper-chatgpt_input")[0].disabled = true;
