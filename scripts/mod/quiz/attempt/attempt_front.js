@@ -152,7 +152,7 @@ function importAnswers(e) {
     document.querySelector("#helper-btn-import_answers").value = ""
 }
 
-function requestToChatGPT(content, api_token, uo, openai_model = "gpt-3.5-turbo") {
+function requestToChatGPT(content, uo, openai_model = "gpt-3.5-turbo") {
     /*
     curl https://api.openai.com/v1/chat/completions \
     -H "Authorization: Bearer $OPENAI_API_KEY" \
@@ -175,7 +175,7 @@ function requestToChatGPT(content, api_token, uo, openai_model = "gpt-3.5-turbo"
         type: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${api_token}`
+            'Authorization': `Bearer ${uo.accessToken}`
         },
         data: JSON.stringify({
             model: openai_model,
@@ -215,19 +215,18 @@ window.onload = () => {
     
     const CHATGPT_USER_OBJECT = JSON.parse(document.querySelector("#helper-chatgpt-user_object").value);
     
+    $("#helper-chatgpt_input")[0].oninput = () => {
+        $("#helper-chatgpt_input")[0].style.height = "auto";
+        $("#helper-chatgpt_input")[0].style.height = $("#helper-chatgpt_input")[0].scrollHeight + "px";
+    }
     $("#helper-chatgpt_div_input").on("keyup", (event) => {
-        $("#helper-chatgpt_input").on("input", () => {
-            $("#helper-chatgpt_input")[0].style.owerflow = "hidden";
-            $("#helper-chatgpt_input")[0].style.height = 'auto';
-            $("#helper-chatgpt_input")[0].style.height = `${$("#helper-chatgpt_input")[0].scrollHeight + 2}px`;
-        })
         if (event.ctrlKey && event.key === "Enter") {
-            requestToChatGPT($("#helper-chatgpt_input").val(), CHATGPT_USER_OBJECT.accessToken, CHATGPT_USER_OBJECT)
+            requestToChatGPT($("#helper-chatgpt_input").val(), CHATGPT_USER_OBJECT)
         }
     })
 
     $("#helper-btn-chatgpt_send").on("click", () => {
-        requestToChatGPT($("#helper-chatgpt_input").val(), CHATGPT_USER_OBJECT.accessToken, CHATGPT_USER_OBJECT)
+        requestToChatGPT($("#helper-chatgpt_input").val(), CHATGPT_USER_OBJECT)
     })
 
 }
