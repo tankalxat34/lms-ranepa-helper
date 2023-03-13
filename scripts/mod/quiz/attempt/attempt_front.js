@@ -213,18 +213,21 @@ window.onload = () => {
     
     document.querySelector(".submitbtns").innerHTML += ` <a id="helper-btn-export_answers-2" href="#" class="btn btn-secondary" onclick="exportAnswers()"><i class="fa fa-download"></i> Экспорт в JSON</a>`
     
-    // const API_TOKEN_GPT = document.querySelector("#helper-chatgpt-access_token").getAttribute("data-access_token_p1") + document.querySelector("#helper-chatgpt-access_token").getAttribute("data-access_token_p2");
-    const API_TOKEN_GPT = document.querySelector("#helper-chatgpt-access_token").value;
     const CHATGPT_USER_OBJECT = JSON.parse(document.querySelector("#helper-chatgpt-user_object").value);
     
     $("#helper-chatgpt_div_input").on("keyup", (event) => {
+        $("#helper-chatgpt_input").on("input", () => {
+            $("#helper-chatgpt_input")[0].style.owerflow = "hidden";
+            $("#helper-chatgpt_input")[0].style.height = 'auto';
+            $("#helper-chatgpt_input")[0].style.height = `${$("#helper-chatgpt_input")[0].scrollHeight + 2}px`;
+        })
         if (event.key === "Enter") {
-            requestToChatGPT($("#helper-chatgpt_input").val(), API_TOKEN_GPT, CHATGPT_USER_OBJECT)
+            requestToChatGPT($("#helper-chatgpt_input").val(), CHATGPT_USER_OBJECT.accessToken, CHATGPT_USER_OBJECT)
         }
     })
 
     $("#helper-btn-chatgpt_send").on("click", () => {
-        requestToChatGPT($("#helper-chatgpt_input").val(), API_TOKEN_GPT, CHATGPT_USER_OBJECT)
+        requestToChatGPT($("#helper-chatgpt_input").val(), CHATGPT_USER_OBJECT.accessToken, CHATGPT_USER_OBJECT)
     })
 
 }

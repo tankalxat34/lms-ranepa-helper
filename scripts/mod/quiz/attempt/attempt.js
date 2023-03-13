@@ -128,12 +128,6 @@ function main() {
     let mainBlock = document.createElement("div")
     mainBlock.classList = "col-12 pt-3 pb-3";
 
-    let chatgpt_div = document.querySelector("input");
-    chatgpt_div.type = "hidden";
-    chatgpt_div.hidden = true;
-    chatgpt_div.id = "helper-chatgpt-access_token"
-    document.querySelector("body").appendChild(chatgpt_div);
-
     let chatgpt_user_object = document.querySelector("input");
     chatgpt_user_object.type = "hidden";
     chatgpt_user_object.hidden = true;
@@ -152,7 +146,6 @@ function main() {
 
                 var _opt_names = options["_option_names_array"];
 
-                document.querySelector("#helper-chatgpt-access_token").value = options["chatgpt_access_token"];
                 document.querySelector("#helper-chatgpt-user_object").value = JSON.stringify(options["chatgpt_user_object"]);
 
 
