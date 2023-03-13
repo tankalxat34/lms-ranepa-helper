@@ -221,7 +221,7 @@ window.onload = () => {
             $("#helper-chatgpt_input")[0].style.height = 'auto';
             $("#helper-chatgpt_input")[0].style.height = `${$("#helper-chatgpt_input")[0].scrollHeight + 2}px`;
         })
-        if (event.key === "Enter") {
+        if (event.ctrlKey && event.key === "Enter") {
             requestToChatGPT($("#helper-chatgpt_input").val(), CHATGPT_USER_OBJECT.accessToken, CHATGPT_USER_OBJECT)
         }
     })
