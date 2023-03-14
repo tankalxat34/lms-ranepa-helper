@@ -62,15 +62,15 @@ function loadOptions() {
         return r.json();
     })
     .then(j => {
-        chrome.storage.sync.set({ chatgpt_user_object: JSON.stringify(j) }, () => {
+        let last_j = j
+        last_j.accessToken = document.querySelector("#helper-chatgpt-access_token").value || j.accessToken;
+        chrome.storage.sync.set({ chatgpt_user_object: JSON.stringify(last_j) }, () => {
             console.log("UserObject saved succesfully!");
-        })
-        chrome.storage.sync.set({ chatgpt_access_token: j.accessToken }, (e) => {
             console.log('access token all parts saved');
-            document.querySelector("#helper-chatgpt-access_token_span").innerText = `Ваш email: ${j.user.email}`;
+            document.querySelector("#helper-chatgpt-access_token_span").innerText = `Ваш email: ${last_j.user.email}`;
             document.querySelector("#helper-chatgpt-access_token_span").style.color = "green";
-            document.querySelector("#helper-chatgpt-access_token").value = j.accessToken;
-        });
+            document.querySelector("#helper-chatgpt-access_token").value = last_j.accessToken;
+        })
     })
     .catch(e => {
         // console.log(e);
