@@ -215,6 +215,8 @@ window.onload = () => {
     
     const CHATGPT_USER_OBJECT = JSON.parse(document.querySelector("#helper-chatgpt-user_object").value);
     
+    console.log(CHATGPT_USER_OBJECT);
+
     $("#helper-chatgpt_input")[0].oninput = () => {
         $("#helper-chatgpt_input")[0].style.height = "auto";
         $("#helper-chatgpt_input")[0].style.height = $("#helper-chatgpt_input")[0].scrollHeight + "px";

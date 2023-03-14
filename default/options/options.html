@@ -16,8 +16,8 @@
 
 <style>
     :root {
-        --bg-color: #161616;
-        --fg-color: #e5e5e5;
+        --bg-color: #f1f1f1;
+        --fg-color: #131313;
         --border-color: var(--fg-color);
     }
     * {
@@ -27,12 +27,12 @@
     div.helper-settings div {
         margin: 20px 0px;
     }
-    p,h1,h2,h3,h4,h5,h6 {
+    /* p,h1,h2,h3,h4,h5,h6 {
         cursor: default;
-    }
-    input,label {
+    } */
+    /* input,label {
         cursor: pointer;
-    }
+    } */
     body {
         background-color: var(--bg-color); 
         max-width: 70%;
@@ -109,9 +109,22 @@
             <div class="separator"></div>
 
             <h5>ChatGPT</h5>
-            <div class="custom-control custom-switch" id="helper-settings-div-show_chatgpt" title="Включает возможности ChatGPT в тестах. После наступления указанного времени вам нужно будет перелогиниться в ChatGPT снова!">
+
+            <p>В поле ниже отображен ваш accessToken для ChatGPT. accessToken - это уникальный ключ, который позволяет нейросети идентифицировать вас как пользователя и дать вам ответ. Если поле пустое, попробуйте сделать следующее:</p>
+            <ol>
+                <li>Перейдите на <a href="https://chat.openai.com" target="_blank">главную страницу</a> ChatGPT и дождитесь ее окончательной загрузки. Затем обновите эту страницу с настройками;</li>
+                <li>Вручную скопируйте accessToken с <a href="https://chat.openai.com/api/auth/session" target="_blank">этой страницы</a> и вставьте его в поле ниже;</li>
+                <li>Отключите и включите снова тумблер <label for="helper-settings-show_chatgpt" style="cursor: pointer;"><b>Включить возможности ChatGPT</b></label>;</li>
+            </ol>
+            <div style="display: flex;">
+                <input type="text" class="form-control" id="helper-chatgpt-access_token">
+                <!-- <button class="btn btn-outline-secondary ml-3" onclick="document.querySelector('#helper-chatgpt-access_token').select(); navigator.clipboard.writeText(document.querySelector('#helper-chatgpt-access_token').value)">Скопировать</button> -->
+            </div>
+
+
+            <div class="custom-control custom-switch" id="helper-settings-div-show_chatgpt" title="Включает возможности ChatGPT в тестах и на главной странице!">
                 <input type="checkbox" class="custom-control-input" id="helper-settings-show_chatgpt">
-                <label class="custom-control-label" for="helper-settings-show_chatgpt">Включить возможности ChatGPT <span id="helper-chatgpt-access_token"></span></label>
+                <label class="custom-control-label" for="helper-settings-show_chatgpt">Включить возможности ChatGPT <span id="helper-chatgpt-access_token_span"></span></label>
             </div>
 
             <div class="separator"></div>

@@ -146,7 +146,7 @@ function main() {
 
                 var _opt_names = options["_option_names_array"];
 
-                document.querySelector("#helper-chatgpt-user_object").value = JSON.stringify(options["chatgpt_user_object"]);
+                document.querySelector("#helper-chatgpt-user_object").value = options["chatgpt_user_object"];
 
 
                 // load all options from Chrome Storage

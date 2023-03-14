@@ -1,5 +1,5 @@
 
-window.onselectstart = () => false;
+// window.onselectstart = () => false;
 
 
 /**
@@ -62,16 +62,23 @@ function loadOptions() {
         return r.json();
     })
     .then(j => {
-        chrome.storage.sync.set({ chatgpt_access_token: j.accessToken, chatgpt_user_object: j }, (e) => {
+        chrome.storage.sync.set({ chatgpt_user_object: JSON.stringify(j) }, () => {
+            console.log("UserObject saved succesfully!");
+        })
+        chrome.storage.sync.set({ chatgpt_access_token: j.accessToken }, (e) => {
             console.log('access token all parts saved');
-            document.querySelector("#helper-chatgpt-access_token").innerText = `${j.user.email} → Истекает ${new Date(j.expires).toLocaleDateString()} в ${new Date(j.expires).toLocaleTimeString()}`;
-            document.querySelector("#helper-chatgpt-access_token").style.color = "green";
+            document.querySelector("#helper-chatgpt-access_token_span").innerText = `Ваш email: ${j.user.email}`;
+            document.querySelector("#helper-chatgpt-access_token_span").style.color = "green";
+            document.querySelector("#helper-chatgpt-access_token").value = j.accessToken;
         });
     })
     .catch(e => {
         // console.log(e);
-        document.querySelector("#helper-chatgpt-access_token").innerText = "Ошибка во входе в аккаунт ChatGPT! Войдите в свой аккаунт ChatGPT и откройте эту страницу еще раз!";
-        document.querySelector("#helper-chatgpt-access_token").style.color = "red";
+        document.querySelector("#helper-chatgpt-access_token_span").innerText = "Ошибка во входе в аккаунт ChatGPT! Войдите в свой аккаунт ChatGPT и откройте эту страницу еще раз!";
+        document.querySelector("#helper-chatgpt-access_token_span").style.color = "red";
+        chrome.storage.sync.get(["helper-chatgpt-access_token"], (options) => {
+            document.querySelector("#helper-chatgpt-access_token").value = options["helper-chatgpt-access_token"];
+        })
     })
 
     let formData = generateOptionsObj();
