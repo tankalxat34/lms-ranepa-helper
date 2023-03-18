@@ -162,7 +162,7 @@ function requestToChatGPT(content, uo, openai_model = "gpt-3.5-turbo") {
     "messages": [{"role": "user", "content": "What is the OpenAI mission?"}] 
     }'
     */
-    $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" style="border-radius: 10px; background-color: #E2E2E2;">
+    $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="user" style="border-radius: 10px; background-color: #E2E2E2;">
     <h6>${uo.user.email} (${new Date().toLocaleTimeString()})</h6>
     ${markdown(content)}
     </div>`;
@@ -189,7 +189,7 @@ function requestToChatGPT(content, uo, openai_model = "gpt-3.5-turbo") {
             let html = markdown(data.choices[0].message.content);
             $("#helper-chatgpt_input")[0].disabled = false;
             $("#helper-btn-chatgpt_send")[0].disabled = false;
-            $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" style="border-radius: 10px; background-color: #E2E2E2;">
+            $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="assistant" style="border-radius: 10px; background-color: #E2E2E2;">
             <h6>${data.choices[0].message.role[0] + data.choices[0].message.role.slice(1)} (${new Date().toLocaleTimeString()})</h6>
             ${html}
             </div>`;
@@ -198,7 +198,7 @@ function requestToChatGPT(content, uo, openai_model = "gpt-3.5-turbo") {
             let resp = xhr.responseJSON.error;
             $("#helper-chatgpt_input")[0].disabled = false;
             $("#helper-btn-chatgpt_send")[0].disabled = false;
-            $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" style="border-radius: 10px; background-color: #E2E2E2; color: red;">
+            $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="assistant" style="border-radius: 10px; background-color: #E2E2E2; color: red;">
             <h6>${status} - ${resp.type}.${resp.code} (${new Date().toLocaleTimeString()})</h6>
             ${markdown(resp.message)}
             </div>`;

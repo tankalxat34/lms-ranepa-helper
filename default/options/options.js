@@ -67,7 +67,7 @@ function loadOptions() {
         chrome.storage.sync.set({ chatgpt_user_object: JSON.stringify(last_j) }, () => {
             console.log("UserObject saved succesfully!");
             console.log('access token all parts saved');
-            document.querySelector("#helper-chatgpt-access_token_span").innerText = `Ваш email: ${last_j.user.email}`;
+            document.querySelector("#helper-chatgpt-access_token_span").innerText = `${last_j.user.email}`;
             document.querySelector("#helper-chatgpt-access_token_span").style.color = "green";
             document.querySelector("#helper-chatgpt-access_token").value = last_j.accessToken;
         })
