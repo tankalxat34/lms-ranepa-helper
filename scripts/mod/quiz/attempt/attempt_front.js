@@ -1,5 +1,7 @@
 
 
+var CONVERSATION = new Array();
+
 function clearResponseForm() {
     /*
         Очищает всю форму
@@ -162,6 +164,8 @@ function requestToChatGPT(content, uo, openai_model = "gpt-3.5-turbo") {
     "messages": [{"role": "user", "content": "What is the OpenAI mission?"}] 
     }'
     */
+    CONVERSATION.push({"role": "user", "content": content});
+
     $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="user" style="border-radius: 10px; background-color: #E2E2E2;">
     <h6>${uo.user.email} (${new Date().toLocaleTimeString()})</h6>
     ${markdown(content)}
@@ -179,10 +183,7 @@ function requestToChatGPT(content, uo, openai_model = "gpt-3.5-turbo") {
         },
         data: JSON.stringify({
             model: openai_model,
-            messages: [
-                {"role": "system", "content": "You are a helpful assistant!"},
-                {"role": "user", "content": content},
-            ]
+            messages: CONVERSATION
         }),
         success: function (data) {
             console.log(data);
@@ -193,6 +194,7 @@ function requestToChatGPT(content, uo, openai_model = "gpt-3.5-turbo") {
             <h6>${data.choices[0].message.role[0] + data.choices[0].message.role.slice(1)} (${new Date().toLocaleTimeString()})</h6>
             ${html}
             </div>`;
+            CONVERSATION.push({"role": "assistant", "content": data.choices[0].message.content});
         },
         error: function (xhr, status, error) {
             let resp = xhr.responseJSON.error;
