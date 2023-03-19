@@ -193,6 +193,9 @@ function requestToChatGPT(content, uo, openai_model = "gpt-3.5-turbo") {
             $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="assistant" style="border-radius: 10px; background-color: #E2E2E2;">
             <h6>${data.choices[0].message.role[0] + data.choices[0].message.role.slice(1)} (${new Date().toLocaleTimeString()})</h6>
             ${html}
+            <div class="buttons" style="display: flex;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Markdown-mark.svg" title="Скопировать ответ в Markdown" width=20px style="cursor: pointer;" onclick="navigator.clipboard.writeText(\`${data.choices[0].message.content.trim()}\`)">
+            </div>
             </div>`;
             CONVERSATION.push({"role": "assistant", "content": data.choices[0].message.content});
         },
@@ -231,6 +234,15 @@ window.onload = () => {
 
     $("#helper-btn-chatgpt_send").on("click", () => {
         requestToChatGPT($("#helper-chatgpt_input").val(), CHATGPT_USER_OBJECT)
+    })
+
+    $("#helper-btn-chatgpt_export").on("click", () => {
+        let content = "<!-- Generated automatically using the LMS RANEPA HELPER extension (c) tankalxat34 -->\n";
+        for (let i = 0; i < CONVERSATION.length; i ++) {
+            content += `\n\n## ${CONVERSATION[i].role}\n\n`;
+            content += `${CONVERSATION[i].content}`;
+        }
+        downloadFileFromText(`gpt_conversation_${new Date().toLocaleString()}.md`, content);
     })
 
 }
