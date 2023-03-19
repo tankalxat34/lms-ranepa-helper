@@ -115,9 +115,13 @@ function fillChatGPTButtons() {
         btn.addEventListener("click", () => {
             let CHATGPT_USER_OBJECT = JSON.parse(document.querySelector("#helper-chatgpt-user_object").value);
 
-            requestToChatGPT(qtext, CHATGPT_USER_OBJECT);
+            ChatGPT.set_token(CHATGPT_USER_OBJECT.accessToken);
+            console.log(ChatGPT);
+            console.log(ChatGPT.ask(qtext));
+            
+
         });
-        document.querySelectorAll(".helper-operate-answer")[i].append(btn);
+        document.querySelectorAll(".helper-operate-answer")[i].appendChild(btn);
 
         // добавление поля для ответа
         let div_gpt_response = document.createElement("div");
@@ -145,7 +149,6 @@ function fillChatGPTButtons() {
 
 
 
-class MyChatGPT { }
 
 
 
@@ -181,8 +184,8 @@ function main() {
                 chrome.storage.sync.get(_opt_names, (options) => {
 
                     if (options["helper-settings-show_chatgpt"]) {
-                        document.querySelector("#helper-settings-show_chatgpt").hidden = false;
                         fillChatGPTButtons();
+                        document.querySelector("#helper-settings-show_chatgpt").hidden = false;
                     }
 
                     if (options["helper-settings-show_hidden_inputs"]) {

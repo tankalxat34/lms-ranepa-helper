@@ -186,7 +186,6 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
             extentionNode.innerHTML = `<details>
             <summary><b style="color: #fd7e14">Доступна версия <a href="${json[0].html_url}" target="_blank">${json[0].name}</a></b></summary>            
                 ${markdown(json[0].body)}
-                <br>
                 <a href="${json[0].zipball_url}" class="btn btn-primary"><i class="fa fa-download"></i> Скачать v${json[0].name}</a>
             </details>`.replaceAll("\r\n", "<br>")
         } else {

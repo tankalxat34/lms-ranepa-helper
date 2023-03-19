@@ -38,7 +38,7 @@
     "content_scripts": [
         {
             "matches": [ "*://lms.ranepa.ru/*", "*://lms-dpo.ranepa.ru/*" ],
-            "js": [ "scripts/common.js", "scripts/drawdown.js" ]
+            "js": [ "scripts/common.js", "scripts/drawdown.js", "scripts/backend_chatgpt.js" ]
         },
         {
             "matches": [ "*://lms.ranepa.ru/my/*", "*://lms-dpo.ranepa.ru/my/*" ],
