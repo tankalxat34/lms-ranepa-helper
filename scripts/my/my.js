@@ -184,12 +184,11 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
     .then(json => {
         if (json[0].name !== MANIFEST.version) {
             extentionNode.innerHTML = `<details>
-            <summary><b style="color: green;">Доступна версия <a href="${json[0].html_url}" target="_blank">${json[0].name}</a></b></summary>            
-                ${json[0].body}
+            <summary><b style="color: #fd7e14">Доступна версия <a href="${json[0].html_url}" target="_blank">${json[0].name}</a></b></summary>            
+                ${markdown(json[0].body)}
                 <br>
                 <a href="${json[0].zipball_url}" class="btn btn-primary"><i class="fa fa-download"></i> Скачать v${json[0].name}</a>
             </details>`.replaceAll("\r\n", "<br>")
-            showAlert(`Доступна новая версия расширения LMS RANEPA Helper: ${json[0].name}<br><br>Настоятельно рекомендуется обновить его до актуального состояния, чтобы получить доступ к последним функциям и возможностям!`, "warning")
         } else {
             extentionNode.innerHTML = `<small style="color: grey;">Установлена актуальная версия</small>`
         }

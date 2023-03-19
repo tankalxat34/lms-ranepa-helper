@@ -74,7 +74,8 @@ function fillButtons(qtext = ".qtext") {
     for (let answerNode of answerNodes) {
 
         let answerButtonDiv = document.createElement("div");
-        answerButtonDiv.id = "helper-operate-answer"
+        answerButtonDiv.id = "helper-operate-answer";
+        answerButtonDiv.classList = "helper-operate-answer";
         // answerButtonDiv.innerHTML += `<h5>Поиск вопроса</h5>`
         // answerButtonDiv.style.marginTop = "5px";
 
@@ -98,6 +99,33 @@ function fillButtons(qtext = ".qtext") {
     }
 }
 
+/**
+ * Заполняет тест кнопками полями ответа от ChatGPT
+ */
+function fillChatGPTButtons() {
+    // добавление
+    for (let i = 0; i < document.querySelectorAll(".qtext").length; i++) {
+        let qtext = document.querySelectorAll(".qtext")[i].innerText;
+        qtext.text += `\n\n${document.querySelectorAll(".answer > div").innerText}`;
+        
+        let btn = document.createElement("button");
+        btn.classList = "helper-chatgpt_question_button btn btn-success";
+        btn.style.margin = "5px";
+        btn.innerText = "ChatGPT"
+        btn.addEventListener("click", () => {
+            let CHATGPT_USER_OBJECT = JSON.parse(document.querySelector("#helper-chatgpt-user_object").value);
+
+            requestToChatGPT(qtext, CHATGPT_USER_OBJECT);
+        });
+        document.querySelectorAll(".helper-operate-answer")[i].append(btn);
+
+        // добавление поля для ответа
+        let div_gpt_response = document.createElement("div");
+        div_gpt_response.id = `helper-gpt_response-${i}`;
+        // div_gpt_response.
+    }
+    // document.querySelectorAll("#helper-operate-answer")
+}
 
 
 /**
@@ -154,6 +182,7 @@ function main() {
 
                     if (options["helper-settings-show_chatgpt"]) {
                         document.querySelector("#helper-settings-show_chatgpt").hidden = false;
+                        fillChatGPTButtons();
                     }
 
                     if (options["helper-settings-show_hidden_inputs"]) {
