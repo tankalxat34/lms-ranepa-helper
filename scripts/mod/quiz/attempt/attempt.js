@@ -100,33 +100,53 @@ function fillButtons(qtext = ".qtext") {
 }
 
 /**
- * Заполняет тест кнопками полями ответа от ChatGPT
+ * Заполняет тест кнопками ChatGPT
  */
 function fillChatGPTButtons() {
-    // добавление
-    for (let i = 0; i < document.querySelectorAll(".qtext").length; i++) {
-        let qtext = document.querySelectorAll(".qtext")[i].innerText;
-        qtext.text += `\n\n${document.querySelectorAll(".answer > div").innerText}`;
-        
-        let btn = document.createElement("button");
-        btn.classList = "helper-chatgpt_question_button btn btn-success";
-        btn.style.margin = "5px";
-        btn.innerText = "ChatGPT"
-        btn.addEventListener("click", () => {
-            let CHATGPT_USER_OBJECT = JSON.parse(document.querySelector("#helper-chatgpt-user_object").value);
-
-            ChatGPT.set_token(CHATGPT_USER_OBJECT.accessToken);
-            console.log(ChatGPT);
-            console.log(ChatGPT.ask(qtext));
-            
-
-        });
-        document.querySelectorAll(".helper-operate-answer")[i].appendChild(btn);
+    var CHATGPT_USER_OBJECT = JSON.parse(document.querySelector("#helper-chatgpt-user_object").value);
+    let QUESTIONS_NODES = document.querySelectorAll(".formulation.clearfix");
+    for (let i = 0; i < QUESTIONS_NODES.length; i++) {
 
         // добавление поля для ответа
         let div_gpt_response = document.createElement("div");
         div_gpt_response.id = `helper-gpt_response-${i}`;
-        // div_gpt_response.
+        QUESTIONS_NODES[i].appendChild(div_gpt_response);
+
+
+        // добавление кнопок
+        let text_arr = QUESTIONS_NODES[i].innerText.split("\n");
+        text_arr.length -= 2;
+        let qtext = text_arr.join("\n");
+        
+        let btn = document.createElement("a");
+        btn.classList = "helper-chatgpt_question_button btn";
+        btn.style.margin = "5px";
+        btn.style.backgroundColor = "#75A99C";
+        btn.style.color = "white";
+        btn.innerHTML= `<img src="https://chat.openai.com/apple-touch-icon.png" alt="ChatGPT" width="24px" style="border-radius: 5px;"> ChatGPT`;
+        
+        btn.addEventListener("click", () => {
+            ChatGPT.access_token = CHATGPT_USER_OBJECT.accessToken;
+            console.log(ChatGPT);
+
+            div_gpt_response.innerHTML = `<p style="color: grey;">Нейронная сеть думает. Пожалуйста, подождите...</p>`
+
+            ChatGPT.ask(qtext)
+                .then(r => {
+                    console.log(r);
+                    return r;
+                })
+                .then(function (response) {
+                    div_gpt_response.innerHTML = markdown(response.choices[0].message.content);
+                })
+                .catch(function (response) {
+                    div_gpt_response.innerHTML = markdown(`${response}`);
+                })
+            
+        });
+
+        document.querySelectorAll(".helper-operate-answer")[i].appendChild(btn);
+
     }
     // document.querySelectorAll("#helper-operate-answer")
 }
