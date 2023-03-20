@@ -76,8 +76,6 @@ function fillButtons(qtext = ".qtext") {
         let answerButtonDiv = document.createElement("div");
         answerButtonDiv.id = "helper-operate-answer";
         answerButtonDiv.classList = "helper-operate-answer";
-        // answerButtonDiv.innerHTML += `<h5>Поиск вопроса</h5>`
-        // answerButtonDiv.style.marginTop = "5px";
 
         var questionText = questionTexts[questionIndex];
 
@@ -102,7 +100,7 @@ function fillButtons(qtext = ".qtext") {
 /**
  * Заполняет тест кнопками ChatGPT
  */
-function fillChatGPTButtons() {
+function fillChatGPTButtons(openai_model_name) {
     var CHATGPT_USER_OBJECT = JSON.parse(document.querySelector("#helper-chatgpt-user_object").value);
     let QUESTIONS_NODES = document.querySelectorAll(".formulation.clearfix");
     for (let i = 0; i < QUESTIONS_NODES.length; i++) {
@@ -117,16 +115,23 @@ function fillChatGPTButtons() {
         let text_arr = QUESTIONS_NODES[i].innerText.split("\n");
         text_arr.length -= 2;
         let qtext = text_arr.join("\n");
-        
+
         let btn = document.createElement("a");
         btn.classList = "helper-chatgpt_question_button btn";
         btn.style.margin = "5px";
         btn.style.backgroundColor = "#75A99C";
         btn.style.color = "white";
-        btn.innerHTML= `<img src="https://chat.openai.com/apple-touch-icon.png" alt="ChatGPT" width="24px" style="border-radius: 5px;"> ChatGPT`;
-        
+        btn.innerHTML = `<img src="https://chat.openai.com/apple-touch-icon.png" alt="ChatGPT" width="24px" style="border-radius: 5px;"> ChatGPT`;
+
         btn.addEventListener("click", () => {
+            
+            // первоначальная настройка нейронной сети
+            // сохранение токена
             ChatGPT.access_token = CHATGPT_USER_OBJECT.accessToken;
+
+            // установка языковой модели
+            ChatGPT.model = openai_model_name;
+
             console.log(ChatGPT);
 
             div_gpt_response.innerHTML = `<p style="color: grey;">Нейронная сеть думает. Пожалуйста, подождите...</p>`
@@ -142,35 +147,11 @@ function fillChatGPTButtons() {
                 .catch(function (response) {
                     div_gpt_response.innerHTML = markdown(`${response}`);
                 })
-            
+
         });
-
         document.querySelectorAll(".helper-operate-answer")[i].appendChild(btn);
-
     }
-    // document.querySelectorAll("#helper-operate-answer")
 }
-
-
-/**
- *  Добавляет блок для управления тестом
-// */
-// function addMainBlock() {
-//     let mainBlock = document.createElement("div")
-//     mainBlock.classList = "col-12 pt-3 pb-3"
-
-//     return fetch(chrome.runtime.getURL("nodes/mod/quiz/attempt/mainBlock.html"))
-//         .then(res => res.text())
-//         .then(html => {
-//             mainBlock.innerHTML = html;
-//             document.getElementById("page-header").append(mainBlock)
-//         })
-// }
-
-
-
-
-
 
 
 function main() {
@@ -210,7 +191,7 @@ function main() {
                 chrome.storage.sync.get(_opt_names, (options) => {
 
                     if (options["helper-settings-show_chatgpt"]) {
-                        fillChatGPTButtons();
+                        fillChatGPTButtons(options["helper-chatgpt-model"] || "gpt-3.5-turbo");
                         document.querySelector("#helper-settings-show_chatgpt").hidden = false;
                     }
 
@@ -240,7 +221,6 @@ function main() {
             })
 
         })
-
 
 }
 

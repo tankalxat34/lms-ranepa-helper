@@ -14,7 +14,14 @@ var ChatGPT = {
         };
     },
     /**
-     * Делает асинхронный запрос ChatGPT
+     * Возвращает строку с названием модели
+     * @returns `String`
+     */
+    get_model: function () {
+        return this.model;
+    },
+    /**
+     * Делает асинхронный запрос ChatGPT. Возвращает промис.
      * @param {s} s строковый запрос
      * @returns промис `r.json()`
      */
@@ -26,7 +33,7 @@ var ChatGPT = {
         const headers = this.get_headers();
     
         const data = {
-            model: this.model,
+            model: this.get_model(),
             messages: this.conversation,
         };
     
