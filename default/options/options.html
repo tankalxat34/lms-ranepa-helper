@@ -110,9 +110,10 @@
 
             <h5>ChatGPT</h5>
 
-            <p>В поле ниже отображен ваш accessToken для ChatGPT. accessToken - это уникальный ключ, который позволяет нейросети идентифицировать вас как пользователя и дать вам ответ. Если поле пустое, попробуйте сделать следующее:</p>
+            <p>В поле ниже отображен ваш accessToken для ChatGPT. accessToken - это уникальный ключ, который позволяет нейросети идентифицировать вас как пользователя и дать вам ответ. Если поле пустое, попробуйте сделать что-нибудь из перечисленного ниже. Если access token получить не удается - подождите некоторое время и повторите все операции снова.</p>
             <ol>
                 <li>Перейдите на <a href="https://chat.openai.com" target="_blank">главную страницу</a> ChatGPT и дождитесь ее окончательной загрузки. Затем обновите эту страницу с настройками;</li>
+                <li>Перелогиньтесь (выйдите и зайдите снова в свой аккаунт OpenAI);</li>
                 <li>Вручную скопируйте accessToken с <a href="https://chat.openai.com/api/auth/session" target="_blank">этой страницы</a> и вставьте его в поле ниже;</li>
                 <li>Отключите и включите снова тумблер <label for="helper-settings-show_chatgpt" style="cursor: pointer;"><b>Включить возможности ChatGPT</b></label>;</li>
             </ol>
@@ -126,6 +127,17 @@
                 <input type="checkbox" class="custom-control-input" id="helper-settings-show_chatgpt">
                 <label class="custom-control-label" for="helper-settings-show_chatgpt">Включить возможности ChatGPT <span id="helper-chatgpt-access_token_span"></span></label>
             </div>
+
+            <span for="helper-chatgpt-model" title="OpenAI предоставляет бесплатный доступ к моделям третьего поколения. Для моделей четвертого поколения доступ предоставляется при покупке ежемесячного тарифа">Используемая языковая модель <b>(рекомендуется <code>gpt-3.5-turbo</code>)</b>. О моделях <a href="https://platform.openai.com/docs/models/models" target="_blank">читайте тут</a>.</span>
+            <select id="helper-chatgpt-model" class="form-select custom-select"
+                aria-label="Выбрать языковую модель">
+                <option value="gpt-3.5-turbo" selected>gpt-3.5-turbo</option>
+                <option value="gpt-3.5-turbo-0301">gpt-3.5-turbo-0301</option>
+                <option value="gpt-4">gpt-4</option>
+                <option value="gpt-4-0314">gpt-4-0314</option>
+                <option value="gpt-4-32k">gpt-4-32k</option>
+                <option value="gpt-4-32k-0314">gpt-4-32k-0314</option>
+            </select>
 
             <div class="separator"></div>
             

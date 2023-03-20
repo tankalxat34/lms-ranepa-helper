@@ -6,7 +6,7 @@
  * Вернуть массив с выбранными селекторами настроек
  */
 function getOptionFields() {
-    return document.querySelectorAll("#helper-settings-card input");
+    return document.querySelectorAll("#helper-settings-card input,select");
 }
 
 

@@ -165,6 +165,12 @@ function main() {
     chatgpt_user_object.id = "helper-chatgpt-user_object"
     document.querySelector("body").appendChild(chatgpt_user_object);
 
+    let chatgpt_model = document.querySelector("input");
+    chatgpt_model.type = "hidden";
+    chatgpt_model.hidden = true;
+    chatgpt_model.id = "helper-chatgpt-model"
+    document.querySelector("body").appendChild(chatgpt_model);
+
     fetch(chrome.runtime.getURL("nodes/mod/quiz/attempt/mainBlock.html"))
         .then(res => res.text())
         .then(html => {
@@ -173,12 +179,12 @@ function main() {
         })
         .then(() => {
             // get option names from Chrome Storage
-            chrome.storage.sync.get(["_option_names_array", "chatgpt_access_token", "chatgpt_user_object"], (options) => {
+            chrome.storage.sync.get(["_option_names_array", "chatgpt_access_token", "chatgpt_user_object", "helper-chatgpt-model"], (options) => {
 
                 var _opt_names = options["_option_names_array"];
 
                 document.querySelector("#helper-chatgpt-user_object").value = options["chatgpt_user_object"];
-
+                document.querySelector("#helper-chatgpt-model").value = options["helper-chatgpt-model"] || "gpt-3.5-turbo";
 
                 // load all options from Chrome Storage
                 chrome.storage.sync.get(_opt_names, (options) => {

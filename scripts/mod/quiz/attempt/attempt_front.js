@@ -219,8 +219,9 @@ window.onload = () => {
     document.querySelector(".submitbtns").innerHTML += ` <a id="helper-btn-export_answers-2" href="#" class="btn btn-secondary" onclick="exportAnswers()"><i class="fa fa-download"></i> Экспорт в JSON</a>`
     
     const CHATGPT_USER_OBJECT = JSON.parse(document.querySelector("#helper-chatgpt-user_object").value);
+    const CHATGPT_MODEL = document.querySelector("#helper-chatgpt-model").value
     
-    console.log(CHATGPT_USER_OBJECT);
+    console.log(CHATGPT_MODEL);
 
     $("#helper-chatgpt_input")[0].oninput = () => {
         $("#helper-chatgpt_input")[0].style.height = "auto";
@@ -228,12 +229,12 @@ window.onload = () => {
     }
     $("#helper-chatgpt_div_input").on("keyup", (event) => {
         if (event.ctrlKey && event.key === "Enter") {
-            requestToChatGPT($("#helper-chatgpt_input").val(), CHATGPT_USER_OBJECT)
+            requestToChatGPT($("#helper-chatgpt_input").val(), CHATGPT_USER_OBJECT, CHATGPT_MODEL)
         }
     })
 
     $("#helper-btn-chatgpt_send").on("click", () => {
-        requestToChatGPT($("#helper-chatgpt_input").val(), CHATGPT_USER_OBJECT)
+        requestToChatGPT($("#helper-chatgpt_input").val(), CHATGPT_USER_OBJECT, CHATGPT_MODEL)
     })
 
     $("#helper-btn-chatgpt_export").on("click", () => {

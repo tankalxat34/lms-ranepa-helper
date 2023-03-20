@@ -12,9 +12,11 @@ chrome.storage.sync.get(["_option_names_array"], (options) => {
                 videoElements.forEach(element => element.removeAttribute("title"));
             }
             
-            let source_src = document.querySelector("source").src
-            let source_format = document.querySelector("source").type
-            
+            if (document.querySelector("source")) {
+                let source_src = document.querySelector("source").src
+                let source_format = document.querySelector("source").type
+            }
+
             if (document.querySelector("source") && source_format.split("/")[0] === "video") {
             
                 let a_download_video = document.createElement("span")
