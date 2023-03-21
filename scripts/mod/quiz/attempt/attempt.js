@@ -142,9 +142,15 @@ function fillChatGPTButtons(openai_model_name) {
                     return r;
                 })
                 .then(function (response) {
-                    div_gpt_response.innerHTML = markdown(response.choices[0].message.content);
+                    try {
+                        div_gpt_response.innerHTML = markdown(response.choices[0].message.content);
+                    } catch (error) {
+                        console.log(error);
+                        div_gpt_response.innerHTML = markdown(response);
+                    }
                 })
                 .catch(function (response) {
+                    console.log(response);
                     div_gpt_response.innerHTML = markdown(`${response}`);
                 })
 

@@ -46,13 +46,20 @@ var ChatGPT = {
         try {
             const response = await fetch(request);
             if (!response.ok) {
-                throw new Error(response.status);
+                // throw new Error(response.status);
+                return await response.json().error.message;
             }
             const data = await response.json();
-            save_conversation ? this.save_conversation(data.choices[0].message) : null;
+            if (save_conversation) {
+                try {
+                    this.save_conversation(data.choices[0].message);
+                } catch {
+                    null;
+                }
+            }
             return data;
         } catch (error) {
-            console.error('Fetch Error:', error);
+            console.log(error);
         }
     },
     /**

@@ -63,7 +63,7 @@ function loadOptions() {
     })
     .then(j => {
         let last_j = j
-        last_j.accessToken = document.querySelector("#helper-chatgpt-access_token").value || j.accessToken;
+        last_j.accessToken = j.accessToken || document.querySelector("#helper-chatgpt-access_token").value;
         chrome.storage.sync.set({ chatgpt_user_object: JSON.stringify(last_j) }, () => {
             console.log("UserObject saved succesfully!");
             console.log('access token all parts saved');
