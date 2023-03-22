@@ -45,20 +45,24 @@ var ChatGPT = {
     
         try {
             const response = await fetch(request);
-            if (!response.ok) {
-                // throw new Error(response.status);
-                return await response.json().error.message;
-            }
             const data = await response.json();
+            if (!response.ok) {
+                // если ошибка - вернем сообщение этой ошибки
+                return await data.error.message;
+            }
+            // если необходимо сохранить разговор - сохраняем
             if (save_conversation) {
+                // возможен случай, когда в data не будет ключа 'choices'. Тогда обрабатываем ошибку
                 try {
                     this.save_conversation(data.choices[0].message);
                 } catch {
                     null;
                 }
             }
+            // если все нормально - возвращаем результат
             return data;
         } catch (error) {
+            // в случае ошибки - выводим ее текст в консоль
             console.log(error);
         }
     },
