@@ -26,9 +26,6 @@
         background-color: var(--bg-color);
         color: var(--fg-color);
     }
-    div.helper-settings div {
-        margin: 20px 0px;
-    }
     body {
         background-color: var(--bg-color); 
     }
@@ -93,18 +90,56 @@
     .kb-slide-main > a {
         width: 30%;
     }
+
+    .navbar-collapse {
+        z-index: 1; 
+        position: absolute; 
+        left: 0; 
+        top: 0;
+        width: 100%;
+        padding: 20px;
+        box-shadow: 0px 0 10px #b4b4b4;
+    }
+
+    .nav-item .active {
+        font-weight: 800;
+    }
 </style>
+
+<nav id="nav" class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">LMS RANEPA Helper</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Главная</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../options/options.html">Настройки</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://lms.ranepa.ru/" target="_blank">СДО</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://lms-dpo.ranepa.ru/" target="_blank">ДПО</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+
 
 <body>
     <div class="slide center">
         <img src="../../icon.png" width="65px">
         <h1>LMS RANEPA Helper</h1>
-        <p class="descr">Спасибо за установку расширения!</p>
         <p>Теперь внутри СДО/ДПО РАНХиГС Вам доступны несколько десятков полезных функций!</p>
 
         <div class="kb-slide-main">
             <a class="btn btn-outline-secondary" href="https://vk.com/public207930377" target="_blank">Cообщество</a>
-            <a class="btn btn-outline-secondary" href="https://vk.com/tankalxat34" target="_blank">Автор расширения</a>
+            <a class="btn btn-outline-secondary" href="https://vk.com/tankalxat34" target="_blank">Автор</a>
             <p style="color: #707070;">О том, как настроить расширение, читайте ниже 👇</p>
         </div>
     </div>
@@ -113,13 +148,14 @@
         <h2>Что дальше?</h2>
         <p>Необходимо настроить расширение, включив необходимые Вам функции:</p>
         <ol>
+            <li>Подпишитесь на <a href="https://vk.com/public207930377" target="_blank">сообщество</a>, где будут размещаться все последние новости о работе расширения;</li>
             <li>Перейдите в <a href="../options/options.html" target="_blank">настройки</a>;</li>
             <li>Включите необходимые функции;</li>
             <li>Перезагрузите страницу СДО/ДПО, если она была открыта ранее;</li>
         </ol>
     </div>
 
-    <div class="ml-20 mr-20 mt-10">
+    <div class="ml-20 mr-20">
         <h2>Нейронная сеть ChatGPT</h2>
         <p>Если вы планируете использовать ChatGPT - вам необходимо сделать следующее:</p>
         <ol>
@@ -131,25 +167,30 @@
         </ol>
         <p>На данный момент возможности ChatGPT доступны только в тестах. Планируется интегрировать нейросеть и в другие элементы СДО/ДПО.</p>
     </div>
-    <div class="ml-20 mr-20 mt-10">
+    <div class="ml-20 mr-20">
         <h2>Обновление расширения</h2>
         <p>Иногда на главной странице СДО/ДПО будет появляться надпись о том, что появилась новая версия расширения. Обновить расширение можно следующим образом:</p>
         <ol>
-            <li>Скачайте последнюю <a href="https://github.com/tankalxat34/lms-ranepa-helper/releases/latest">стабильную</a> или <a href="https://github.com/tankalxat34/lms-ranepa-helper/archive/refs/heads/main.zip">тестовую</a> версию.</li>
+            <li>Скачайте последнюю <a href="https://github.com/tankalxat34/lms-ranepa-helper/releases/latest" target="_blank">стабильную</a> или <a href="https://github.com/tankalxat34/lms-ranepa-helper/archive/refs/heads/main.zip" target="_blank">тестовую</a> версию.</li>
             <li>Скачанный архив распакуйте в папку с уже установленным расширением, <b>подтверждая замену файлов</b>;</li>
-            <li>Обновите расширение, нажав </li>
+            <li>Перейдите в раздел установленных расширений вашего браузера;</li>
+            <li>Обновите расширение, нажав на "↻" (см. скриншот ниже);</li>
+            <li>Перезагрузите вкладки СДО/ДПО, если необходимо;</li>
         </ol>
+
+        <img src="static/ext-card.png" alt="">
     </div>
 
-    <div class="ml-20 mr-20">
+    <div style="text-align: center; margin-top: 30px;">
         <h3>Приятного использования!</h3>
     </div>
 
-    <footer style="text-align: center; margin: 35px;">
-        <small>© tankalxat34 - 2023</small>
-    </footer>
+    <div style="text-align: center; margin: 30px;">
+        <p>© tankalxat34 - 2023</p>
+    </div>
 
     <script src="welcome.js"></script>
+    <script src="../_common_static/navbar.js"></script>
 </body>
 
 
