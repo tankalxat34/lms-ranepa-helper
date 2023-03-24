@@ -1,15 +1,26 @@
-# RANEPA Helper
+# <img src="https://raw.githubusercontent.com/tankalxat34/lms-ranepa-helper/main/icon.png" width=30px> LMS RANEPA Helper
 
 <!-- <img src="https://img.shields.io/badge/dynamic/json?url=https://api.github.com/repos/tankalxat34/lms-ranepa-helper/releases&label=Версия&query=$[0].name&color=%23990000&style=for-the-badge"> -->
 
-Расширение для браузеров на базе Chromium, облегчающее работу с [СДО РАНХиГС](https://lms.ranepa.ru/) и [ДПО РАНХиГС](https://lms-dpo.ranepa.ru/).
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/tankalxat34/lms-ranepa-helper)](https://github.com/tankalxat34/lms-ranepa-helper/releases/latest)
+![GitHub Release Date](https://img.shields.io/github/release-date/tankalxat34/lms-ranepa-helper)
+![GitHub last commit](https://img.shields.io/github/last-commit/tankalxat34/lms-ranepa-helper)
 
-**Все последние версии расширения можно найти [здесь](https://github.com/tankalxat34/lms-ranepa-helper/releases).**
+
+**LMS RANEPA Helper** - это бесплатное расширение для браузеров на базе Chromium, облегчающее работу с [СДО РАНХиГС](https://lms.ranepa.ru/) и [ДПО РАНХиГС](https://lms-dpo.ranepa.ru/). 
+Расширение значительно увеличивает стандартный функционал СДО, бесплатно предоставляя множество возможностей и сервисов.
+
+Поддерживаются браузеры:
+- Google Chrome;
+- Microsoft Edge;
+- Atom;
+- и другие, созданные на базе Google Chrome (Chromium);
 
 ## Скачать
 
-- **Последняя стабильная версия:** *[тык](https://github.com/tankalxat34/lms-ranepa-helper/releases)*.
+- **Последняя стабильная версия:** [👉 тык 👈](https://github.com/tankalxat34/lms-ranepa-helper/releases/latest).
 - Версия в разработке: *[тык](https://github.com/tankalxat34/lms-ranepa-helper/archive/refs/heads/main.zip)*.
+- *Перечень всех версий доступен [здесь](https://github.com/tankalxat34/lms-ranepa-helper/releases).*
 
 ## Установка
 
@@ -48,12 +59,6 @@
 - Приветственный блок на главной странице;
 - Возможность обновить расширение не покидая СДО или ДПО;
 - И МНОГОЕ ДРУГОЕ;
-
-В будущем планируется реализовать следующие возможности:
-- Различные встроенные сервисы-помошники для студентов:
-  - автономный ToDo список задач на день
-  - пятерка новостей из elibrary, Киберленинка, Хабр и других источников
-  - *и многое другое...*
   
 ## Скриншоты
 ### Главное меню
