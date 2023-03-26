@@ -194,7 +194,7 @@ function requestToChatGPT(content, uo, openai_model = "gpt-3.5-turbo") {
             <h6>${data.choices[0].message.role[0] + data.choices[0].message.role.slice(1)} (${new Date().toLocaleTimeString()})</h6>
             ${html}
             <div class="buttons" style="display: flex;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Markdown-mark.svg" title="Скопировать ответ в Markdown" width=20px style="cursor: pointer;" onclick="navigator.clipboard.writeText(\`${data.choices[0].message.content.trim()}\`)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Markdown-mark.svg" alt="Скопировать ответ в Markdown" title="Скопировать ответ в Markdown" width=20px style="cursor: pointer;" onclick="navigator.clipboard.writeText(\`${data.choices[0].message.content.trim()}\`)">
             </div>
             </div>`;
             CONVERSATION.push({"role": "assistant", "content": data.choices[0].message.content});
