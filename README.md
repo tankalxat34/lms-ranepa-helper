@@ -5,7 +5,7 @@
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/tankalxat34/lms-ranepa-helper)](https://github.com/tankalxat34/lms-ranepa-helper/releases/latest)
 ![GitHub Release Date](https://img.shields.io/github/release-date/tankalxat34/lms-ranepa-helper)
 ![GitHub last commit](https://img.shields.io/github/last-commit/tankalxat34/lms-ranepa-helper)
-
+[![VK Сообщество](https://img.shields.io/badge/-%D0%A1%D0%BE%D0%BE%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%BE-0077FF?logo=vk)](https://vk.com/public207930377)
 
 **LMS RANEPA Helper** - это бесплатное расширение для браузеров на базе Chromium, облегчающее работу с [СДО РАНХиГС](https://lms.ranepa.ru/) и [ДПО РАНХиГС](https://lms-dpo.ranepa.ru/). 
 Расширение значительно увеличивает стандартный функционал СДО, бесплатно предоставляя множество возможностей и сервисов.
