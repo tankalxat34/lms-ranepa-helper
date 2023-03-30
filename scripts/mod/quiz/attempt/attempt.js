@@ -121,7 +121,7 @@ function fillChatGPTButtons(openai_model_name) {
         btn.style.margin = "5px";
         btn.style.backgroundColor = "#75A99C";
         btn.style.color = "white";
-        btn.innerHTML = `<img src="https://chat.openai.com/apple-touch-icon.png" alt="ChatGPT" width="24px" style="border-radius: 5px;"> ChatGPT`;
+        btn.innerHTML = `<img src="https://raw.githubusercontent.com/tankalxat34/lms-ranepa-helper/main/openai.png" alt="ChatGPT" width="24px" style="border-radius: 5px;"> ChatGPT`;
 
         btn.addEventListener("click", () => {
             
