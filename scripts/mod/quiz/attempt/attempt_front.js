@@ -1,6 +1,13 @@
 
-
+/**
+ * Переменная для хранения диалога с ботом. При каждом запросе к нейросети отправляется вместе с запросом, чтобы обеспечить сохранение контекста беседы. Начало беседы может быть удалено, чтобы освободить место для хранения токенов.
+ */
 var CONVERSATION = new Array();
+
+/**
+ * Переменная для хранения всего диалога с ботом. Никуда не отправляется, используется для копирования сообщений. Элементы в этом массиве никогда не удялаются.
+ */
+var FULL_CONVERSATION = new Array();
 
 function clearResponseForm() {
     /*
@@ -154,6 +161,23 @@ function importAnswers(e) {
     document.querySelector("#helper-btn-import_answers").value = ""
 }
 
+/**
+ * Копирует текст сообщения в буфер обмена 
+ */
+function copyGPTMessage(index) {
+    navigator.clipboard.writeText(FULL_CONVERSATION[index].content.trim());
+}
+
+/**
+ * Удаляет указанное количество сообщений из начала диалога.
+ * @param {*} count количество сообщений, которое будет удалено. Удаляются сообщения в начале диалога
+ */
+function deleteMessagesGPTConversation(count) {
+    for (let index = 0; index < count; index++) {
+        CONVERSATION.shift()
+    }
+}
+
 function requestToChatGPT(content, uo, openai_model = "gpt-3.5-turbo") {
     /*
     curl https://api.openai.com/v1/chat/completions \
@@ -165,6 +189,7 @@ function requestToChatGPT(content, uo, openai_model = "gpt-3.5-turbo") {
     }'
     */
     CONVERSATION.push({"role": "user", "content": content});
+    FULL_CONVERSATION.push({"role": "user", "content": content});
 
     $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="user" style="border-radius: 10px; background-color: #E2E2E2;">
     <h6>${uo.user.email} (${new Date().toLocaleTimeString()})</h6>
@@ -187,6 +212,9 @@ function requestToChatGPT(content, uo, openai_model = "gpt-3.5-turbo") {
         }),
         success: function (data) {
             console.log(data);
+            CONVERSATION.push({"role": "assistant", "content": data.choices[0].message.content});
+            FULL_CONVERSATION.push({"role": "assistant", "content": data.choices[0].message.content});
+            
             let html = markdown(data.choices[0].message.content);
             $("#helper-chatgpt_input")[0].disabled = false;
             $("#helper-btn-chatgpt_send")[0].disabled = false;
@@ -194,19 +222,47 @@ function requestToChatGPT(content, uo, openai_model = "gpt-3.5-turbo") {
             <h6>${data.choices[0].message.role[0] + data.choices[0].message.role.slice(1)} (${new Date().toLocaleTimeString()})</h6>
             ${html}
             <div class="buttons" style="display: flex;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Markdown-mark.svg" alt="Скопировать ответ в Markdown" title="Скопировать ответ в Markdown" width=20px style="cursor: pointer;" onclick="navigator.clipboard.writeText(\`${data.choices[0].message.content.trim()}\`)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Markdown-mark.svg" alt="Скопировать ответ в Markdown" title="Скопировать ответ в Markdown" width=20px style="cursor: pointer;" onclick="copyGPTMessage(${CONVERSATION.length - 1})">
             </div>
             </div>`;
-            CONVERSATION.push({"role": "assistant", "content": data.choices[0].message.content});
         },
         error: function (xhr, status, error) {
             let resp = xhr.responseJSON.error;
             $("#helper-chatgpt_input")[0].disabled = false;
             $("#helper-btn-chatgpt_send")[0].disabled = false;
-            $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="assistant" style="border-radius: 10px; background-color: #E2E2E2; color: red;">
-            <h6>${status} - ${resp.type}.${resp.code} (${new Date().toLocaleTimeString()})</h6>
-            ${markdown(resp.message)}
-            </div>`;
+
+            let html_hint_tokenlimit = `<b>Совет:</b> попробуйте удалить несколько первых сообщений из беседы, чтобы продолжить общение с ботом. Контекст беседы может незначительно измениться, однако, освободив место для диалога, вы сможете продолжить общение. Удаление сообщений не скроет их из вашего диалога, не затронет возможности копирования текста или функцию экспорта всего диалога. После очистки сообщений напишите боту "продолжи" или "продолжай", чтобы получить ответ до конца. <b>Обратите внимание! Очистив всю беседу вы потеряете заданный контекст беседы!</b>`
+
+            let CONV_NUMBER = CONVERSATION.length - 1
+
+            if (resp.code === "context_length_exceeded") {
+                $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="assistant" style="border-radius: 10px; background-color: #E2E2E2;">
+                <h6>${status} - ${resp.type}.${resp.code} (${new Date().toLocaleTimeString()})</h6>
+                <div style="color: red;">
+                ${markdown(resp.message)}
+                </div>
+                
+                <div>
+                    <p>${html_hint_tokenlimit}</p>
+
+                    <div style="display: flex;">
+                        <button class="btn btn-outline-secondary helper-class-chatgpt-message_keyboard-clear_conversation" style="margin-right: 10px;" onclick="deleteMessagesGPTConversation($('#helper-chatgpt-clear_conversation-${CONV_NUMBER}').val()); showAlert('Указанные сообщения удалены!');">Удалить сообщений: </button>
+                        <input type="number" id="helper-chatgpt-clear_conversation-${CONV_NUMBER}" class="form-control", style="max-width: 10%; margin-right: 10px;" value="4" min="1" max="${CONVERSATION.length}">
+                        <button class="btn btn-outline-primary" style="margin-right: 10px;" onclick="CONVERSATION.length = 0; showAlert('Беседа успешно очищена!')">Очистить всю беседу</button>
+                    </div>
+
+                </div>
+
+                </div>`;
+
+            } else {
+                $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="assistant" style="border-radius: 10px; background-color: #E2E2E2;">
+                <h6>${status} - ${resp.type}.${resp.code} (${new Date().toLocaleTimeString()})</h6>
+                <div style="color: red;">
+                ${markdown(resp.message)}
+                </div>
+                </div>`;
+            }
         }
     });
 }
@@ -239,9 +295,9 @@ window.onload = () => {
 
     $("#helper-btn-chatgpt_export").on("click", () => {
         let content = "<!-- Generated automatically using the LMS RANEPA HELPER extension (c) tankalxat34 -->\n";
-        for (let i = 0; i < CONVERSATION.length; i ++) {
-            content += `\n\n## ${CONVERSATION[i].role}\n\n`;
-            content += `${CONVERSATION[i].content}`;
+        for (let i = 0; i < FULL_CONVERSATION.length; i ++) {
+            content += `\n\n## ${FULL_CONVERSATION[i].role}\n\n`;
+            content += `${FULL_CONVERSATION[i].content}`;
         }
         downloadFileFromText(`gpt_conversation_${new Date().toLocaleString()}.md`, content);
     })

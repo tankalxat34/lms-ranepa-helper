@@ -23,6 +23,7 @@ var ChatGPT = {
     /**
      * Делает асинхронный запрос ChatGPT. Возвращает промис.
      * @param {s} s строковый запрос
+     * @param {save_conversation} save_conversation `true`, если необходимо сохранять контекст беседы
      * @returns промис `r.json()`
      */
     ask: async function (s, save_conversation = true) {

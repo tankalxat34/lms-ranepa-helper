@@ -74,7 +74,9 @@ function loadOptions() {
     })
     .catch(e => {
         // console.log(e);
-        document.querySelector("#helper-chatgpt-access_token_span").innerText = "Ошибка во входе в аккаунт ChatGPT! Войдите в свой аккаунт ChatGPT и откройте эту страницу еще раз!";
+        document.querySelector("#helper-chatgpt-access_token_descr").innerText = "Внимание! Это сообщение об ошибке может быть недостоверным. Самостоятельно проверяйте работу ChatGPT в СДО/ДПО РАНХиГС. Со включенным VPN проблемы с получением ответа от OpenAI не будет.";
+        document.querySelector("#helper-chatgpt-access_token_descr").style.color = "#FF7F00";
+        document.querySelector("#helper-chatgpt-access_token_span").innerText = "Ошибка получения данных от OpenAI. Войдите в аккаунт на официальном сайте или повторите попытку позднее.";
         document.querySelector("#helper-chatgpt-access_token_span").style.color = "red";
         chrome.storage.sync.get(["helper-chatgpt-access_token"], (options) => {
             document.querySelector("#helper-chatgpt-access_token").value = options["helper-chatgpt-access_token"];
