@@ -132,8 +132,6 @@ function fillChatGPTButtons(openai_model_name) {
             // установка языковой модели
             ChatGPT.model = openai_model_name;
 
-            console.log(ChatGPT);
-
             div_gpt_response.innerHTML = `<p style="color: grey;">Нейронная сеть думает. Пожалуйста, подождите...</p>`
 
             ChatGPT.ask(qtext)
@@ -155,14 +153,18 @@ function fillChatGPTButtons(openai_model_name) {
                 })
 
         });
-        document.querySelectorAll(".helper-operate-answer")[i].appendChild(btn);
+        if (document.querySelectorAll(".helper-operate-answer").length) {
+            document.querySelectorAll(".helper-operate-answer")[i].appendChild(btn);
+        } else {
+            let div = document.createElement("div");
+            div.appendChild(btn);
+            document.querySelectorAll(".answer")[i].appendChild(div);
+        }
     }
 }
 
 
 function main() {
-    fillButtons();
-
     let mainBlock = document.createElement("div")
     mainBlock.classList = "col-12 pt-3 pb-3";
 
@@ -195,6 +197,14 @@ function main() {
 
                 // load all options from Chrome Storage
                 chrome.storage.sync.get(_opt_names, (options) => {
+
+                    if (options["helper-settings-show_operate_btns_block"]) {
+                        document.querySelector("#helper-settings-show_operate_btns_block").hidden = false;
+                    }
+
+                    if (options["helper-settings-show_btns_quick_question"]) {
+                        fillButtons();
+                    }
 
                     if (options["helper-settings-show_chatgpt"]) {
                         fillChatGPTButtons(options["helper-chatgpt-model"] || "gpt-3.5-turbo");

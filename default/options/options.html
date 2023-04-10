@@ -81,6 +81,9 @@
           <a class="nav-link" href="../options/options.html">Настройки</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="../chatgpt/chatgpt.html">ChatGPT</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="https://lms.ranepa.ru/" target="_blank">СДО</a>
         </li>
         <li class="nav-item">
@@ -88,7 +91,7 @@
         </li>
       </ul>
     </div>
-  </nav>
+</nav>
   
 
 
@@ -184,16 +187,16 @@
                 <div class="separator"></div>
                 
                 <h5>Страница с попыткой</h5>
-                <div class="custom-control custom-switch" id="helper-settings-div-changeable_form_action" title="Включить возможность изменения ссылки для отправки теста. Функция полезна в том случае, если вы хотите изучить тело запроса формы с тестом. Для таких целей подходит webhook.site">
-                    <input type="checkbox" class="custom-control-input" id="helper-settings-changeable_form_action" >
-                    <label class="custom-control-label" for="helper-settings-changeable_form_action">Включить возможность изменения URL для POST запроса в тестах</label>
-                </div>
-                
-                <div class="custom-control custom-switch" id="helper-settings-div-show_hidden_inputs" title="Всегда отображать скрытые поля ввода в тестах. Обычно в таких полях содержится информация, необходимая для отправки формы. Не рекомендуется редактировать эти поля!">
-                    <input type="checkbox" class="custom-control-input" id="helper-settings-show_hidden_inputs">
-                    <label class="custom-control-label" for="helper-settings-show_hidden_inputs">Отображать скрытые input теги в тестах</label>
+                <div class="custom-control custom-switch" id="helper-settings-div-show_btns_quick_question" title="Включить отображение кнопок для быстрого поиска в популярных поисковых системах для каждого вопроса">
+                    <input type="checkbox" class="custom-control-input" id="helper-settings-show_btns_quick_question" >
+                    <label class="custom-control-label" for="helper-settings-show_btns_quick_question">Отображать кнопки быстрого поиска вопросов в поисковых системах</label>
                 </div>
     
+                <div class="custom-control custom-switch" id="helper-settings-div-show_operate_btns_block" title="Включить отображение кнопок для оперирования тестом (импорт/экспорт ответов, сохранение ответов в Moodle, скачивание страницы и т.д.)">
+                    <input type="checkbox" class="custom-control-input" id="helper-settings-show_operate_btns_block" >
+                    <label class="custom-control-label" for="helper-settings-show_operate_btns_block">Показывать кнопки оперирования тестом</label>
+                </div>
+
                 <div class="separator"></div>
     
     
@@ -213,9 +216,19 @@
                     <input type="checkbox" class="custom-control-input" id="helper-settings-show_targetblank_video_button">
                     <label class="custom-control-label" for="helper-settings-show_targetblank_video_button">Включить кнопку "Открыть видео в новой вкладке"</label>
                 </div>
+
+                <div class="separator"></div>
         
                 <h4>Провинутые настройки</h4>
-                <p>Настройки для данной секции в разработке</p>
+                <div class="custom-control custom-switch" id="helper-settings-div-changeable_form_action" title="Включить возможность изменения ссылки для отправки теста. Функция полезна в том случае, если вы хотите изучить тело запроса формы с тестом. Для таких целей подходит webhook.site">
+                    <input type="checkbox" class="custom-control-input" id="helper-settings-changeable_form_action" >
+                    <label class="custom-control-label" for="helper-settings-changeable_form_action">Включить возможность изменения URL для POST запроса в тестах</label>
+                </div>
+                
+                <div class="custom-control custom-switch" id="helper-settings-div-show_hidden_inputs" title="Всегда отображать скрытые поля ввода в тестах. Обычно в таких полях содержится информация, необходимая для отправки формы. Не рекомендуется редактировать эти поля!">
+                    <input type="checkbox" class="custom-control-input" id="helper-settings-show_hidden_inputs">
+                    <label class="custom-control-label" for="helper-settings-show_hidden_inputs">Отображать скрытые input теги в тестах</label>
+                </div>
             </div>
     
             <!-- <button id="helper-settings-btn_save" class="btn btn-primary m-3" style="max-width: 30%;">Сохранить</button> -->

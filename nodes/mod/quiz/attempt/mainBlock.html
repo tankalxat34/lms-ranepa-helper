@@ -14,27 +14,30 @@
             </form>
         </div>
 
-        <h5 class="mt-3">Работа с формой</h5>
-
-        <button title="Экспортируйте свои ответы в JSON файл и отправьте его одногруппникам, чтобы помочь в прохождении этого теста" id="helper-btn-export_answers-2" class="btn btn-secondary" onclick="exportAnswers()"><i class="fa fa-arrow-down"></i> Экспорт ответов</button>
-        
-        <label title="Импортируйте ответы, загрузив JSON файл сюда" for="helper-btn-import_answers" style="margin-top: 8px;" class="btn btn-secondary"><i class="fa fa-arrow-up"></i> Импорт ответов</label>
-        
-        <button title="Сохраните свои ответы в СДО, чтобы после перезагрузки страницы не потерять их" class="btn btn-secondary" id="helper-btn-m_save_changes-2" onclick="M.mod_quiz.autosave.save_changes(); showAlert('Ответы успешно сохранены в Moodle')"><i class="fa fa-save"></i> Сохранить в Moodle</button>
-        
-        <a title="Скачать страницу" onclick="this.href='data:text/html;charset=UTF-8,'+encodeURIComponent(document.documentElement.outerHTML); showAlert('Страница успешно скачана в формате HTML')" href="#" class="btn btn-secondary" download="page.html"><i class="fa fa-download"></i> Сохранить страницу</a>
-        
-        <button title="Перезагрузить страницу" class="btn btn-secondary" id="helper-btn-refresh-2" onclick="M.mod_quiz.autosave.save_changes(); window.location.reload(); showAlert('Ответы сохранены, форма перезагружается... Пожалуйста, подождите...')"><i class="fa fa-refresh"></i> Перезагрузить</button>
-        
-        <button title="Удалить все ответы" class="btn btn-secondary" id="helper-btn-clear_form-2" onclick="clearResponseForm(); showAlert('Форма была очищена')"><i class="fa fa-remove"></i> Очистить форму</button>
-        
-        <div id="helper-settings-changeable_form_action" class="mt-3" hidden>
-            <h5>Ссылка для отправки формы</h5>
-            <p>Вставьте сюда ссылку, по которой будет отправлено содержимое этой формы. Настройка применяется автоматически</p>
-            <input type="url" class="form-control" id="helper-settings-changeable_form_action-input" placeholder="">
+        <div id="helper-settings-show_operate_btns_block" class="mt-3" hidden>
+            <h5 class="mt-3">Работа с формой</h5>
+    
+            <button title="Экспортируйте свои ответы в JSON файл и отправьте его одногруппникам, чтобы помочь в прохождении этого теста" id="helper-btn-export_answers-2" class="btn btn-secondary" onclick="exportAnswers()"><i class="fa fa-arrow-down"></i> Экспорт ответов</button>
+            
+            <label title="Импортируйте ответы, загрузив JSON файл сюда" for="helper-btn-import_answers" style="margin-top: 8px;" class="btn btn-secondary"><i class="fa fa-arrow-up"></i> Импорт ответов</label>
+            
+            <button title="Сохраните свои ответы в СДО, чтобы после перезагрузки страницы не потерять их" class="btn btn-secondary" id="helper-btn-m_save_changes-2" onclick="M.mod_quiz.autosave.save_changes(); showAlert('Ответы успешно сохранены в Moodle')"><i class="fa fa-save"></i> Сохранить в Moodle</button>
+            
+            <a title="Скачать страницу" onclick="this.href='data:text/html;charset=UTF-8,'+encodeURIComponent(document.documentElement.outerHTML); showAlert('Страница успешно скачана в формате HTML')" href="#" class="btn btn-secondary" download="page.html"><i class="fa fa-download"></i> Сохранить страницу</a>
+            
+            <button title="Перезагрузить страницу" class="btn btn-secondary" id="helper-btn-refresh-2" onclick="M.mod_quiz.autosave.save_changes(); window.location.reload(); showAlert('Ответы сохранены, форма перезагружается... Пожалуйста, подождите...')"><i class="fa fa-refresh"></i> Перезагрузить</button>
+            
+            <button title="Удалить все ответы" class="btn btn-secondary" id="helper-btn-clear_form-2" onclick="clearResponseForm(); showAlert('Форма была очищена')"><i class="fa fa-remove"></i> Очистить форму</button>
+            
+            <div id="helper-settings-changeable_form_action" class="mt-3" hidden>
+                <h5>Ссылка для отправки формы</h5>
+                <p>Вставьте сюда ссылку, по которой будет отправлено содержимое этой формы. Настройка применяется автоматически</p>
+                <input type="url" class="form-control" id="helper-settings-changeable_form_action-input" placeholder="">
+            </div>
+    
+            <input type="file" id="helper-btn-import_answers" style="display: none;" class="btn btn-secondary" accept="application/json" onload="main_attempt_front()"></input>
         </div>
 
-        <input type="file" id="helper-btn-import_answers" style="display: none;" class="btn btn-secondary" accept="application/json" onload="main_attempt_front()"></input>
     
         <div id="helper-settings-show_chatgpt" class="mt-3" hidden>
             <!-- <h5 onclick="window.open('https://chat.openai.com')" title="Перейти в ChatGPT" style="cursor: pointer;"><img src="https://chat.openai.com/apple-touch-icon.png" alt="ChatGPT" width="24px" style="border-radius: 5px;"> ChatGPT</h5> -->
