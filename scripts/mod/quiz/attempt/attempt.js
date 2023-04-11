@@ -100,8 +100,9 @@ function fillButtons(qtext = ".qtext") {
 /**
  * Заполняет тест кнопками ChatGPT
  */
-function fillChatGPTButtons(openai_model_name) {
-    var CHATGPT_USER_OBJECT = JSON.parse(document.querySelector("#helper-chatgpt-user_object").value);
+function fillChatGPTButtons(openai_model_name, user_object_from_options) {
+    // var CHATGPT_USER_OBJECT = JSON.parse(document.querySelector("#helper-chatgpt-user_object").value);
+    var CHATGPT_USER_OBJECT = user_object_from_options;
     let QUESTIONS_NODES = document.querySelectorAll(".formulation.clearfix");
     for (let i = 0; i < QUESTIONS_NODES.length; i++) {
 
@@ -168,18 +169,6 @@ function main() {
     let mainBlock = document.createElement("div")
     mainBlock.classList = "col-12 pt-3 pb-3";
 
-    let chatgpt_user_object = document.querySelector("input");
-    chatgpt_user_object.type = "hidden";
-    chatgpt_user_object.hidden = true;
-    chatgpt_user_object.id = "helper-chatgpt-user_object"
-    document.querySelector("body").appendChild(chatgpt_user_object);
-
-    let chatgpt_model = document.querySelector("input");
-    chatgpt_model.type = "hidden";
-    chatgpt_model.hidden = true;
-    chatgpt_model.id = "helper-chatgpt-model"
-    document.querySelector("body").appendChild(chatgpt_model);
-
     fetch(chrome.runtime.getURL("nodes/mod/quiz/attempt/mainBlock.html"))
         .then(res => res.text())
         .then(html => {
@@ -191,9 +180,9 @@ function main() {
             chrome.storage.sync.get(["_option_names_array", "chatgpt_access_token", "chatgpt_user_object", "helper-chatgpt-model"], (options) => {
 
                 var _opt_names = options["_option_names_array"];
+                var chatgpt_user_object = JSON.parse(options["chatgpt_user_object"])
 
-                document.querySelector("#helper-chatgpt-user_object").value = options["chatgpt_user_object"];
-                document.querySelector("#helper-chatgpt-model").value = options["helper-chatgpt-model"] || "gpt-3.5-turbo";
+                console.log(chatgpt_user_object);
 
                 // load all options from Chrome Storage
                 chrome.storage.sync.get(_opt_names, (options) => {
@@ -207,7 +196,7 @@ function main() {
                     }
 
                     if (options["helper-settings-show_chatgpt"]) {
-                        fillChatGPTButtons(options["helper-chatgpt-model"] || "gpt-3.5-turbo");
+                        fillChatGPTButtons(options["helper-chatgpt-model"] || "gpt-3.5-turbo", chatgpt_user_object);
                         document.querySelector("#helper-settings-show_chatgpt").hidden = false;
                     }
 
