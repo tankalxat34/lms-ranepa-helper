@@ -227,6 +227,7 @@ function requestToChatGPT(content, uo, openai_model = "gpt-3.5-turbo") {
             </div>`;
         },
         error: function (xhr, status, error) {
+            console.log(xhr.responseJSON);
             let resp = xhr.responseJSON.error;
             $("#helper-chatgpt_input")[0].disabled = false;
             $("#helper-btn-chatgpt_send")[0].disabled = false;

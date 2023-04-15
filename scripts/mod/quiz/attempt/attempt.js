@@ -165,7 +165,53 @@ function fillChatGPTButtons(openai_model_name, user_object_from_options) {
 }
 
 
+function addListenersToChat() {
+
+
+    document.querySelector("#helper-chatgpt_input").addEventListener("input", () => {
+        document.querySelector("#helper-chatgpt_input").style.height = "auto";
+        document.querySelector("#helper-chatgpt_input").style.height = document.querySelector("#helper-chatgpt_input").scrollHeight + "px";
+    })
+
+    document.querySelector("#helper-btn-chatgpt_export").addEventListener("click", () => {
+        let content = "<!-- Generated automatically using the LMS RANEPA HELPER extension (c) tankalxat34 -->\n";
+        for (let i = 0; i < ChatGPT.conversation.length; i ++) {
+            content += `\n\n## ${ChatGPT.conversation[i].role}\n\n`;
+            content += `${ChatGPT.conversation[i].content}`;
+        }
+        downloadFileFromText(`conversation ${new Date().toLocaleString()}.md`, content);
+    })
+
+    document.querySelector("#helper-chatgpt_div_input").addEventListener("keyup", (event) => {
+        if (event.ctrlKey && event.key === "Enter") {
+
+            // отрисовываем сообщение в чате
+            ChatCore.add();
+
+            // отправляем запрос в ChatGPT
+            ChatGPT.ask(document.querySelector("#helper-chatgpt_input").value, true)
+                .then(function (response) {
+                    try {
+                        // отрисовываем сообщение от бота
+                        ChatCore.add(response.choices[0].message);
+                    } catch (error) {
+                        // если ошибка в выполнении функции - пишем сообщение об ошибке
+                        console.log(error);
+                        ChatCore.add(response);
+                    }
+                })
+                .catch(function (response) {
+                    // если ошибка на сервере - пишем сообщение об ошибке
+                    console.log(response);
+                    ChatCore.add(`${response}`);
+                })
+        }
+    })
+}
+
+
 function main() {
+    
     let mainBlock = document.createElement("div")
     mainBlock.classList = "col-12 pt-3 pb-3";
 
@@ -184,6 +230,13 @@ function main() {
 
                 console.log(chatgpt_user_object);
 
+                // первоначальная настройка нейронной сети
+                ChatGPT.uo = chatgpt_user_object;
+
+                // установка языковой модели
+                ChatGPT.model = options["helper-chatgpt-model"];
+
+
                 // load all options from Chrome Storage
                 chrome.storage.sync.get(_opt_names, (options) => {
 
@@ -197,6 +250,7 @@ function main() {
 
                     if (options["helper-settings-show_chatgpt"]) {
                         fillChatGPTButtons(options["helper-chatgpt-model"] || "gpt-3.5-turbo", chatgpt_user_object);
+                        addListenersToChat();
                         document.querySelector("#helper-settings-show_chatgpt").hidden = false;
                     }
 

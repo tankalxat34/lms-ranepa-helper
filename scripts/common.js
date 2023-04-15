@@ -10,16 +10,6 @@ const menu_items_dropdown = [
         title: "Общие настройки",
         href: "https://lms.ranepa.ru/user/preferences.php",
         blank: true,
-    },
-    {
-        title: "GitHub",
-        href: "https://github.com/tankalxat34/lms-ranepa-helper",
-        blank: true,
-    },
-    {
-        title: "Разработчик расширения",
-        href: "https://vk.com/tankalxat34",
-        blank: true,
     }
 ]
 
@@ -43,6 +33,16 @@ function addSrcScriptToEnd(src) {
     document.body.appendChild(_script)
 }
 
+function downloadFileFromText(filename, content) {
+    var a = document.createElement('a');
+    var blob = new Blob([content], { type: "text/plain;charset=UTF-8" });
+    a.href = window.URL.createObjectURL(blob);
+    a.download = filename;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    delete a;
+}
 
 /**
  * Добавить скрипт в head
