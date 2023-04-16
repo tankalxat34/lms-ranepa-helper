@@ -275,33 +275,22 @@ window.onload = () => {
     
     document.querySelector(".submitbtns").innerHTML += ` <a id="helper-btn-export_answers-2" href="#" class="btn btn-secondary" onclick="exportAnswers()"><i class="fa fa-download"></i> Экспорт в JSON</a>`
     
-    // const CHATGPT_USER_OBJECT = JSON.parse(document.querySelector("#helper-chatgpt-user_object").value);
-    // const CHATGPT_MODEL = document.querySelector("#helper-chatgpt-model").value
-    
-    // console.log(CHATGPT_MODEL);
+    globalThis.addEventListener("keypress", (event) => {
+        if (event.shiftKey && event.code === "KeyS") {
+            M.mod_quiz.autosave.save_changes();
+            showAlert("Ответы успешно сохранены в Moodle!");
+        }
 
-    // $("#helper-chatgpt_input")[0].oninput = () => {
-    //     $("#helper-chatgpt_input")[0].style.height = "auto";
-    //     $("#helper-chatgpt_input")[0].style.height = $("#helper-chatgpt_input")[0].scrollHeight + "px";
-    // }
-    // $("#helper-chatgpt_div_input").on("keyup", (event) => {
-    //     if (event.ctrlKey && event.key === "Enter") {
-    //         requestToChatGPT($("#helper-chatgpt_input").val(), CHATGPT_USER_OBJECT, CHATGPT_MODEL)
-    //     }
-    // })
+        if (event.shiftKey && event.code === "KeyE") {
+            exportAnswers();
+        }
 
-    // $("#helper-btn-chatgpt_send").on("click", () => {
-    //     requestToChatGPT($("#helper-chatgpt_input").val(), CHATGPT_USER_OBJECT, CHATGPT_MODEL)
-    // })
-
-    // $("#helper-btn-chatgpt_export").on("click", () => {
-    //     let content = "<!-- Generated automatically using the LMS RANEPA HELPER extension (c) tankalxat34 -->\n";
-    //     for (let i = 0; i < FULL_CONVERSATION.length; i ++) {
-    //         content += `\n\n## ${FULL_CONVERSATION[i].role}\n\n`;
-    //         content += `${FULL_CONVERSATION[i].content}`;
-    //     }
-    //     downloadFileFromText(`gpt_conversation_${new Date().toLocaleString()}.md`, content);
-    // })
+        if (event.shiftKey && event.code === "KeyR") {
+            M.mod_quiz.autosave.save_changes();
+            window.location.reload();
+            showAlert("Ответы успешно сохранены в Moodle, страница перезагружается...");
+        }
+    })
 
 }
 
