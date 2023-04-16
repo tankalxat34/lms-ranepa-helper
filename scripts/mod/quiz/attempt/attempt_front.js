@@ -276,16 +276,16 @@ window.onload = () => {
     document.querySelector(".submitbtns").innerHTML += ` <a id="helper-btn-export_answers-2" href="#" class="btn btn-secondary" onclick="exportAnswers()"><i class="fa fa-download"></i> Экспорт в JSON</a>`
     
     globalThis.addEventListener("keypress", (event) => {
-        if (event.shiftKey && event.code === "KeyS") {
+        if (event.shiftKey && event.ctrlKey && event.code === "KeyS") {
             M.mod_quiz.autosave.save_changes();
             showAlert("Ответы успешно сохранены в Moodle!");
         }
 
-        if (event.shiftKey && event.code === "KeyE") {
+        if (event.shiftKey && event.ctrlKey && event.code === "KeyE") {
             exportAnswers();
         }
 
-        if (event.shiftKey && event.code === "KeyR") {
+        if (event.shiftKey && event.ctrlKey && event.code === "KeyR") {
             M.mod_quiz.autosave.save_changes();
             window.location.reload();
             showAlert("Ответы успешно сохранены в Moodle, страница перезагружается...");
