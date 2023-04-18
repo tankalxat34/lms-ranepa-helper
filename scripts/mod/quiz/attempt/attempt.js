@@ -194,16 +194,14 @@ function addListenersToChat() {
                     try {
                         // отрисовываем сообщение от бота
                         ChatCore.add(response.choices[0].message);
-                    } catch (error) {
+                    } catch (err) {
                         // если ошибка в выполнении функции - пишем сообщение об ошибке
-                        console.log(error);
-                        ChatCore.add(response);
+                        ChatCore.add({role: "assistant", content: `${response}`});
                     }
                 })
-                .catch(function (response) {
+                .catch(function (error) {
                     // если ошибка на сервере - пишем сообщение об ошибке
-                    console.log(response);
-                    ChatCore.add(`${response}`);
+                    console.log(error);
                 })
         }
     })
