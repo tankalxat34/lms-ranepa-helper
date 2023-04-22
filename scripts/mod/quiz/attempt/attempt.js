@@ -220,7 +220,29 @@ function addListenersToChat() {
 
     document.querySelector("#helper-chatgpt_div_input").addEventListener("keyup", (event) => {
         if (event.ctrlKey && event.key === "Enter") {
+<<<<<<< HEAD
             _sendToChat();
+=======
+
+            // отрисовываем сообщение в чате
+            ChatCore.add();
+
+            // отправляем запрос в ChatGPT
+            ChatGPT.ask(document.querySelector("#helper-chatgpt_input").value, true)
+                .then(function (response) {
+                    try {
+                        // отрисовываем сообщение от бота
+                        ChatCore.add(response.choices[0].message);
+                    } catch (err) {
+                        // если ошибка в выполнении функции - пишем сообщение об ошибке
+                        ChatCore.add({role: "assistant", content: `${response}`});
+                    }
+                })
+                .catch(function (error) {
+                    // если ошибка на сервере - пишем сообщение об ошибке
+                    console.log(error);
+                })
+>>>>>>> ecd9e7af79ab5095ec200472fc8e48cf179c580e
         }
     })
 }
