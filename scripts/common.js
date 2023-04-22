@@ -227,6 +227,10 @@ try {
         case "/user/preferences.php":
             addSrcScript("scripts/user/preferences/preferences_front.js")
             break;
+        
+        case "/mod/page/view.php":
+            addSrcScript("scripts/mod/page/view/view_front.js")
+            break;
 
         default:
             break;

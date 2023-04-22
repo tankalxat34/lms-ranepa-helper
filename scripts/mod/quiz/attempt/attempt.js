@@ -210,12 +210,7 @@ function addListenersToChat() {
     })
 
     document.querySelector("#helper-btn-chatgpt_export").addEventListener("click", () => {
-        let content = "<!-- Generated automatically using the LMS RANEPA HELPER extension (c) tankalxat34 -->\n";
-        for (let i = 0; i < ChatGPT.conversation.length; i ++) {
-            content += `\n\n## ${ChatGPT.conversation[i].role}\n\n`;
-            content += `${ChatGPT.conversation[i].content}`;
-        }
-        downloadFileFromText(`conversation ${new Date().toLocaleString()}.md`, content);
+        downloadFileFromText(`ChatGPT ${document.querySelector(".page-header-headings > h1").textContent} ${new Date().toLocaleString()}.html`, `<!-- Generated automatically using the LMS RANEPA HELPER extension (c) tankalxat34 -->\n\n<h3>${document.querySelector(".page-header-headings > h1").textContent}</h3>` + document.querySelector("#helper-chatgpt_response").innerHTML)
     })
 
     document.querySelector("#helper-chatgpt_div_input").addEventListener("keyup", (event) => {

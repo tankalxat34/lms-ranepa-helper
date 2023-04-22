@@ -53,6 +53,10 @@
             "js": [ "scripts/mod/resource/view.js" ]
         },
         {
+            "matches": [ "*://lms.ranepa.ru/mod/page/view.php?*", "*://lms-dpo.ranepa.ru/mod/page/view.php?*" ],
+            "js": [ "scripts/mod/page/view.js" ]
+        },
+        {
             "matches": [ "*://lms.ranepa.ru/user/preferences.php", "*://lms.ranepa.ru/user/preferences.php" ],
             "js": [ "scripts/user/preferences/preferences.js" ]
         }
