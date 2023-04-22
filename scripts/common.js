@@ -14,6 +14,42 @@ const menu_items_dropdown = [
 ]
 
 
+/**
+ * Заменяет подстроки из первого массива на подстроки из второго массива. Возвращает новую строку
+ * @param str исходная строка
+ * @param first_array подстроки что заменяем
+ * @param second_array подстроки на что заменяем
+ * @returns {String}
+ */
+function translateString(str, first_array, second_array) {
+    let result = str;
+    for (let i = 0; i < first_array.length; i++) {
+        let counter = 0;
+        while (result.indexOf(first_array[i]) !== -1) {
+            counter++;
+            result = result.replace(first_array[i], second_array[i]);
+            if (counter >= 1000) break
+        }
+    }
+    return result
+}
+
+function showAlert(text, type_of_alert = "info", classList = "alert alert-%type_of_alert% alert-block fade in  alert-dismissible") {
+
+    html = `${text}
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">×</span>
+        <span class="sr-only">Отклонить это уведомление</span>
+    </button>`
+
+    div = document.createElement("div")
+    div.classList = classList.replace("%type_of_alert%", type_of_alert)
+    div.role = "alert"
+    div.innerHTML = html
+
+    document.querySelector("#user-notifications").appendChild(div)
+}
+
 function addScript(text, document_place = document.body) {
     /*
         Добавляет скрипт в страницу

@@ -21,6 +21,14 @@ var ChatGPT = {
      */
     conversation: new Array(),
     /**
+     * `true`, если нужно сохранять историю разговора. По умолчанию `false`
+     */
+    do_saving_conv: false,
+    /**
+     * `true`, если нужно очищать контекст беседы после каждого запроса. По умолчанию `false`.
+     */    
+    do_cleaning_after_request: false,
+    /**
      * Создает правильные заголовки для запроса. Возвращает объект.
      * @returns `Object`
      */
@@ -44,20 +52,17 @@ var ChatGPT = {
      * @returns промис `r.json()`
      */
     ask: async function (s) {
-    
         const url = "https://api.openai.com/v1/chat/completions";
-    
-        const headers = this.get_headers();
-    
-        const data = {
-            model: this.get_model(),
-            messages: this.conversation,
-        };
+
+        if (this.do_saving_conv) this.save_conversation({ role: "user", content: s });
     
         const request = new Request(url, {
             method: 'POST',
-            headers: headers,
-            body: JSON.stringify(data)
+            headers: this.get_headers(),
+            body: JSON.stringify({
+                model: this.get_model(),
+                messages: this.conversation,
+            })
         });
     
         try {
@@ -67,6 +72,10 @@ var ChatGPT = {
                 // если ошибка - вернем сообщение этой ошибки
                 return await data.error.message;
             }
+            // если необходимо сохранять разговор
+            if (this.do_saving_conv) this.save_conversation(data.choices[0].message);
+            // если необходимо очищать разговор
+            if (this.do_cleaning_after_request) this.clear_conversation();
             // если все нормально - возвращаем результат
             return data;
         } catch (error) {
@@ -83,7 +92,7 @@ var ChatGPT = {
     },
     /**
      * Сохраняет сообщение в разговор с ботом ChatGPT
-     * @param {section} { "role": "user", "content": s }
+     * @param {section}  `{ "role": "user", "content": s }`
      */
     save_conversation: function (section) {
         this.conversation.push(section);
@@ -144,7 +153,8 @@ var ChatCore = {
             </div>
         </div>
         <div class="helper-chatgpt-iniline-keyboard", style="display: flex;">
-            <button class="btn btn-outline-secondary mb-4 mr-2" id="helper-chatgpt-btn_copy-%iid_btn%"><i class="fa fa-clipboard"></i> Копировать</button>
+            <!-- <button class="btn btn-outline-secondary mb-4 mr-2" id="helper-chatgpt-btn_copy-%iid_btn%"><i class="fa fa-clipboard"></i> Копировать</button> -->
+            <!-- <button class="btn btn-outline-secondary mb-4 mr-2" id="helper-chatgpt-btn_clear_conv-%iid_btn%"><i class="fa fa-remove"></i> Очистить контекст</button> -->
         </div>
     </div>
 </div>`,
@@ -182,14 +192,30 @@ var ChatCore = {
 
         let msg_index = this.chatgpt_object.conversation.length - 1;
 
-        document.querySelector(this.chat_field_selector).innerHTML += this._html
-            .replace("%username%", o.role)
-            .replace("%message_html_text%", markdown(o.content))
-            .replace("%avatar_path%", o.role === "user" ? this.chatgpt_object.uo.user.picture : "https://raw.githubusercontent.com/tankalxat34/lms-ranepa-helper/main/openai.png")
-            .replace("%iid_btn%", `${msg_index}`)
+        document.querySelector(this.chat_field_selector).innerHTML += translateString(this._html,
+            [ 
+                "%username%", 
+                "%message_html_text%", 
+                "%avatar_path%", 
+                "%iid_btn%" 
+            ],
+            [ 
+                o.role, 
+                markdown(o.content), 
+                o.role === "user" ? this.chatgpt_object.uo.user.picture : "https://raw.githubusercontent.com/tankalxat34/lms-ranepa-helper/main/openai.png", 
+                `${msg_index}` 
+            ]
+        )
 
-        document.querySelector(`#helper-chatgpt-btn_copy-${msg_index}`).addEventListener("click", () => {
-            navigator.clipboard.writeText(this.chatgpt_object.conversation[msg_index].content);
-        })
+        // document.querySelector(`#helper-chatgpt-btn_copy-${msg_index}`).addEventListener("click", () => {
+        //     navigator.clipboard.writeText(this.chatgpt_object.conversation[msg_index].content);
+        // })
+
+        // document.querySelector(`#helper-chatgpt-btn_clear_conv-${msg_index}`).addEventListener("click", () => {
+        //     this.chatgpt_object.clear_conversation();
+        //     console.log(this.chatgpt_object);
+        //     showAlert(`Контекст беседы был очищен!`);
+        // })
     }
 }
+

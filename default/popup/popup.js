@@ -41,6 +41,19 @@ function main() {
 
     document.querySelector("body").onselectstart = () => false;
 
+
+    const request = new Request("https://api.github.com/repos/tankalxat34/lms-ranepa-helper/commits", {
+        method: "GET"
+    });
+
+    fetch(request)
+        .then(r => r.json())
+        .then(data => {
+            let element_list = document.querySelector("#helper-latest-changes");
+            for (let i = 0; i < 5; i++) {
+                element_list.innerHTML += `<li style="list-style-type: none;">${markdown('[**' + new Date(data[i].commit.committer.date).toLocaleString() + '**](' + 'https://github.com/tankalxat34/lms-ranepa-helper/tree/' + data[i].sha + '): ' + data[i].commit.message.split('\n')[0])}</li>`;
+            }
+        })
 }
 
 main();

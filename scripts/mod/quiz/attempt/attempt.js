@@ -127,20 +127,24 @@ function fillChatGPTButtons(openai_model_name, user_object_from_options) {
         btn.addEventListener("click", () => {
             
             // первоначальная настройка нейронной сети
-            // сохранение токена
-            ChatGPT.access_token = CHATGPT_USER_OBJECT.accessToken;
+            let local_ChatGPT = Object.assign({}, ChatGPT);
+            console.log(local_ChatGPT);
+
+            local_ChatGPT.do_cleaning_after_request = true;
+            local_ChatGPT.do_saving_conv = true;
 
             // установка языковой модели
-            ChatGPT.model = openai_model_name;
+            local_ChatGPT.model = openai_model_name;
 
             div_gpt_response.innerHTML = `<p style="color: grey;">Нейронная сеть думает. Пожалуйста, подождите...</p>`
 
-            ChatGPT.ask(qtext)
+            local_ChatGPT.ask(qtext)
                 .then(r => {
                     console.log(r);
                     return r;
                 })
                 .then(function (response) {
+                    console.log(local_ChatGPT);
                     try {
                         div_gpt_response.innerHTML = markdown(response.choices[0].message.content);
                     } catch (error) {
@@ -165,8 +169,40 @@ function fillChatGPTButtons(openai_model_name, user_object_from_options) {
 }
 
 
+function _sendToChat() {
+    // отрисовываем сообщение в чате
+    ChatCore.add();
+
+    // отправляем запрос в ChatGPT
+    ChatGPT.ask(document.querySelector("#helper-chatgpt_input").value, true)
+        .then(function (response) {
+            try {
+                // отрисовываем сообщение от бота
+                ChatCore.add(response.choices[0].message);
+            } catch (error) {
+                // если ошибка в выполнении функции - пишем сообщение об ошибке
+                console.log(error);
+                ChatCore.add(response);
+            }
+        })
+        .catch(function (response) {
+            // если ошибка на сервере - пишем сообщение об ошибке
+            console.log(response);
+            ChatCore.add(`${response}`);
+        })
+}
+
+
 function addListenersToChat() {
 
+    document.querySelector("#helper-chatgpt-btn_clear_conv").addEventListener("click", () => {
+        ChatCore.chatgpt_object.clear_conversation();
+        showAlert(`Контекст беседы был очищен!`, `warning`);
+    })
+
+    document.querySelector("#helper-btn-chatgpt_send").addEventListener("click", () => {
+        _sendToChat();
+    })
 
     document.querySelector("#helper-chatgpt_input").addEventListener("input", () => {
         document.querySelector("#helper-chatgpt_input").style.height = "auto";
@@ -184,27 +220,7 @@ function addListenersToChat() {
 
     document.querySelector("#helper-chatgpt_div_input").addEventListener("keyup", (event) => {
         if (event.ctrlKey && event.key === "Enter") {
-
-            // отрисовываем сообщение в чате
-            ChatCore.add();
-
-            // отправляем запрос в ChatGPT
-            ChatGPT.ask(document.querySelector("#helper-chatgpt_input").value, true)
-                .then(function (response) {
-                    try {
-                        // отрисовываем сообщение от бота
-                        ChatCore.add(response.choices[0].message);
-                    } catch (error) {
-                        // если ошибка в выполнении функции - пишем сообщение об ошибке
-                        console.log(error);
-                        ChatCore.add(response);
-                    }
-                })
-                .catch(function (response) {
-                    // если ошибка на сервере - пишем сообщение об ошибке
-                    console.log(response);
-                    ChatCore.add(`${response}`);
-                })
+            _sendToChat();
         }
     })
 }
