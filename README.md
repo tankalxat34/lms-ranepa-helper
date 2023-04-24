@@ -73,6 +73,16 @@
 
 ![image](https://user-images.githubusercontent.com/89201004/234093450-d141406c-d864-4991-8349-3dd747ce16fc.png)
 
+## Поиск вопроса в ChatGPT
+
+Нажата кнопка поиска
+
+![image](https://user-images.githubusercontent.com/89201004/234094140-92d943f4-c827-42cd-a778-4a0af000df04.png)
+
+Получен ответ
+
+![image](https://user-images.githubusercontent.com/89201004/234094266-8391c373-f7ac-4fea-8ce5-79dc57d62a3e.png)
+
 ### Главное меню
 <img src="https://github.com/tankalxat34/lms-ranepa-helper/raw/repo_content/block_lms_helper_my.png">
 
