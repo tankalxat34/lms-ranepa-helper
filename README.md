@@ -69,6 +69,10 @@
 - И МНОГОЕ ДРУГОЕ;
   
 ## Скриншоты
+## Интерфейс ChatGPT
+
+![image](https://user-images.githubusercontent.com/89201004/234093450-d141406c-d864-4991-8349-3dd747ce16fc.png)
+
 ### Главное меню
 <img src="https://github.com/tankalxat34/lms-ranepa-helper/raw/repo_content/block_lms_helper_my.png">
 
