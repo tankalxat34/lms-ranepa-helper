@@ -210,7 +210,20 @@ function addListenersToChat() {
     })
 
     document.querySelector("#helper-btn-chatgpt_export").addEventListener("click", () => {
-        downloadFileFromText(`ChatGPT ${document.querySelector(".page-header-headings > h1").textContent} ${new Date().toLocaleString()}.html`, `<!-- Generated automatically using the LMS RANEPA HELPER extension (c) tankalxat34 -->\n\n<h3>${document.querySelector(".page-header-headings > h1").textContent}</h3>` + document.querySelector("#helper-chatgpt_response").innerHTML)
+        downloadFileFromText(`ChatGPT ${document.querySelector(".page-header-headings > h1").textContent} ${new Date().toLocaleString()}.html`, `<!-- Generated automatically using the LMS RANEPA HELPER extension (c) tankalxat34 -->
+<style type="text/css">
+* {
+    background-color: #161616;
+    color: #E0E0E0;
+    font-family: 'segoe ui', sans-serif;
+    font-size: 16.5px;
+}
+img {
+    border-radius: 20px;
+}
+</style>
+
+<h3>${document.querySelector(".page-header-headings > h1").textContent}</h3>` + document.querySelector("#helper-chatgpt_response").innerHTML)
     })
 
     document.querySelector("#helper-chatgpt_div_input").addEventListener("keyup", (event) => {
