@@ -18,7 +18,8 @@
     "host_permissions": [
         "*://chat.openai.com/*",
         "*://lms.ranepa.ru/*",
-        "*://lms-dpo.ranepa.ru/*"
+        "*://lms-dpo.ranepa.ru/*",
+        "*://online-edu.ranepa.ru/*"
     ],
 
     "permissions": [
@@ -35,29 +36,29 @@
 
     "content_scripts": [
         {
-            "matches": [ "*://lms.ranepa.ru/*", "*://lms-dpo.ranepa.ru/*" ],
+            "matches": [ "*://lms.ranepa.ru/*", "*://lms-dpo.ranepa.ru/*", "*://online-edu.ranepa.ru/*" ],
             "js": [ "scripts/common.js", "scripts/drawdown.js", "scripts/backend_chatgpt.js" ]
         },
         {
-            "matches": [ "*://lms.ranepa.ru/my/*", "*://lms-dpo.ranepa.ru/my/*" ],
+            "matches": [ "*://lms.ranepa.ru/my/*", "*://lms-dpo.ranepa.ru/my/*", "*://online-edu.ranepa.ru/my/*" ],
             "js": [ "scripts/my/my.js" ],
             "html": [ "nodes/my/mainBlock.html" ]
         },
         {
-            "matches": [ "*://lms.ranepa.ru/mod/quiz/attempt.php?*", "*://lms-dpo.ranepa.ru/mod/quiz/attempt.php?*" ],
+            "matches": [ "*://lms.ranepa.ru/mod/quiz/attempt.php?*", "*://lms-dpo.ranepa.ru/mod/quiz/attempt.php?*", "*://online-edu.ranepa.ru/mod/quiz/attempt.php?*" ],
             "js": [ "scripts/mod/quiz/attempt/attempt.js" ],
             "html": [ "nodes/mod/quiz/attempt/mainBlock.html" ]
         },
         {
-            "matches": [ "*://lms.ranepa.ru/mod/resource/view.php?*", "*://lms-dpo.ranepa.ru/mod/resource/view.php?*" ],
+            "matches": [ "*://lms.ranepa.ru/mod/resource/view.php?*", "*://lms-dpo.ranepa.ru/mod/resource/view.php?*", "*://online-edu.ranepa.ru/mod/resource/view.php?*"],
             "js": [ "scripts/mod/resource/view.js" ]
         },
         {
-            "matches": [ "*://lms.ranepa.ru/mod/page/view.php?*", "*://lms-dpo.ranepa.ru/mod/page/view.php?*" ],
+            "matches": [ "*://lms.ranepa.ru/mod/page/view.php?*", "*://lms-dpo.ranepa.ru/mod/page/view.php?*", "*://online-edu.ranepa.ru/mod/page/view.php?*" ],
             "js": [ "scripts/mod/page/view.js" ]
         },
         {
-            "matches": [ "*://lms.ranepa.ru/user/preferences.php", "*://lms.ranepa.ru/user/preferences.php" ],
+            "matches": [ "*://lms.ranepa.ru/user/preferences.php", "*://lms.ranepa.ru/user/preferences.php", "*://online-edu.ranepa.ru/user/preferences.php" ],
             "js": [ "scripts/user/preferences/preferences.js" ]
         }
     ],
@@ -65,7 +66,7 @@
     "web_accessible_resources": [
         {
           "resources": [ "*.js", "*.html", "*.css", "scripts/*", "nodes/*" ],
-          "matches": [ "*://lms.ranepa.ru/*", "*://lms-dpo.ranepa.ru/*" ]
+          "matches": [ "*://lms.ranepa.ru/*", "*://lms-dpo.ranepa.ru/*", "*://online-edu.ranepa.ru/*" ]
         }
     ]
 }

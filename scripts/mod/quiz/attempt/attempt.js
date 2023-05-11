@@ -221,6 +221,10 @@ function addListenersToChat() {
 img {
     border-radius: 20px;
 }
+pre,code {
+    color: #6ba193;
+    font-family: consolas,'Courier New',monoscape;
+}
 </style>
 
 <h3>${document.querySelector(".page-header-headings > h1").textContent}</h3>` + document.querySelector("#helper-chatgpt_response").innerHTML)
