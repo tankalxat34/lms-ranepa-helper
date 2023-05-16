@@ -233,6 +233,26 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
                 if (disabled_counter_services === max_counter_services) document.querySelector("#helper-services").hidden = true;
 
 
+                document.querySelector('[data-block="mydashboard"]').before(document.querySelector('[data-block="calendar_upcoming"]'));
+                let h5_node_1 = document.querySelector('[data-block="calendar_upcoming"] > div > h5');
+                if (document.querySelector('[data-block="calendar_upcoming"] > div > div > div > div').childElementCount) {
+                    document.querySelector('[data-block="calendar_upcoming"]').innerHTML = `<details class="m-3">
+                    <summary>
+                    <b style="font-size: 17px;">${h5_node_1.innerText} <span class="badge badge-pill badge-info">${document.querySelector('[data-block="calendar_upcoming"] > div > div > div > div').childElementCount}</span></b>
+                    </summary>
+                    ${document.querySelector('[data-block="calendar_upcoming"] > div').innerHTML}
+                    </details>`;
+                } else {
+                    document.querySelector('[data-block="calendar_upcoming"]').innerHTML = `<details class="m-3">
+                    <summary>
+                    <b style="font-size: 17px;">${h5_node_1.innerText}</b>
+                    </summary>
+                    ${document.querySelector('[data-block="calendar_upcoming"] > div').innerHTML}
+                    </details>`;
+                }
+                document.querySelector('[data-block="calendar_upcoming"] > details > h5').remove();
+
+
                 if (options["helper-settings-show_courses_filters"]) {
                     // Показать только невыполненные
                     let place = document.querySelector(".mydashboard-filters-grouping");
@@ -282,7 +302,7 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
 
                 if (options["helper-settings-show_searchinput_courses"]) {
 
-                    let place = document.querySelector("#block-region-content > section > div > h5");
+                    let place = document.querySelector('[data-block="mydashboard"]');
 
                     let div_search = document.createElement("div");
                     div_search.classList = "m-3";

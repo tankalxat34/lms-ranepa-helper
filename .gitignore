@@ -4,3 +4,5 @@ test.*
 default/options/chatGptInjection.js
 default/options/chatgpt_worker.js
 scripts/mod/quiz/attempt/helper_front_chatgpt.js
+all.css
+yui_combo.css
