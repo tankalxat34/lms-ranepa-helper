@@ -235,10 +235,10 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
 
                 document.querySelector('[data-block="mydashboard"]').before(document.querySelector('[data-block="calendar_upcoming"]'));
                 let h5_node_1 = document.querySelector('[data-block="calendar_upcoming"] > div > h5');
-                if (document.querySelector('[data-block="calendar_upcoming"] > div > div > div > div').childElementCount) {
+                if (document.querySelector('[data-block="calendar_upcoming"] > div > div > div > div').childElementCount - 1) {
                     document.querySelector('[data-block="calendar_upcoming"]').innerHTML = `<details class="m-3">
                     <summary>
-                    <b style="font-size: 17px;">${h5_node_1.innerText} <span class="badge badge-pill badge-info">${document.querySelector('[data-block="calendar_upcoming"] > div > div > div > div').childElementCount}</span></b>
+                    <b style="font-size: 17px;">${h5_node_1.innerText} <span class="badge badge-pill badge-info">${document.querySelector('[data-block="calendar_upcoming"] > div > div > div > div').childElementCount - 1}</span></b>
                     </summary>
                     ${document.querySelector('[data-block="calendar_upcoming"] > div').innerHTML}
                     </details>`;
