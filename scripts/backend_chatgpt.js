@@ -174,10 +174,16 @@ var ChatCore = {
          */
         let sb = document.querySelector(this.chat_usersend_field_selector);
 
+        console.log(json_response)
+
         /**
          * Объект сообщения
          */
         let o = json_response ? json_response : { role: "user", content: ib.value };
+
+        if (o.content === undefined) {
+            o = { role: "assistant", content: json_response };
+        }
 
         // сохраняем сообщение в беседу
         this.chatgpt_object.save_conversation(o);
