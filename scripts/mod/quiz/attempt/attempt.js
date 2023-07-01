@@ -68,7 +68,7 @@ function fillButtons(qtext = ".qtext") {
 
     let questionTexts = getQuestions(qtext);
 
-    let answerNodes = document.getElementsByClassName("answer");
+    let answerNodes = document.querySelectorAll("fieldset.no-overflow");
 
     var questionIndex = 0
     for (let answerNode of answerNodes) {

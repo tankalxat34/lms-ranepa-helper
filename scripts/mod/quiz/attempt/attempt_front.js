@@ -45,48 +45,27 @@ function clearResponseForm() {
 }
 
 
-
+/**
+ * Функция экспортирует ответы на тест
+ */
 function exportAnswers() {
     if (window.location.href.includes("mod/quiz/attempt.php")) {
 
-        let exportData = new Object()
-        let questionsObject = new Object()
+        /**
+         * Все блоки с текстами вопросов
+         */
+        let div_questions = document.querySelectorAll(".qtext");
 
-        var _test_id = null;
+        /**
+         * Все блоки с вариантами ответов
+         */
+        let div_answer_blocks = document.querySelectorAll("fieldset > .answer");
 
-        let filename = `attempt${M.cfg.sesskey}_${new Date().getTime()}.json`
+        
 
-
-        for (const entry of new FormData(document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM))) {
-            // output = entry[0] + "=" + entry[1] + "\r";
-
-            let id = entry[0]
-            let value = entry[1]
-
-            if (id.slice(0, 1) === "q" && "0123456789".includes(id.slice(1, 2)) && !id.includes("sequencecheck")) {
-
-                questionsObject[id] = {
-                    backend_number: id.split("_")[0].split(":")[1],
-                    selected: value,
-                    querySelector: "0123456789".includes(id.slice(-1)) ? "#" + (id).replace(":", "\\:") : "#" + (id + value).replace(":", "\\:"),
-                }
-
-                _test_id = id.split(":")[0].slice(1)
-
-            } else if (id !== "sesskey" && !(id.slice(0, 1) === "q" && "0123456789".includes(id.slice(1, 2)) && id.includes("sequencecheck"))) {
-                exportData[id] = value
-            }
-        }
-
-        exportData.test_id = _test_id
-        exportData.questions = questionsObject
-
-        showAlert("Скачанный файл вы можете отправить своим одногруппникам, у которых установлен LMS RANEPA Helper. С помощью расширения они смогут в этот тест загрузить все ответы из полученного json файла. Скачать расширение можно <a href=\"https://github.com/tankalxat34/lms-ranepa-helper\" target=\"_blank\">здесь</a>. Также можно <a href=\"https://vk.com/share.php?url=https://github.com/tankalxat34/lms-ranepa-helper\" target=\"_blank\">поделиться расширением</a>.")
-
-        downloadFileFromText(filename, JSON.stringify(exportData, null, 4))
 
     } else {
-        showAlert("Здесь нет ответов для экспорта! Перейдите в тест, чтобы экспортировать ответы", "warning")
+        showAlert("Здесь нет ответов для экспорта! Перейдите в тест, чтобы экспортировать ответы", "warning");
     }
 }
 
@@ -177,97 +156,6 @@ function deleteMessagesGPTConversation(count) {
         CONVERSATION.shift()
     }
 }
-
-function requestToChatGPT(content, uo, openai_model = "gpt-3.5-turbo") {
-    /*
-    curl https://api.openai.com/v1/chat/completions \
-    -H "Authorization: Bearer $OPENAI_API_KEY" \
-    -H "Content-Type: application/json" \
-    -d '{
-    "model": "gpt-3.5-turbo",
-    "messages": [{"role": "user", "content": "What is the OpenAI mission?"}] 
-    }'
-    */
-    CONVERSATION.push({"role": "user", "content": content});
-    FULL_CONVERSATION.push({"role": "user", "content": content});
-
-    $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="user" style="border-radius: 10px; background-color: #E2E2E2;">
-    <h6>${uo.user.email} (${new Date().toLocaleTimeString()})</h6>
-    ${markdown(content)}
-    </div>`;
-    $("#helper-chatgpt_input")[0].value = "";
-    $("#helper-chatgpt_input")[0].disabled = true;
-    $("#helper-btn-chatgpt_send")[0].disabled = true;
-
-    $.ajax({
-        url: 'https://api.openai.com/v1/chat/completions',
-        type: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${uo.accessToken}`
-        },
-        data: JSON.stringify({
-            model: openai_model,
-            messages: CONVERSATION
-        }),
-        success: function (data) {
-            console.log(data);
-            CONVERSATION.push({"role": "assistant", "content": data.choices[0].message.content});
-            FULL_CONVERSATION.push({"role": "assistant", "content": data.choices[0].message.content});
-            
-            let html = markdown(data.choices[0].message.content);
-            $("#helper-chatgpt_input")[0].disabled = false;
-            $("#helper-btn-chatgpt_send")[0].disabled = false;
-            $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="assistant" style="border-radius: 10px; background-color: #E2E2E2;">
-            <h6>${data.choices[0].message.role[0] + data.choices[0].message.role.slice(1)} (${new Date().toLocaleTimeString()})</h6>
-            ${html}
-            <div class="buttons" style="display: flex;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Markdown-mark.svg" alt="Скопировать ответ в Markdown" title="Скопировать ответ в Markdown" width=20px style="cursor: pointer;" onclick="copyGPTMessage(${CONVERSATION.length - 1})">
-            </div>
-            </div>`;
-        },
-        error: function (xhr, status, error) {
-            console.log(xhr.responseJSON);
-            let resp = xhr.responseJSON.error;
-            $("#helper-chatgpt_input")[0].disabled = false;
-            $("#helper-btn-chatgpt_send")[0].disabled = false;
-
-            let html_hint_tokenlimit = `<b>Совет:</b> попробуйте удалить несколько первых сообщений из беседы, чтобы продолжить общение с ботом. Контекст беседы может незначительно измениться, однако, освободив место для диалога, вы сможете продолжить общение. Удаление сообщений не скроет их из вашего диалога, не затронет возможности копирования текста или функцию экспорта всего диалога. После очистки сообщений напишите боту "продолжи" или "продолжай", чтобы получить ответ до конца. <b>Обратите внимание! Очистив всю беседу вы потеряете заданный контекст беседы!</b>`
-
-            let CONV_NUMBER = CONVERSATION.length - 1
-
-            if (resp.code === "context_length_exceeded") {
-                $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="assistant" style="border-radius: 10px; background-color: #E2E2E2;">
-                <h6>${status} - ${resp.type}.${resp.code} (${new Date().toLocaleTimeString()})</h6>
-                <div style="color: red;">
-                ${markdown(resp.message)}
-                </div>
-                
-                <div>
-                    <p>${html_hint_tokenlimit}</p>
-
-                    <div style="display: flex;">
-                        <button class="btn btn-outline-secondary helper-class-chatgpt-message_keyboard-clear_conversation" style="margin-right: 10px;" onclick="deleteMessagesGPTConversation($('#helper-chatgpt-clear_conversation-${CONV_NUMBER}').val()); showAlert('Указанные сообщения удалены!');">Удалить сообщений: </button>
-                        <input type="number" id="helper-chatgpt-clear_conversation-${CONV_NUMBER}" class="form-control", style="max-width: 10%; margin-right: 10px;" value="4" min="1" max="${CONVERSATION.length}">
-                        <button class="btn btn-outline-primary" style="margin-right: 10px;" onclick="CONVERSATION.length = 0; showAlert('Беседа успешно очищена!')">Очистить всю беседу</button>
-                    </div>
-
-                </div>
-
-                </div>`;
-
-            } else {
-                $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="assistant" style="border-radius: 10px; background-color: #E2E2E2;">
-                <h6>${status} - ${resp.type}.${resp.code} (${new Date().toLocaleTimeString()})</h6>
-                <div style="color: red;">
-                ${markdown(resp.message)}
-                </div>
-                </div>`;
-            }
-        }
-    });
-}
-
 
 // entrypoint
 window.onload = () => {
