@@ -24,5 +24,3 @@ document.addEventListener('click', function (event) {
         navbar.classList.remove('show');
     }
 });
-
-document.querySelector("body").onselectstart = () => false;

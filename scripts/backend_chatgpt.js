@@ -1,5 +1,26 @@
 
 /**
+ * Заменяет подстроки из первого массива на подстроки из второго массива. Возвращает новую строку
+ * @param str исходная строка
+ * @param first_array подстроки что заменяем
+ * @param second_array подстроки на что заменяем
+ * @returns {String}
+ */
+function translateString(str, first_array, second_array) {
+    let result = str;
+    for (let i = 0; i < first_array.length; i++) {
+        let counter = 0;
+        while (result.indexOf(first_array[i]) !== -1) {
+            counter++;
+            result = result.replace(first_array[i], second_array[i]);
+            if (counter >= 1000) break
+        }
+    }
+    return result
+}
+
+
+/**
  * Объект для реализации простейшего функционала ChatGPT
  */
 var ChatGPT = {
@@ -112,7 +133,16 @@ var ChatGPT = {
      * 
      * @returns `null`
      */
-    clear_conversation: function () { this.conversation = new Array() }
+    clear_conversation: function () { this.conversation = new Array() },
+    /**
+     * Попытаться получить данные аккаунта OpenAI и загрузить их в этот объект. Работает на ChromeAPI. В случае успеха результат записывается в поле `this.uo`.
+     */
+    load_uo: function () { 
+        chrome.storage.sync.get(["chatgpt_user_object", "helper-chatgpt-model"], (option) => {
+            this.uo = JSON.parse(option["chatgpt_user_object"]);
+            this.model = option["helper-chatgpt-model"];
+        })
+    }
 }
 
 
@@ -147,7 +177,7 @@ var ChatCore = {
             <img src="%avatar_path%" alt="Avatar" class="mr-3 rounded-circle" style="width: 40px;">
             <div class="media-body">
                 <h5 class="mt-0">%username%</h5>
-                <div>
+                <div style="word-wrap: normal; max-width: 85%; text-align: justify;">
                     %message_html_text%
                 </div>
             </div>
@@ -158,6 +188,46 @@ var ChatCore = {
         </div>
     </div>
 </div>`,
+
+    /**
+     * Отрисовывает сообщение в чате по заданным параметрам
+     * @param {String}    `username` Никнейм отправителя.
+     * @param {String}   `msg_text_markdown` Текст сообщения в формате Markdown.
+     * @param {String}  `avatar_src` Путь к фото профиля.
+     */
+    _drawMessage: function(username, msg_text_markdown, avatar_src) {
+        let msg_index = this.chatgpt_object.conversation.length - 1;
+
+        /**
+         * Input блок ввода сообщения
+         */
+        let ib = document.querySelector(this.chat_userinput_field_selector);
+
+        /**
+         * ChatField. Место, где отрисовываются все сообщения
+         */
+        let cf = document.querySelector(this.chat_field_selector)
+        
+        let ts = translateString(this._html,
+            [ 
+                "%username%", 
+                "%message_html_text%", 
+                "%avatar_path%", 
+                "%iid_btn%" 
+            ],
+            [ 
+                username, 
+                markdown(msg_text_markdown), 
+                avatar_src, 
+                `${msg_index}` 
+            ]
+        )
+        cf.innerHTML += ts;
+
+        ib.focus();
+        cf.scroll(0, cf.scrollHeight);
+        ib.style.height = "auto";
+    },
 
     /**
      * Добавляет внутрь графического чата новое сообщение
@@ -173,6 +243,11 @@ var ChatCore = {
          * Кнопка для отправки сообщений нейросети
          */
         let sb = document.querySelector(this.chat_usersend_field_selector);
+
+        /**
+         * Блок, где отрисовываются все сообщения чата
+         */
+        let cf = document.querySelector(this.chat_field_selector)
 
         console.log(json_response)
 
@@ -193,35 +268,14 @@ var ChatCore = {
         ib.value = new String();
         ib.disabled = !ib.disabled;
 
-        // блокируем поочередно кнопку для отправки сообщений
+        // // блокируем поочередно кнопку для отправки сообщений
         sb.disabled = !sb.disabled;
 
-        let msg_index = this.chatgpt_object.conversation.length - 1;
-
-        document.querySelector(this.chat_field_selector).innerHTML += translateString(this._html,
-            [ 
-                "%username%", 
-                "%message_html_text%", 
-                "%avatar_path%", 
-                "%iid_btn%" 
-            ],
-            [ 
-                o.role, 
-                markdown(o.content), 
-                o.role === "user" ? this.chatgpt_object.uo.user.picture : "https://raw.githubusercontent.com/tankalxat34/lms-ranepa-helper/main/openai.png", 
-                `${msg_index}` 
-            ]
-        )
-
-        // document.querySelector(`#helper-chatgpt-btn_copy-${msg_index}`).addEventListener("click", () => {
-        //     navigator.clipboard.writeText(this.chatgpt_object.conversation[msg_index].content);
-        // })
-
-        // document.querySelector(`#helper-chatgpt-btn_clear_conv-${msg_index}`).addEventListener("click", () => {
-        //     this.chatgpt_object.clear_conversation();
-        //     console.log(this.chatgpt_object);
-        //     showAlert(`Контекст беседы был очищен!`);
-        // })
+        this._drawMessage(
+                o.role === "user" ? this.chatgpt_object.uo.user.name : o.role, 
+                o.content, 
+                o.role === "user" ? this.chatgpt_object.uo.user.picture : "https://raw.githubusercontent.com/tankalxat34/lms-ranepa-helper/main/openai.png"
+            );
     }
 }
 
