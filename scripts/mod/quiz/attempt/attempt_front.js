@@ -46,7 +46,7 @@ function clearResponseForm() {
 
 
 /**
- * Функция возвращает массив объектов вида `{qtext: "текст вопроса", legend: "подпись и номер вопроса", answers: ["Ответ1", "Ответ2"]}`
+ * Функция возвращает массив объектов вида `{qtext: "текст вопроса", legend: "подпись и номер вопроса", answers: [someObject1, someObject2]}`
  */
 function getQuestions() {
     let result = new Array();
@@ -65,8 +65,53 @@ function getQuestions() {
         o.legend    = div_legend.textContent;
         o.answers   = new Array();
         for (const answer_node of div_answer.childNodes) {
+            let local_o = new Object();
+
+            console.log(answer_node.checked);
+
+            // Сохраняем текст вопроса
             let t = answer_node.textContent.trim();
-            if (t) o.answers.push(t);
+            if (t) {
+                local_o.atext = t
+                /**
+                 * Всегда будет поле status! Но итоговое значение в нем будет определяться автоматически
+                 * 
+                 * Есть два поля у разных инпутов - checked и value. Второе поле есть даже у тех инпутов,
+                 * которые не отмечены. Можно проверять value на содержание букв и если в value букв нет
+                 * - то перед нами чекбокс/радио или что то другое.
+                 * 
+                 * Надо определить, что брать - первый или второй атрибут
+                 * 
+                 * -------------------------------------------
+                 * 
+                 * Новая идея
+                 * 
+                 * Брать результат с формы (когда нажимаешь submit)
+                 * И по номерам вопросов распределять ответы. Так можно не париться с тегами!
+                 * 
+                 * Например так:
+                 * 
+                for (const entry of new FormData(document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM))) {
+                    console.log(entry);
+                }
+
+                или
+
+                for (const entry of new FormData(document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM))) {
+                    if (!entry[0].includes("sequencecheck")) console.log(entry);
+                }
+
+                 *
+                 *
+                 */
+                local_o.checked     = answer_node.childNodes[0].checked;
+                local_o.value       = answer_node.childNodes[0].value;
+                local_o.tagName     = answer_node.childNodes[0].tagName;
+                local_o.nodeName    = answer_node.childNodes[0].nodeName;
+                local_o.type        = answer_node.childNodes[0].type;
+                o.answers.push(local_o);
+            };
+
         }
         result.push(o);
     }
