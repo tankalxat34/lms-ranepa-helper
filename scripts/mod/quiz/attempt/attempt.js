@@ -38,71 +38,79 @@ const USER = {
 }
 
 
-function getQuestions(qtext) {
-    /* 
-        Возвращает список всех вопросов на странице
-    */
-
-    let questionNodes = document.querySelectorAll("div.qtext")
-
-    let answersArray = new Array();
-
-    for (let i = 0; i < questionNodes.length; i++) {
-        let questionText = questionNodes[i].innerText;
-        // if (questionNodes[i].childNodes[0].nodeName !== "#text") {
-        //     questionText = questionNodes[i].childNodes[0].innerText;
-        // }
-        answersArray.push(questionText.replaceAll("\n", " ").replaceAll("  ", " "));
+/**
+ * Функция возвращает массив текстов всех вопросов и вариантов ответа на странице
+*/
+function getQuestionTexts() {
+    let result = new Array();
+    
+    let div_qtexts = document.querySelectorAll(".qtext");
+    let div_legends = document.querySelectorAll("fieldset.no-overflow > legend");
+    let div_answers = document.querySelectorAll("fieldset.no-overflow > div.answer");
+    
+    for (let index = 0; index < div_qtexts.length; index++) {
+        
+        const div_qtext = div_qtexts[index];
+        const div_legend = div_legends[index];
+        const div_answer = div_answers[index];
+        
+        result.push(div_qtext.textContent + "\n\n" + div_legend.textContent + "\n\n" + div_answer.textContent);      
     }
-
-    return Object.assign(answersArray)
+    
+    return result;
 }
 
+/**
+ * Тексты вопросов и вариантов ответов в квизе
+ */
+const QTEXTS = getQuestionTexts();
 
+/**
+ * Функция заполняет тест кнопками с поисковыми системами и кнопкой "скопировать"
+ */
+function fillButtons() {
+    let div_fieldsets       = document.querySelectorAll("fieldset.no-overflow");
+    let classlist_button    = "btn btn-secondary mr-1";
 
+    for (let index = 0; index < div_fieldsets.length; index++) {
+        const fieldset = div_fieldsets[index];
 
-function fillButtons(qtext = ".qtext") {
-    /* 
-        Заполняет блоки с вопросами кнопками с поисковыми системами 
-    */
+        let div_for_buttons = document.createElement("div");
+        div_for_buttons.classList = "helper-operate-answer";
 
-    let questionTexts = getQuestions(qtext);
+        // Добавляем кнопку "Скопировать"
+        let input_copy          = document.createElement("input");
+        input_copy.type         = "button";
+        input_copy.classList    = classlist_button;
+        input_copy.value        = "📋️";
+        input_copy.title        = "Скопировать вопрос и варианты ответа"
+        input_copy.addEventListener("click", () => {
+            navigator.clipboard.writeText(QTEXTS[index]);
+        })
+        div_for_buttons.appendChild(input_copy);
 
-    let answerNodes = document.querySelectorAll("fieldset.no-overflow");
-
-    var questionIndex = 0
-    for (let answerNode of answerNodes) {
-
-        let answerButtonDiv = document.createElement("div");
-        answerButtonDiv.id = "helper-operate-answer";
-        answerButtonDiv.classList = "helper-operate-answer";
-
-        var questionText = questionTexts[questionIndex];
-
-        for (let system of Object.keys(INTERNET_PATTERNS)) {
-
-            let button = document.createElement("a");
-            button.classList = "btn btn-secondary";
-            button.style.margin = "5px 5px";
-            button.target = "_blank";
-
-            button.href = INTERNET_PATTERNS[system].url + questionText.replaceAll(" ", INTERNET_PATTERNS[system].replacedSpace);
-            button.innerText = INTERNET_PATTERNS[system].name;
-
-            answerButtonDiv.appendChild(button);
+        // Добавляем кнопки поиска в интернете
+        for (const key in INTERNET_PATTERNS) {
+            let btn         = document.createElement("input");
+            btn.type        = "button";
+            btn.classList   = classlist_button;
+            btn.value       = INTERNET_PATTERNS[key].name;
+            btn.addEventListener("click", () => {
+                window.open(INTERNET_PATTERNS[key].url + QTEXTS[index], "_blank");
+            })
+            div_for_buttons.appendChild(btn);
         }
-        answerNode.appendChild(answerButtonDiv);
-
-        questionIndex++;
+        
+        // Добавляем div со всеми кнопками в вопрос
+        fieldset.after(div_for_buttons);
     }
 }
+
 
 /**
  * Заполняет тест кнопками ChatGPT
  */
 function fillChatGPTButtons(openai_model_name, user_object_from_options) {
-    // var CHATGPT_USER_OBJECT = JSON.parse(document.querySelector("#helper-chatgpt-user_object").value);
-    var CHATGPT_USER_OBJECT = user_object_from_options;
     let QUESTIONS_NODES = document.querySelectorAll(".formulation.clearfix");
     for (let i = 0; i < QUESTIONS_NODES.length; i++) {
 
@@ -111,18 +119,14 @@ function fillChatGPTButtons(openai_model_name, user_object_from_options) {
         div_gpt_response.id = `helper-gpt_response-${i}`;
         QUESTIONS_NODES[i].appendChild(div_gpt_response);
 
+        let qtext = QTEXTS[i];
 
-        // добавление кнопок
-        let text_arr = QUESTIONS_NODES[i].innerText.split("\n");
-        text_arr.length -= 2;
-        let qtext = text_arr.join("\n");
-
-        let btn = document.createElement("a");
+        let btn = document.createElement("input");
+        btn.type = "button";
         btn.classList = "helper-chatgpt_question_button btn";
-        btn.style.margin = "5px";
         btn.style.backgroundColor = "#75A99C";
         btn.style.color = "white";
-        btn.innerHTML = `<img src="https://raw.githubusercontent.com/tankalxat34/lms-ranepa-helper/main/openai.png" alt="ChatGPT" width="24px" style="border-radius: 5px;"> ChatGPT`;
+        btn.value = "ChatGPT";
 
         btn.addEventListener("click", () => {
             

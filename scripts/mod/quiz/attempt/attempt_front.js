@@ -46,13 +46,49 @@ function clearResponseForm() {
 
 
 /**
+ * Функция возвращает массив объектов вида `{qtext: "текст вопроса", legend: "подпись и номер вопроса", answers: ["Ответ1", "Ответ2"]}`
+ */
+function getQuestions() {
+    let result = new Array();
+    
+    let div_qtexts = document.querySelectorAll(".qtext");
+    let div_legends = document.querySelectorAll("fieldset.no-overflow > legend");
+    let div_answers = document.querySelectorAll("fieldset.no-overflow > div.answer");
+
+    for (let index = 0; index < div_qtexts.length; index++) {
+        const div_qtext = div_qtexts[index];
+        const div_legend = div_legends[index];
+        const div_answer = div_answers[index];
+        
+        let o = new Object();
+        o.qtext     = div_qtext.textContent;
+        o.legend    = div_legend.textContent;
+        o.answers   = new Array();
+        for (const answer_node of div_answer.childNodes) {
+            let t = answer_node.textContent.trim();
+            if (t) o.answers.push(t);
+        }
+        result.push(o);
+    }
+    return result;
+}
+
+
+/**
  * Функция экспортирует ответы на тест
+ * 
+ * Pull request: https://github.com/tankalxat34/lms-ranepa-helper/pull/1
  */
 function exportAnswers() {
     if (window.location.href.includes("mod/quiz/attempt.php")) {
 
         /**
-         * Все блоки с текстами вопросов
+         * Результирующий объект. Должен быть экспортирован в JSON
+         */
+        let result = new Object();
+
+        /**
+         * Все блоки с текстами вопросов. Это будущие ключи для нашей структуры
          */
         let div_questions = document.querySelectorAll(".qtext");
 
@@ -61,7 +97,23 @@ function exportAnswers() {
          */
         let div_answer_blocks = document.querySelectorAll("fieldset > .answer");
 
-        
+        /**
+         * Типы вопроса (текста по типу "Выберите один вариант ответа:",
+         * "Выберите один или несколько ответов:" и т.д.)
+         */
+        let div_answer_types = document.querySelectorAll("legend.prompt");
+
+        /**
+         * Здесь будут храниться объекты, интерпретирующие варианты ответов. Структуру смотри в pull request
+         */
+        let string_answer_texts = new Array();
+
+        for (const div of div_questions) {
+            if (div.textContent) {
+                console.log(div.textContent);
+                result[div.textContent] = new Object();
+            }
+        }
 
 
     } else {
