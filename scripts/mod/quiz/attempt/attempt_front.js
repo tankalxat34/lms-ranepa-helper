@@ -104,11 +104,17 @@ function getQuestions() {
                  *
                  *
                  */
-                local_o.checked     = answer_node.childNodes[0].checked;
-                local_o.value       = answer_node.childNodes[0].value;
-                local_o.tagName     = answer_node.childNodes[0].tagName;
-                local_o.nodeName    = answer_node.childNodes[0].nodeName;
-                local_o.type        = answer_node.childNodes[0].type;
+                for (const entry of new FormData(document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM))) {
+                    if (!entry[0].includes("sequencecheck") && entry[0].includes(":")) {
+                        
+                        console.log(entry);
+                    }
+                }
+                // local_o.checked     = answer_node.childNodes[0].checked;
+                // local_o.value       = answer_node.childNodes[0].value;
+                // local_o.tagName     = answer_node.childNodes[0].tagName;
+                // local_o.nodeName    = answer_node.childNodes[0].nodeName;
+                // local_o.type        = answer_node.childNodes[0].type;
                 o.answers.push(local_o);
             };
 
