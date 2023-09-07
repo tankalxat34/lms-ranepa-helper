@@ -61,8 +61,8 @@ function getQuestions() {
         const div_answer = div_answers[index];
         
         let o = new Object();
-        o.qtext     = div_qtext.textContent;
-        o.legend    = div_legend.textContent;
+        o.qtext     = Base64.encode(div_qtext.textContent);
+        o.legend    = Base64.encode(div_legend.textContent);
         o.answers   = new Array();
         for (const answer_node of div_answer.childNodes) {
             let local_o = new Object();
@@ -72,7 +72,7 @@ function getQuestions() {
             // Сохраняем текст вопроса
             let t = answer_node.textContent.trim();
             if (t) {
-                local_o.atext = t
+                local_o.atext = Base64.encode(t)
                 /**
                  * Всегда будет поле status! Но итоговое значение в нем будет определяться автоматически
                  * 
@@ -101,6 +101,10 @@ function getQuestions() {
                     if (!entry[0].includes("sequencecheck")) console.log(entry);
                 }
 
+                ['q12402347:1_answer', '2']
+                ['q12402347:2_answer', '-1']
+                ['q12402347:3_answer', '-1']
+
                  *
                  *
                  */
@@ -108,6 +112,9 @@ function getQuestions() {
                     if (!entry[0].includes("sequencecheck") && entry[0].includes(":")) {
                         
                         console.log(entry);
+                        let selector = entry[0];
+                        let value = entry[1];
+                        
                     }
                 }
                 // local_o.checked     = answer_node.childNodes[0].checked;
