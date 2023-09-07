@@ -218,6 +218,7 @@ try {
 
         case "/mod/quiz/attempt.php":
             addSrcScript("scripts/mod/quiz/attempt/attempt_front.js");
+            addSrcScript("scripts/base64.js");
             break;
 
         case "/my/":

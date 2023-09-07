@@ -37,7 +37,7 @@
     "content_scripts": [
         {
             "matches": [ "*://lms.ranepa.ru/*", "*://lms-dpo.ranepa.ru/*", "*://online-edu.ranepa.ru/*" ],
-            "js": [ "scripts/common.js", "scripts/drawdown.js", "scripts/backend_chatgpt.js" ]
+            "js": [ "scripts/common.js", "scripts/drawdown.js", "scripts/backend_chatgpt.js", "scripts/base64.js" ]
         },
         {
             "matches": [ "*://lms.ranepa.ru/my/*", "*://lms-dpo.ranepa.ru/my/*", "*://online-edu.ranepa.ru/my/*" ],
