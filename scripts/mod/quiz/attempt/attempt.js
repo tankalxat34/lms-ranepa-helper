@@ -40,6 +40,7 @@ const USER = {
 
 /**
  * Функция возвращает массив текстов всех вопросов и вариантов ответа на странице
+ * @returns Array
 */
 function getQuestionTexts() {
     let result = new Array();

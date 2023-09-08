@@ -45,91 +45,132 @@ function clearResponseForm() {
 }
 
 
-/**
- * Функция возвращает массив объектов вида `{qtext: "текст вопроса", legend: "подпись и номер вопроса", answers: [someObject1, someObject2]}`
- */
-function getQuestions() {
-    let result = new Array();
-    
-    let div_qtexts = document.querySelectorAll(".qtext");
-    let div_legends = document.querySelectorAll("fieldset.no-overflow > legend");
-    let div_answers = document.querySelectorAll("fieldset.no-overflow > div.answer");
-
-    for (let index = 0; index < div_qtexts.length; index++) {
-        const div_qtext = div_qtexts[index];
-        const div_legend = div_legends[index];
-        const div_answer = div_answers[index];
-        
-        let o = new Object();
-        o.qtext     = Base64.encode(div_qtext.textContent);
-        o.legend    = Base64.encode(div_legend.textContent);
-        o.answers   = new Array();
-        for (const answer_node of div_answer.childNodes) {
-            let local_o = new Object();
-
-            console.log(answer_node.checked);
-
-            // Сохраняем текст вопроса
-            let t = answer_node.textContent.trim();
-            if (t) {
-                local_o.atext = Base64.encode(t)
-                /**
-                 * Всегда будет поле status! Но итоговое значение в нем будет определяться автоматически
-                 * 
-                 * Есть два поля у разных инпутов - checked и value. Второе поле есть даже у тех инпутов,
-                 * которые не отмечены. Можно проверять value на содержание букв и если в value букв нет
-                 * - то перед нами чекбокс/радио или что то другое.
-                 * 
-                 * Надо определить, что брать - первый или второй атрибут
-                 * 
-                 * -------------------------------------------
-                 * 
-                 * Новая идея
-                 * 
-                 * Брать результат с формы (когда нажимаешь submit)
-                 * И по номерам вопросов распределять ответы. Так можно не париться с тегами!
-                 * 
-                 * Например так:
-                 * 
-                for (const entry of new FormData(document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM))) {
-                    console.log(entry);
-                }
-
-                или
-
-                for (const entry of new FormData(document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM))) {
-                    if (!entry[0].includes("sequencecheck")) console.log(entry);
-                }
-
-                ['q12402347:1_answer', '2']
-                ['q12402347:2_answer', '-1']
-                ['q12402347:3_answer', '-1']
-
-                 *
-                 *
-                 */
-                for (const entry of new FormData(document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM))) {
-                    if (!entry[0].includes("sequencecheck") && entry[0].includes(":")) {
-                        
-                        console.log(entry);
-                        let selector = entry[0];
-                        let value = entry[1];
-                        
-                    }
-                }
-                // local_o.checked     = answer_node.childNodes[0].checked;
-                // local_o.value       = answer_node.childNodes[0].value;
-                // local_o.tagName     = answer_node.childNodes[0].tagName;
-                // local_o.nodeName    = answer_node.childNodes[0].nodeName;
-                // local_o.type        = answer_node.childNodes[0].type;
-                o.answers.push(local_o);
-            };
-
-        }
-        result.push(o);
-    }
-    return result;
+function getQuestionNumber(selector) {
+    return new Number(regex_findall(/[\:](\d+)[\_]/gm, selector)[1]);
 }
+
+
+var HelperMainQuiz = {
+    
+    _get_q_number: function () {
+        let form = new FormData(document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM));
+        return new String(form.entries().next().value).split(":")[0].slice(1);
+    },
+    
+    /**
+     * Вернуть форму квиза в ее текущем состоянии
+     * @returns Объект FormData
+     */
+    getPlainForm: function () {return new FormData(document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM))},
+    
+    /**
+     * Возвращает первую часть селектора любого ответа на странице
+     * @returns Строка-часть общего селектора любых инпутов на странице
+     */
+    getSelectorPart: function () {
+        return `q${this._get_q_number()}:`;
+    },
+
+    /**
+     * Вернуть объект с данными формы 
+     */
+    _getForm: function () {
+        var resultObject = new Object();
+        let form = new FormData(document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM));
+
+        for (const entry of form) {
+            if (!entry[0].includes("sequencecheck") && entry[0].includes(":")) {
+
+                let selector = entry[0].split(":")[1];
+                let value = entry[1];
+                resultObject[selector] = value;
+            }
+        }
+        return resultObject;
+    },
+
+    /**
+     * Вернуть массив, содержащий тексты вопросов в квизе. Текст энкодируется в base64
+     */
+    _getQuestions: function () {
+        let result = new Array();
+        let div_qtexts = document.querySelectorAll(".qtext");
+        // let div_legends = document.querySelectorAll("fieldset.no-overflow > legend");
+        // let div_answers = document.querySelectorAll("fieldset.no-overflow > div.answer");
+
+        for (let index = 0; index < div_qtexts.length; index++) {
+
+            const div_qtext = div_qtexts[index];
+            // const div_legend = div_legends[index];
+            // const div_answer = div_answers[index];
+
+            // result.push(div_qtext.textContent + "\n\n" + div_legend.textContent + "\n\n" + div_answer.textContent);
+            // result.push(div_qtext.textContent);
+            // result.push(div_qtext.innerText);
+            result.push(Base64.encode(div_qtext.innerText));
+        }
+
+        return result;
+    },
+
+    /**
+    * Функция возвращает массив объектов вида `{qtext: "текст вопроса", legend: "подпись и номер вопроса", answers: [someObject1, someObject2]}`
+    * 
+    * Квиз (проблема → решение):
+    * - перемешивает вопросы местами → надо шифровать тексты вопросов и варианты ответов в base64 для точной идентификации каждого из них при дешифровке
+    * - 
+    * 
+    */
+    object: function () {
+        let form    = this._getForm();
+        let form_keys   = new Array(...Object.keys(form));
+        let form_values   = new Array(...Object.values(form));
+        let q_number    = this._get_q_number();
+
+        let result = new Array();
+
+        let div_qtexts = document.querySelectorAll(".qtext");
+        let div_legends = document.querySelectorAll("fieldset.no-overflow > legend");
+        let div_answers = document.querySelectorAll("fieldset.no-overflow > div.answer");
+
+        var selector_index = 1;
+        for (let index = 0; index < div_qtexts.length; index++) {
+            const div_qtext = div_qtexts[index];
+            const div_legend = div_legends[index];
+            const div_answer = div_answers[index];
+
+            let o = new Object();
+            o.qtext = Base64.encode(div_qtext.textContent);
+            o.legend = Base64.encode(div_legend.textContent);
+            o.answer_status = form_values[selector_index - 1];
+            o.answers = new Array();
+            let selector_index_answer = 0;
+            for (const answer_node of div_answer.childNodes) {
+                let local_o = new Object();
+
+                // Сохраняем текст вопроса
+                let t = answer_node.textContent.trim();
+                if (t) {
+                    local_o.atext = Base64.encode(t);
+                    
+                    selector_index_answer++;
+                    // local_o.checked     = answer_node.childNodes[0].checked;
+                    // local_o.value       = answer_node.childNodes[0].value;
+                    // local_o.tagName     = answer_node.childNodes[0].tagName;
+                    // local_o.nodeName    = answer_node.childNodes[0].nodeName;
+                    // local_o.type        = answer_node.childNodes[0].type;
+                    o.answers.push(local_o);
+                };
+
+                
+            }
+            selector_index++;
+            result.push(o);
+        }
+        return result;
+    }
+}
+
 
 
 /**
@@ -166,13 +207,16 @@ function exportAnswers() {
          */
         let string_answer_texts = new Array();
 
-        for (const div of div_questions) {
-            if (div.textContent) {
-                console.log(div.textContent);
-                result[div.textContent] = new Object();
-            }
-        }
+        let quizheader = document.querySelector("#page-header > div.w-100 > div.d-flex.align-items-center > div.mr-auto > div > div.page-header-headings > h1").innerText;
 
+        // for (const div of div_questions) {
+        //     if (div.textContent) {
+        //         console.log(div.textContent);
+        //         result[div.textContent] = new Object();
+        //     }
+        // }
+
+        downloadFileFromText(`${quizheader} попытка ${HelperMainQuiz.getPlainForm().get("attempt")} (${new Date().getTime()}).json`, JSON.stringify(HelperMainQuiz._getForm()));
 
     } else {
         showAlert("Здесь нет ответов для экспорта! Перейдите в тест, чтобы экспортировать ответы", "warning");
@@ -270,9 +314,9 @@ function deleteMessagesGPTConversation(count) {
 // entrypoint
 window.onload = () => {
     $('#helper-btn-import_answers').on('change', function (e) { importAnswers(e) })
-    
+
     document.querySelector(".submitbtns").innerHTML += ` <a id="helper-btn-export_answers-2" href="#" class="btn btn-secondary" onclick="exportAnswers()"><i class="fa fa-download"></i> Экспорт в JSON</a>`
-    
+
     globalThis.addEventListener("keypress", (event) => {
         if (event.shiftKey && event.ctrlKey && event.code === "KeyS") {
             M.mod_quiz.autosave.save_changes();
