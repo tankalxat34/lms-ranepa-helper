@@ -140,9 +140,14 @@ var HelperMainQuiz = {
             const div_answer = div_answers[index];
 
             let o = new Object();
-            o.qtext = Base64.encode(div_qtext.textContent);
+            o.text = Base64.encode(div_qtext.textContent);
             o.legend = Base64.encode(div_legend.textContent);
-            o.answer_status = form_values[selector_index - 1];
+            try {
+                o.answer_status.push(form_values[selector_index - 1]);
+            } catch {
+                o.answer_status = new Array();
+                o.answer_status.push(form_values[selector_index - 1]);
+            }
             o.answers = new Array();
             let selector_index_answer = 0;
             for (const answer_node of div_answer.childNodes) {
@@ -151,7 +156,7 @@ var HelperMainQuiz = {
                 // Сохраняем текст вопроса
                 let t = answer_node.textContent.trim();
                 if (t) {
-                    local_o.atext = Base64.encode(t);
+                    local_o.text = Base64.encode(t);
                     
                     selector_index_answer++;
                     // local_o.checked     = answer_node.childNodes[0].checked;

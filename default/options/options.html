@@ -159,15 +159,23 @@
                     <li>Вручную скопируйте accessToken с <a href="https://chat.openai.com/api/auth/session" target="_blank">этой страницы</a> и вставьте его в поле ниже;</li>
                     <li>Отключите и включите снова тумблер <label for="helper-settings-show_chatgpt" style="cursor: pointer;"><b>Включить возможности ChatGPT</b></label>;</li>
                 </ol>
+
+                <p>Теперь у вас есть возможность использовать личный access token. Просто включите тумблер "Использовать свой токен" и вставьте токен в поле ниже</p>
+                
+                <div class="custom-control custom-switch" id="helper-settings-div-get_localuser_token" title="Включает возможности ChatGPT в тестах и на главной странице!">
+                    <input type="checkbox" class="custom-control-input" id="helper-settings-get_localuser_token">
+                    <label class="custom-control-label" for="helper-settings-get_localuser_token">Использовать свой токен</label>
+                </div>
+                
                 <div style="display: flex;">
                     <input type="text" class="form-control" id="helper-chatgpt-access_token">
                     <!-- <button class="btn btn-outline-secondary ml-3" onclick="document.querySelector('#helper-chatgpt-access_token').select(); navigator.clipboard.writeText(document.querySelector('#helper-chatgpt-access_token').value)">Скопировать</button> -->
                 </div>
     
-    
+
                 <div class="custom-control custom-switch" id="helper-settings-div-show_chatgpt" title="Включает возможности ChatGPT в тестах и на главной странице!">
                     <input type="checkbox" class="custom-control-input" id="helper-settings-show_chatgpt">
-                    <label class="custom-control-label" for="helper-settings-show_chatgpt">Включить возможности ChatGPT <span id="helper-chatgpt-access_token_span"></span></label>
+                    <label class="custom-control-label" for="helper-settings-show_chatgpt">Включить возможности ChatGPT <span id="helper-chatgpt-access_token_span" style="font-family: monospace;"></span></label>
                     <p id="helper-chatgpt-access_token_descr"></p>
                 </div>
     

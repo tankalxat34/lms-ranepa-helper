@@ -52,6 +52,9 @@ function saveOptions() {
  * Загрузить из памяти Chrome значения опций
  */
 function loadOptions() {
+    let formData = generateOptionsObj();
+    let selectors = Object.keys(formData);
+
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     fetch("https://chat.openai.com/api/auth/session", {
@@ -83,8 +86,6 @@ function loadOptions() {
         })
     })
 
-    let formData = generateOptionsObj();
-    let selectors = Object.keys(formData);
 
     chrome.storage.sync.get(selectors, (options) => {
 

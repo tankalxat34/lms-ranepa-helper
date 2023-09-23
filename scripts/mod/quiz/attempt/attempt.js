@@ -87,6 +87,8 @@ function fillButtons() {
         input_copy.title        = "Скопировать вопрос и варианты ответа"
         input_copy.addEventListener("click", () => {
             navigator.clipboard.writeText(QTEXTS[index]);
+            input_copy.value = "✔";
+            setTimeout(() => input_copy.value = "📋️", 1000);
         })
         div_for_buttons.appendChild(input_copy);
 
