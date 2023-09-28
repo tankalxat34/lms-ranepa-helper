@@ -35,6 +35,10 @@
         background-color: var(--bg-color); 
     }
 
+    .bold {
+        font-weight: 700;
+    }
+
     .block,.card {
         border-color: var(--border-color);
     }
@@ -160,16 +164,20 @@
                     <li>Отключите и включите снова тумблер <label for="helper-settings-show_chatgpt" style="cursor: pointer;"><b>Включить возможности ChatGPT</b></label>;</li>
                 </ol>
 
-                <p>Теперь у вас есть возможность использовать личный access token. Просто включите тумблер "Использовать свой токен" и вставьте токен в поле ниже</p>
+                <p>Теперь у вас есть возможность использовать личный access token. Просто включите тумблер <label for="helper-settings-get_localuser_token" class="bold">"Использовать указанный мной токен"</label> и вставьте токен в поле ниже. Эта функция предназначена для того, чтобы вы могли использовать ваш новый accessToken, полученный на этой <a href="https://platform.openai.com/account/api-keys" target="_blank">официальной странце</a> (может понадобиться VPN).</p>
                 
                 <div class="custom-control custom-switch" id="helper-settings-div-get_localuser_token" title="Включает возможности ChatGPT в тестах и на главной странице!">
                     <input type="checkbox" class="custom-control-input" id="helper-settings-get_localuser_token">
-                    <label class="custom-control-label" for="helper-settings-get_localuser_token">Использовать свой токен</label>
+                    <label class="custom-control-label" for="helper-settings-get_localuser_token">Использовать указанный мной токен</label>
                 </div>
+
+                <!-- <div style="display: flex;">
+                    <p>Использовать этот accessToken:</p>
+                    <input type="text" class="form-control" id="helper-chatgpt-user_access_token">
+                </div> -->
                 
                 <div style="display: flex;">
                     <input type="text" class="form-control" id="helper-chatgpt-access_token">
-                    <!-- <button class="btn btn-outline-secondary ml-3" onclick="document.querySelector('#helper-chatgpt-access_token').select(); navigator.clipboard.writeText(document.querySelector('#helper-chatgpt-access_token').value)">Скопировать</button> -->
                 </div>
     
 

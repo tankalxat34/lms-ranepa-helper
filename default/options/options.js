@@ -49,12 +49,9 @@ function saveOptions() {
 
 
 /**
- * Загрузить из памяти Chrome значения опций
+ * Делает запрос к аутентификации OpenAI, получает токен и устанавливает его в специальное поле на странице настроек. Уведомляет об успешности операции или о возможном провале.
  */
-function loadOptions() {
-    let formData = generateOptionsObj();
-    let selectors = Object.keys(formData);
-
+function _getAccessTokenFromChatGPT() {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     fetch("https://chat.openai.com/api/auth/session", {
@@ -85,9 +82,24 @@ function loadOptions() {
             document.querySelector("#helper-chatgpt-access_token").value = options["helper-chatgpt-access_token"];
         })
     })
+}
 
+
+/**
+ * Загрузить из памяти Chrome значения опций
+ */
+function loadOptions() {
+    let formData = generateOptionsObj();
+    let selectors = Object.keys(formData);
 
     chrome.storage.sync.get(selectors, (options) => {
+
+        if (!options["helper-settings-get_localuser_token"]) {
+            _getAccessTokenFromChatGPT();
+        } else {
+            document.querySelector("#helper-chatgpt-access_token_span").innerText = "Вы используете свой токен";
+            document.querySelector("#helper-chatgpt-access_token_span").style.color = "grey";
+        }
 
         for (let index = 0; index < selectors.length; index++) {
             const s = selectors[index];

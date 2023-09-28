@@ -258,10 +258,13 @@ function main() {
         })
         .then(() => {
             // get option names from Chrome Storage
-            chrome.storage.sync.get(["_option_names_array", "chatgpt_access_token", "chatgpt_user_object", "helper-chatgpt-model"], (options) => {
+            chrome.storage.sync.get(["_option_names_array", "chatgpt_access_token", "chatgpt_user_object", "helper-chatgpt-model", "helper-chatgpt-access_token", "helper-settings-get_localuser_token"], (options) => {
 
                 var _opt_names = options["_option_names_array"];
-                var chatgpt_user_object = JSON.parse(options["chatgpt_user_object"])
+                var chatgpt_user_object = JSON.parse(options["chatgpt_user_object"]);
+
+                // если включен тумблер использования личного токена - заменяем полученный ранее токен от OpenAI на указанный пользователем
+                if (options["helper-settings-get_localuser_token"]) chatgpt_user_object.accessToken = options["helper-chatgpt-access_token"];
 
                 console.log(chatgpt_user_object);
 
