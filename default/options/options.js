@@ -97,7 +97,7 @@ function loadOptions() {
         if (!options["helper-settings-get_localuser_token"]) {
             _getAccessTokenFromChatGPT();
         } else {
-            document.querySelector("#helper-chatgpt-access_token_span").innerText = "Вы используете свой токен";
+            document.querySelector("#helper-chatgpt-access_token_span").innerText = "Вы используете свой токен. Данные аккаунта ChatGPT остались прежними";
             document.querySelector("#helper-chatgpt-access_token_span").style.color = "grey";
         }
 
