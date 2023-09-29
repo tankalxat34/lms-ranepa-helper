@@ -92,12 +92,14 @@ function loadOptions() {
     let formData = generateOptionsObj();
     let selectors = Object.keys(formData);
 
-    chrome.storage.sync.get(selectors, (options) => {
+    chrome.storage.sync.get([...selectors, "chatgpt_user_object"], (options) => {
+
+        let chatgpt_user_object = JSON.parse(options["chatgpt_user_object"]);
 
         if (!options["helper-settings-get_localuser_token"]) {
             _getAccessTokenFromChatGPT();
         } else {
-            document.querySelector("#helper-chatgpt-access_token_span").innerText = "Вы используете свой токен. Данные аккаунта ChatGPT остались прежними";
+            document.querySelector("#helper-chatgpt-access_token_span").innerText = `${chatgpt_user_object.user.email} (используется указанный вами токен)`;
             document.querySelector("#helper-chatgpt-access_token_span").style.color = "grey";
         }
 
