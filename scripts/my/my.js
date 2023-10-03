@@ -144,6 +144,22 @@ var Services = {
      */
     todo: {
 
+        /**
+         * Поле для актуальных задач
+         */
+        FIELD_ACTUAL_TASKS: document.querySelector("#helper-services-todo-all_tasks > #task-field-actual"),
+
+        /**
+         * Поле для выполненных задач
+         */
+        FIELD_COMPLETED_TASKS: document.querySelector("#helper-services-todo-all_tasks > #task-field-completed"),
+
+        /**
+         * Добавляет задачу в список актуальных по нажатию enter (return) на клавиатуре
+         */
+        userReturn: function () {
+            console.log("add task")
+        }
     }
 }
 
@@ -208,6 +224,18 @@ function addListenersToServices() {
      * Привязка события keup для ГОСТ Интернет-ресурс
      */
     document.querySelector("#helper-rugost_s4").addEventListener("keyup", Services.rugost.s4);
+
+    /**
+     * TODO
+     * 
+     * Поле ввода задачи
+     */
+    document.querySelector("#userinput").addEventListener("keyup", (event) => {
+        console.log("event")
+        if (event) {
+            Services.todo.userReturn()
+        }
+    })
 
 }
 
