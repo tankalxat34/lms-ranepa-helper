@@ -225,7 +225,7 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
         }
         extentionNode.innerHTML = replacedText
 
-        document.getElementById("block-region-content").before(extentionNode)
+        document.getElementById("block-region-content").before(extentionNode);
         return document.querySelector("#available_new_version")
     })
     .then(extentionNode => {
