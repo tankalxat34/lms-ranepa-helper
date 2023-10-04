@@ -84,7 +84,7 @@ var Services = {
             let publisher = document.querySelector("#helper-rugost-publisher-s0")
             let year = document.querySelector("#helper-rugost-year-s0")
             let pages_count = document.querySelector("#helper-rugost-pages_count-s0")
-    
+
             textarea_result.value = `${author.value.split(",")[0].trim()} ${title.value} / ${author.value}. — ${num_redaction.value}. — ${city.value} : ${publisher.value}, ${year.value}. — ${pages_count.value} c. — Текст : непосредственный.`
         },
         /**
@@ -99,7 +99,7 @@ var Services = {
             let magazine_number = document.querySelector("#helper-rugost-magazine_number-s1")
             let page = document.querySelector("#helper-rugost-page-s1")
             let year = document.querySelector("#helper-rugost-year-s1")
-    
+
             textarea_result.value = `${author.value.split(",")[0].trim()} ${title.value} / ${author.value}. — Текст : непосредственный // ${magazine_title.value}. — ${year.value}. — № ${magazine_number.value}. — С. ${page.value}.`
         },
         /**
@@ -115,7 +115,7 @@ var Services = {
             let city = document.querySelector("#helper-rugost-city-s2")
             let publisher = document.querySelector("#helper-rugost-publisher-s2")
             let year = document.querySelector("#helper-rugost-year-s2")
-    
+
             textarea_result.value = `${author.value.split(",")[0].trim()} ${title.value} / ${author.value}. — Текст : непосредственный // ${sbornik_title.value}. — ${city.value} : ${publisher.value}, ${year.value}. — С. ${page.value}.`
         },
         /**
@@ -128,9 +128,9 @@ var Services = {
             let title = document.querySelector("#helper-rugost-title-s4")
             let web_title = document.querySelector("#helper-rugost-web_title-s4")
             let web_url = document.querySelector("#helper-rugost-web_url-s4")
-    
+
             let date = new Date()
-    
+
             if (author.value) {
                 textarea_result.value = `${author.value.split(",")[0].trim()} ${title.value} / ${author.value}. — Текст : электронный // ${web_title.value} : [сайт]. — URL: ${web_url.value} (дата обращения: ${date.toLocaleDateString()}).`
             } else {
@@ -155,10 +155,55 @@ var Services = {
         FIELD_COMPLETED_TASKS: document.querySelector("#helper-services-todo-all_tasks > #task-field-completed"),
 
         /**
+         * **Константа**. Хранит наименование ключа хранения всех задач в localStorage
+         */
+        LS_KEY: "helper-services-todo",
+
+        /**
+         * Массив, хранящий уже существующие задачи. Должен регулярно обновляться методом `update`
+         */
+        LS_TASKS: JSON.parse(localStorage.getItem(this.LS_KEY)) || [],
+
+        /**
+         * Обновляет значение `this.LS_TASKS`.
+         * @returns {Array} Массив со всеми задачами
+         */
+        _update: function () {
+            Services.todo.LS_TASKS = JSON.parse(localStorage.getItem(this.LS_KEY));
+            return Services.todo.LS_TASKS;
+        },
+
+        /**
+         * Метод для сохранения задачи в localStorage
+         * @param {String} text Текст задачи
+         * @param {Date} iid Уникальный идентификатор задачи. По умолчанию - Date добавления задачи.
+         */
+        _saveToLocalStorage: function (text, iid = Date.now()) {
+            this.LS_TASKS.push({
+                iid: iid,
+                text: text
+            });
+            localStorage.setItem(this.LS_KEY, JSON.stringify(this.LS_TASKS));
+            console.log(this._update());
+        },
+
+        /**
          * Добавляет задачу в список актуальных по нажатию enter (return) на клавиатуре
          */
         userReturn: function () {
-            console.log("add task")
+            this._saveToLocalStorage(document.querySelector("#userinput").value);
+            console.log(Services.todo.LS_TASKS);
+        },
+
+        /**
+         * Отрисовать сохраненные задачи
+         */
+        draw: function() {
+            this.LS_TASKS.forEach((value) => {
+                this.FIELD_ACTUAL_TASKS.innerHTML += `<div data-iid="${value.iid}">
+                    <p>${value.text}</p>
+                </div>`
+            })
         }
     }
 }
@@ -231,12 +276,14 @@ function addListenersToServices() {
      * Поле ввода задачи
      */
     document.querySelector("#userinput").addEventListener("keyup", (event) => {
-        console.log("event")
-        if (event) {
-            Services.todo.userReturn()
-        }
+        if (event.keyCode === 13) Services.todo.userReturn();
     })
-
+    /**
+     * TODO
+     * 
+     * Кнопка у поля ввода задачи
+     */
+    // document.querySelector("#btn-userinput").addEventListener("click", Services.todo.userReturn);
 }
 
 
@@ -377,6 +424,13 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
                             })
                         }
 
+                        // включает отображение часов
+                        if (options["helper-settings-show_clock"]) {
+                            setInterval(() => {
+                                document.querySelector("#page-header > div > div.d-flex.align-items-center > div.mr-auto > div > div > h1").innerText = `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`
+                            }, 1000);
+                        }
+
 
                         if (options["helper-settings-show_searchinput_courses"]) {
 
@@ -413,6 +467,9 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
                             place.appendChild(div_search);
 
                         }
+
+                        // отрисовываем задачи
+                        if (options["helper-settings-show_todo"]) Services.todo.draw();
                     })
                 });
 
