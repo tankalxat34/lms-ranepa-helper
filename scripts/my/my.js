@@ -427,7 +427,8 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
                         // включает отображение часов
                         if (options["helper-settings-show_clock"]) {
                             setInterval(() => {
-                                (document.querySelector("#page-header > div > div.d-flex.align-items-center > div.mr-auto > div > div > h1") || document.querySelector("#page-header > div > div.d-flex.align-items-center > h2")).innerText = `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`
+                                // (document.querySelector("#page-header > div > div.d-flex.align-items-center > div.mr-auto > div > div > h1") || document.querySelector("#page-header > div > div.d-flex.align-items-center > h2")).innerText = `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`
+                                (document.querySelector("#helper-clock")).innerText = `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`
                             }, 1000);
                         }
 
