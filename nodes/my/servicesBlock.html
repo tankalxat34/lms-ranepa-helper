@@ -47,7 +47,7 @@ div#helper-settings-show_todo-keyboard > button {
     background-color: var(--light);
     border: none;
     border-radius: 10px;
-    width: 3%;
+    width: 7em;
 }
 
 .helper-todo-task_kb button.helper-btn_todo-success:hover {
@@ -56,6 +56,10 @@ div#helper-settings-show_todo-keyboard > button {
 
 .helper-todo-task_kb button.helper-btn_todo-dander:hover {
     background-color: var(--red);
+}
+
+.helper-todo-completed_task {
+    text-decoration: line-through;
 }
 </style>
 
@@ -78,7 +82,7 @@ div#helper-settings-show_todo-keyboard > button {
                     <ul id="task-field-actual"></ul>
             
                     <p id="helper-task-field-completed_nothing" class="h2-task-type" style="display: inherit; color: grey;">Выполненных задач нет...</p>
-                    <div id="task-field-completed"></div>
+                    <ul id="task-field-completed"></ul>
             
                 </div>
                 
