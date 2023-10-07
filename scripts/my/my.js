@@ -386,8 +386,6 @@ fetch(chrome.runtime.getURL("nodes/my/mainBlock.html"))
 
                         }
 
-                        // отрисовываем задачи
-                        if (options["helper-settings-show_todo"]) Services.todo.draw();
                     })
                 });
 

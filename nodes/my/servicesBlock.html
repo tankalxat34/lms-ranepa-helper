@@ -14,6 +14,49 @@ div#helper-settings-show_todo-keyboard > button {
     font-style: italic;
     text-align: center;
 }
+
+.helper-todo-task_item {
+    list-style: none;
+    margin: 5px;
+    padding: 9px;
+    border-radius: 10px;
+    min-height: 3dvh;
+    list-style-image: initial;
+
+    /* text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden; */
+}
+
+.helper-todo-task_item.mouseover {
+    background-color: var(--light);
+}
+
+.helper-todo-task_item.mouseover div.helper-todo-task_kb {
+    display: initial;
+}
+
+.helper-todo-task_kb {
+    display: none;
+    right: 0;
+    top: 0;
+}
+
+.helper-todo-task_kb button {
+    transition: all .3s;
+    background-color: var(--light);
+    border: none;
+    border-radius: 10px;
+    width: 3%;
+}
+
+.helper-todo-task_kb button.helper-btn_todo-success:hover {
+    background-color: var(--teal);
+}
+
+.helper-todo-task_kb button.helper-btn_todo-dander:hover {
+    background-color: var(--red);
+}
 </style>
 
 <div class="card-body p-3" >
@@ -27,13 +70,14 @@ div#helper-settings-show_todo-keyboard > button {
                 
                 <div id="helper-settings-show_todo-keyboard">
                     <input type="text" id="userinput" class="form-control" placeholder="Добавить задачу...">
+                    <button id="userinput-btn" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button>
                 </div>
 
                 <div id="helper-services-todo-all_tasks">
-                    <p id="task-field-nothing" class="h6-task-type" style="display: inherit; color: grey;">Актуальных задач нет...</p>
-                    <div id="task-field-actual"></div>
+                    <p id="helper-task-field-nothing" class="h6-task-type" style="display: inherit; color: grey;">Актуальных задач нет...</p>
+                    <ul id="task-field-actual"></ul>
             
-                    <p id="task-field-completed_nothing" class="h2-task-type" style="display: inherit; color: grey;">Выполненных задач нет...</p>
+                    <p id="helper-task-field-completed_nothing" class="h2-task-type" style="display: inherit; color: grey;">Выполненных задач нет...</p>
                     <div id="task-field-completed"></div>
             
                 </div>
