@@ -137,74 +137,6 @@ var Services = {
                 textarea_result.value = `${title.value}. — Текст : электронный // ${web_title.value} : [сайт]. — URL: ${web_url.value} (дата обращения: ${date.toLocaleDateString()}).`
             }
         }
-    },
-
-    /**
-     * Список дел
-     */
-    todo: {
-
-        /**
-         * Поле для актуальных задач
-         */
-        FIELD_ACTUAL_TASKS: document.querySelector("#helper-services-todo-all_tasks > #task-field-actual"),
-
-        /**
-         * Поле для выполненных задач
-         */
-        FIELD_COMPLETED_TASKS: document.querySelector("#helper-services-todo-all_tasks > #task-field-completed"),
-
-        /**
-         * **Константа**. Хранит наименование ключа хранения всех задач в localStorage
-         */
-        LS_KEY: "helper-services-todo",
-
-        /**
-         * Массив, хранящий уже существующие задачи. Должен регулярно обновляться методом `update`
-         */
-        LS_TASKS: JSON.parse(localStorage.getItem(this.LS_KEY)) || [],
-
-        /**
-         * Обновляет значение `this.LS_TASKS`.
-         * @returns {Array} Массив со всеми задачами
-         */
-        _update: function () {
-            Services.todo.LS_TASKS = JSON.parse(localStorage.getItem(this.LS_KEY));
-            return Services.todo.LS_TASKS;
-        },
-
-        /**
-         * Метод для сохранения задачи в localStorage
-         * @param {String} text Текст задачи
-         * @param {Date} iid Уникальный идентификатор задачи. По умолчанию - Date добавления задачи.
-         */
-        _saveToLocalStorage: function (text, iid = Date.now()) {
-            this.LS_TASKS.push({
-                iid: iid,
-                text: text
-            });
-            localStorage.setItem(this.LS_KEY, JSON.stringify(this.LS_TASKS));
-            console.log(this._update());
-        },
-
-        /**
-         * Добавляет задачу в список актуальных по нажатию enter (return) на клавиатуре
-         */
-        userReturn: function () {
-            this._saveToLocalStorage(document.querySelector("#userinput").value);
-            console.log(Services.todo.LS_TASKS);
-        },
-
-        /**
-         * Отрисовать сохраненные задачи
-         */
-        draw: function() {
-            this.LS_TASKS.forEach((value) => {
-                this.FIELD_ACTUAL_TASKS.innerHTML += `<div data-iid="${value.iid}">
-                    <p>${value.text}</p>
-                </div>`
-            })
-        }
     }
 }
 
@@ -269,21 +201,6 @@ function addListenersToServices() {
      * Привязка события keup для ГОСТ Интернет-ресурс
      */
     document.querySelector("#helper-rugost_s4").addEventListener("keyup", Services.rugost.s4);
-
-    /**
-     * TODO
-     * 
-     * Поле ввода задачи
-     */
-    document.querySelector("#userinput").addEventListener("keyup", (event) => {
-        if (event.keyCode === 13) Services.todo.userReturn();
-    })
-    /**
-     * TODO
-     * 
-     * Кнопка у поля ввода задачи
-     */
-    // document.querySelector("#btn-userinput").addEventListener("click", Services.todo.userReturn);
 }
 
 
