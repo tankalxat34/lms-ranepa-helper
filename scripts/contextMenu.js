@@ -1,4 +1,4 @@
-function copyToClipboard(data) {
+function newCopyToClipboard(data) {
     // https://stackoverflow.com/questions/3436102/copy-to-clipboard-in-chrome-extension
     const copySource = document.createElement('textarea');
     copySource.textContent = data;
@@ -15,11 +15,11 @@ chrome.runtime.onMessage.addListener(function (request) {
 
     switch (request.action) {
         case 'copyToClipboardTitle':
-            copyToClipboard(request.currentTab.title);
+            newCopyToClipboard(request.currentTab.title);
             break;
 
         case 'copyToClipboardURL':
-            copyToClipboard(request.currentTab.url);
+            newCopyToClipboard(request.currentTab.url);
             break;
 
         case 'copyToClipboard-openIcon':
@@ -27,11 +27,11 @@ chrome.runtime.onMessage.addListener(function (request) {
             break;
 
         case 'copyToClipboardGOST-4':
-            copyToClipboard(`${resp.title}. — Текст : электронный // ${new URL(resp.url).host} : [сайт]. — URL: ${resp.url} (дата обращения: ${date.toLocaleDateString()}).`);
+            newCopyToClipboard(`${resp.title}. — Текст : электронный // ${new URL(resp.url).host} : [сайт]. — URL: ${resp.url} (дата обращения: ${date.toLocaleDateString()}).`);
             break;
 
         case 'copyToClipboardGOST-EN':
-            copyToClipboard(`${resp.title}, ${resp.url} (accessed: ${new Date().toLocaleDateString('en-us', { year:"numeric", month:"long", day:"numeric"})}).`);
+            newCopyToClipboard(`${resp.title}, ${resp.url} (accessed: ${new Date().toLocaleDateString('en-us', { year:"numeric", month:"long", day:"numeric"})}).`);
             break;
 
         default:
