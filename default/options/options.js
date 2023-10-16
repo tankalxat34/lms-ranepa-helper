@@ -203,4 +203,6 @@ document.querySelector("#helper-chatgpt-qidianym-btn_reset_params").addEventList
     document.querySelector("#helper-chatgpt-qidianym-temperature").value = "0.8";
     document.querySelector("#helper-chatgpt-qidianym-top_p").value = "1";
     document.querySelector("#helper-chatgpt-qidianym-systemMessage").value = DEFAULT_OPTIONS["helper-chatgpt-qidianym-systemMessage"];
+
+    window.location.reload();
 })
