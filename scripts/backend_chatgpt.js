@@ -20,6 +20,20 @@ function translateString(str, first_array, second_array) {
 }
 
 
+var ApiEndpointSelector = {
+    "https://api.openai.com/v1/chat/completions": {
+        url: "https://api.openai.com/v1/chat/completions",
+        get_headers: function () {
+            return {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '.concat(this.uo.accessToken.trim()),
+            };
+        },
+
+    }
+}
+
+
 /**
  * Объект для реализации простейшего функционала ChatGPT
  */
@@ -88,11 +102,12 @@ var ChatGPT = {
     
         try {
             const response = await fetch(request);
-            const data = await response.json();
             if (!response.ok) {
                 // если ошибка - вернем сообщение этой ошибки
                 return await data.error.message;
             }
+            
+            const data = await response.json();
             // если необходимо сохранять разговор
             if (this.do_saving_conv) this.save_conversation(data.choices[0].message);
             // если необходимо очищать разговор
