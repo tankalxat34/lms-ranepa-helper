@@ -66,32 +66,86 @@
     .nav-item .active {
         font-weight: 800;
     }
+
+    code {
+        font-size: 17px;
+    }
+
+    /* Стилизация таблицы */
+    table {
+        border-collapse: collapse; /* Объединение границ ячеек */
+        width: 100%; /* Растяжение таблицы по ширине контейнера */
+        border: 1px solid #ccc; /* Граница всей таблицы */
+        margin: 10px 0; /* Отступ сверху и снизу */
+        font-family: Arial, sans-serif;
+    }
+    /* Стилизация заголовков ячеек */
+    th {
+        background-color: #f5f5f5; /* Цвет фона заголовков */
+        font-weight: bold; /* Жирный шрифт */
+        border: 1px solid #ccc; /* Граница ячеек заголовка */
+        padding: 8px; /* Внутренний отступ */
+        text-align: left; /* Выравнивание текста влево */
+    }
+    /* Стилизация ячеек данных */
+    td {
+        border: 1px solid #ccc; /* Граница ячеек данных */
+        padding: 8px; /* Внутренний отступ */
+    }
+    /* Чередование цветов строк */
+    tr:nth-child(2n) {
+        background-color: #f9f9f9; /* Цвет фона четных строк */
+    }
+    /* Стили для input[type="range"] */
+    input[type="range"] {
+        -webkit-appearance: none; /* Убираем стандартный стиль для WebKit (Safari, Chrome) */
+        appearance: none;
+        width: 100%; /* Растягиваем элемент по ширине контейнера */
+        height: 10px; /* Высота ползунка */
+        background: #ccc; /* Цвет фона ползунка (серый по умолчанию) */
+        border: none; /* Убираем границу */
+        border-radius: 5px; /* Скругление углов ползунка */
+        outline: none; /* Убираем выделение при фокусе */
+    }
+
+    /* Стили для ползунка */
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none; /* Убираем стандартный стиль для WebKit (Safari, Chrome) */
+        appearance: none;
+        width: 20px; /* Ширина ползунка */
+        height: 20px; /* Высота ползунка */
+        background: #962e2f; /* Цвет фона ползунка */
+        border: 2px solid #8f3d3e; /* Граница ползунка */
+        border-radius: 50%; /* Скругление углов ползунка (для круглой формы) */
+        cursor: pointer; /* Курсор указывает на возможность перетаскивания ползунка */
+    }
 </style>
 
 
 <nav id="nav" class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">LMS RANEPA Helper</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="../welcome/welcome.html">Главная</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="../options/options.html">Настройки</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="../chatgpt/chatgpt.html">ChatGPT</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://lms.ranepa.ru/" target="_blank">СДО</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://lms-dpo.ranepa.ru/" target="_blank">ДПО</a>
-        </li>
-      </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="../welcome/welcome.html">Главная</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="../options/options.html">Настройки</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../chatgpt/chatgpt.html">ChatGPT</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://lms.ranepa.ru/" target="_blank">СДО</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://lms-dpo.ranepa.ru/" target="_blank">ДПО</a>
+            </li>
+        </ul>
     </div>
 </nav>
   
@@ -114,12 +168,6 @@
                 </div>
                 
                 <h4>Сервисы и возможности</h4>
-                <!-- <div class="custom-control custom-switch" id="helper-settings-div-show_services">
-                    <input type="checkbox" class="custom-control-input" id="helper-settings-show_services" >
-                    <label class="custom-control-label" for="helper-settings-show_services">Отображать сервисы на главной странице</label>
-                </div> -->
-                
-                <!-- <div class="dropdown-divider"></div> -->
     
                 <h5>Общее</h5>
         
@@ -164,19 +212,19 @@
                 
                 <div class="separator"></div>
     
-                <h5>Нейронная сеть</h5>
+                <h5><img src="../../openai.png" alt="logopng" width="20px" style="border-radius: 20%;"> ChatGPT</h5>
 
                 
-                <p style="font-style: italic;">Теперь вы можете выбрать поставщика ChatGPT - это может быть как официальный веб-ресурс от OpenAI, так и сторонний. Сторонние поставщики ChatGPT могут предлагать использовать нейронную сеть бесплатно, без регистрации и без авторизации через accessToken.</p>
+                <p style="font-style: italic;">Теперь вы можете выбрать поставщика ChatGPT - это может быть как официальный веб-ресурс от OpenAI, так и сторонний. Сторонние поставщики ChatGPT могут предлагать использовать нейронную сеть бесплатно, без регистрации и без авторизации через accessToken. Расширение <b>никогда</b> не передает ваши токены и ключи авторизации третьим лицам.</p>
 
                 <select name="helper-chatgpt-provider" id="helper-chatgpt-provider_type" class="form-select custom-select" style="width: 100%;">
-                    <option value="https://api.openai.com/v1/chat/completions" selected><b>OpenAI</b> (официальный поставщик, можно выбрать модель)</option>
-                    <option value="https://ai.qidianym.net/api/chat-process"><b>Qidianym</b> (неофициальный поставщик, gpt-3.5, свободная настройка)</option>
+                    <option value="https://api.openai.com/v1/chat/completions"><b>OpenAI</b> (официальный поставщик, можно выбрать модель)</option>
+                    <option value="https://ai.qidianym.net/api/chat-process"><b>Qidianym</b> (неофициальный поставщик, gpt-3.5-turbo, свободная настройка)</option>
                     <option value="_custom_provider_">Мой поставщик (для искушенных, свободная настройка)</option>
                 </select>
 
-                <div id="https://api.openai.com/v1/chat/completions">
-                    <h5><img src="../../openai.png" alt="logopng" width="20px" style="border-radius: 20%;"> ChatGPT</h5>
+                <div class="helper-chatgpt-provider_section" id="https://api.openai.com/v1/chat/completions" hidden>
+                    <h5>OpenAI</h5>
         
                     <p>В поле ниже отображен ваш accessToken для ChatGPT. accessToken - это уникальный ключ, который позволяет нейросети идентифицировать вас как пользователя и дать вам ответ. Если поле пустое, попробуйте сделать что-нибудь из перечисленного ниже. Если access token получить не удается - подождите некоторое время и повторите все операции снова.</p>
                     <ol>
@@ -192,11 +240,6 @@
                         <input type="checkbox" class="custom-control-input" id="helper-settings-get_localuser_token">
                         <label class="custom-control-label" for="helper-settings-get_localuser_token">Использовать указанный мной токен</label>
                     </div>
-    
-                    <!-- <div style="display: flex;">
-                        <p>Использовать этот accessToken:</p>
-                        <input type="text" class="form-control" id="helper-chatgpt-user_access_token">
-                    </div> -->
                     
                     <div style="display: flex;">
                         <input type="text" class="form-control" id="helper-chatgpt-access_token">
@@ -219,6 +262,51 @@
                         <option value="gpt-4-32k">gpt-4-32k</option>
                         <option value="gpt-4-32k-0314">gpt-4-32k-0314</option>
                     </select>
+                </div>
+
+                <div class="helper-chatgpt-provider_section" id="https://ai.qidianym.net/api/chat-process" hidden>
+                    <h5>Qidianym</h5>
+                    <p>Qidianym - это бесплатный сервис, предоставляющий доступ к ChatGPT без регистрации, платных лимитов, VPN, блокировок и прочих сложностей. Присутствует возможность настройки модели под ваши задачи. Все основные параметры запросов настроены за вас - вам остается лишь отрегулировать лишь некоторые параметры:</p>
+                    <ul>
+                        <li><code>temperature</code> - это параметр, контролирующий "креативность" или случайность текста, генерируемого GPT-3. Более высокая температура (например, 0,7) приводит к более разнообразному и творческому результату, в то время как более низкая температура (например, 0,2) делает результат более детерминированным и целенаправленным.</li>
+                        <li><code>top_p</code> - осуществляет динамический отбор лексики в зависимости от контекста.</li>
+                        <li><code>systemMessage</code> - стартовое сообщение, задающее начальный контекст поведения чат-бота в процессе диалога с вами. Обычно в таком тексте говорится о поведении бота в диалоге, запрещенных темах, текущей дате и времени. Нейронная сеть обучена огромной выборке данных, что позволяет ей сыграть почти любую "роль" в диалоге. Задав системное сообщение вы сможете предложить чат-боту свой вариант поведения в диалоге, <span style="text-decoration: line-through;">открыв запрещенные темы и социальные роли</span> увеличив шансы на получение более точного ответа на вопрос.</li>
+                    </ul>
+
+                    <details>
+                        <summary>Показать таблицу...</summary>
+                        <p>В таблице ниже показана комбинация параметров для достижения максимально ожидаемого результата</p>
+                        <table><thead><tr><th>Use Case</th><th>Temperature</th><th>Top_p</th><th>Description</th></tr></thead><tbody><tr><td>Code Generation</td><td>0.2</td><td>0.1</td><td>Generates code that adheres to established patterns and conventions. Output is more deterministic and focused. Useful for generating syntactically correct code.</td></tr><tr><td>Creative Writing</td><td>0.7</td><td>0.8</td><td>Generates creative and diverse text for storytelling. Output is more exploratory and less constrained by patterns.</td></tr><tr><td>Chatbot Responses</td><td>0.5</td><td>0.5</td><td>Generates conversational responses that balance coherence and diversity. Output is more natural and engaging.</td></tr><tr><td>Code Comment Generation</td><td>0.3</td><td>0.2</td><td>Generates code comments that are more likely to be concise and relevant. Output is more deterministic and adheres to conventions.</td></tr><tr><td>Data Analysis Scripting</td><td>0.2</td><td>0.1</td><td>Generates data analysis scripts that are more likely to be correct and efficient. Output is more deterministic and focused.</td></tr><tr><td>Exploratory Code Writing</td><td>0.6</td><td>0.7</td><td>Generates code that explores alternative solutions and creative approaches. Output is less constrained by established patterns.</td></tr></tbody></table>
+                    </details>
+                    <br>
+                    <p>Подробнее про параметры можно прочесть на <a href="https://community.openai.com/t/cheat-sheet-mastering-temperature-and-top-p-in-chatgpt-api-a-few-tips-and-tricks-on-controlling-the-creativity-deterministic-output-of-prompt-responses/172683" target="_blank">официальном форуме</a>.</p>
+                
+                
+                    <div>
+                        <label for="helper-chatgpt-qidianym-temperature" style="margin-right: 10px;">Параметр <code>temperature</code>: </label>
+                        <span id="helper-chatgpt-qidianym-temperature-value"></span>
+                        <input type="range" id="helper-chatgpt-qidianym-temperature" name="helper-chatgpt-qidianym-temperature" min="0" max="1" step="0.1">
+                    </div>
+                    
+                    <div>
+                        <label for="helper-chatgpt-qidianym-top_p" style="margin-right: 10px;">Параметр <code>top_p</code>: </label>
+                        <span id="helper-chatgpt-qidianym-top_p-value"></span>
+                        <input type="range" id="helper-chatgpt-qidianym-top_p" name="helper-chatgpt-qidianym-top_p" min="0" max="1" step="0.1">
+                    </div> 
+                    
+                    <div>
+                        <label for="helper-chatgpt-qidianym-systemMessage">Параметр <code>systemMessage</code>: </label>
+                        <textarea name="helper-chatgpt-qidianym-systemMessage" id="helper-chatgpt-qidianym-systemMessage" cols="30" rows="10" class="form-control"></textarea>
+                    </div>
+
+                    <div>
+                        <button class="btn btn-secondary" id="helper-chatgpt-qidianym-btn_reset_params">Параметры по умолчанию</button>
+                    </div>
+                </div>
+
+                <div class="helper-chatgpt-provider_section" id="_custom_provider_" hidden>
+                    <h5>Мой поставщик</h5>
+                    <p>Здесь вы можете настроить своего поставщика ChatGPT. Для этого необходимо указать заголовки и структуру тела запроса.</p>
                 </div>
     
                 <div class="separator"></div>
