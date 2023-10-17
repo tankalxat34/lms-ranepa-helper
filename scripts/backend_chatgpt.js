@@ -19,6 +19,13 @@ function translateString(str, first_array, second_array) {
     return result
 }
 
+/**
+ * Возвращает эндпонит для запросов в ChatGPT
+ */
+async function getGPTApiEndpoint() {
+    return await chrome.storage.sync.get(["helper-chatgpt-provider_type"]);
+}
+
 
 var ApiEndpointSelector = {
     "https://api.openai.com/v1/chat/completions": {
@@ -102,12 +109,11 @@ var ChatGPT = {
     
         try {
             const response = await fetch(request);
+            const data = await response.json();
             if (!response.ok) {
                 // если ошибка - вернем сообщение этой ошибки
                 return await data.error.message;
             }
-            
-            const data = await response.json();
             // если необходимо сохранять разговор
             if (this.do_saving_conv) this.save_conversation(data.choices[0].message);
             // если необходимо очищать разговор
