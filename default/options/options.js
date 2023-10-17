@@ -101,9 +101,12 @@ async function loadOptions() {
 
         if (!options["helper-settings-get_localuser_token"]) {
             _getAccessTokenFromChatGPT();
-            chatgpt_user_object = JSON.parse(options["chatgpt_user_object"]);
         } else {
-            document.querySelector("#helper-chatgpt-access_token_span").innerText = `${chatgpt_user_object.user.email} (используется указанный вами токен)`;
+            try {
+                document.querySelector("#helper-chatgpt-access_token_span").innerText = `${chatgpt_user_object.user.email} (используется указанный вами токен)`;
+            } catch {
+                document.querySelector("#helper-chatgpt-access_token_span").innerText = `Данные аккаунта ChatGPT не найдены. Авторизуйтесь и попробуйте снова!`;
+            }
             document.querySelector("#helper-chatgpt-access_token_span").style.color = "grey";
         }
 
@@ -148,6 +151,7 @@ function clearOptions() {
 
     chrome.storage.sync.clear();
     saveOptions();
+    window.location.reload();
 }
 
 async function chatgptCloseAllProviderSections() {

@@ -40,6 +40,8 @@ var ApiEndpointSelector = {
     }
 }
 
+// https://api.openai.com/v1/chat/completions
+// https://ai.qidianym.net/api/chat-process
 
 /**
  * Объект для реализации простейшего функционала ChatGPT

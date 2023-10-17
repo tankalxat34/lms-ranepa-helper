@@ -214,12 +214,12 @@
                 <p style="font-style: italic;">Теперь вы можете выбрать поставщика ChatGPT - это может быть как официальный веб-ресурс от OpenAI, так и сторонний. Сторонние поставщики ChatGPT могут предлагать использовать нейронную сеть бесплатно, без регистрации и без авторизации через accessToken. Расширение <b>никогда</b> не передает ваши токены и ключи авторизации третьим лицам.</p>
 
                 <select name="helper-chatgpt-provider" id="helper-chatgpt-provider_type" class="form-select custom-select" style="width: 100%;">
-                    <option value="https://api.openai.com/v1/chat/completions"><b>OpenAI</b> (официальный поставщик, можно выбрать модель)</option>
-                    <option value="https://ai.qidianym.net/api/chat-process"><b>Qidianym</b> (неофициальный поставщик, gpt-3.5-turbo, свободная настройка)</option>
+                    <option value="helper-chatgpt-provider-openai"><b>OpenAI</b> (официальный поставщик, можно выбрать модель)</option>
+                    <option value="helper-chatgpt-provider-qidianym"><b>Qidianym</b> (неофициальный поставщик, gpt-3.5-turbo, свободная настройка)</option>
                     <option value="_custom_provider_">Мой поставщик (для искушенных, свободная настройка)</option>
                 </select>
 
-                <div class="helper-chatgpt-provider_section" id="https://api.openai.com/v1/chat/completions" hidden>
+                <div class="helper-chatgpt-provider_section" id="helper-chatgpt-provider-openai" hidden>
                     <h5>OpenAI</h5>
         
                     <p>В поле ниже отображен ваш accessToken для ChatGPT. accessToken - это уникальный ключ, который позволяет нейросети идентифицировать вас как пользователя и дать вам ответ. Если поле пустое, попробуйте сделать что-нибудь из перечисленного ниже. Если access token получить не удается - подождите некоторое время и повторите все операции снова.</p>
@@ -260,7 +260,7 @@
                     </select>
                 </div>
 
-                <div class="helper-chatgpt-provider_section" id="https://ai.qidianym.net/api/chat-process" hidden>
+                <div class="helper-chatgpt-provider_section" id="helper-chatgpt-provider-qidianym" hidden>
                     <h5>Qidianym</h5>
                     <p>Qidianym - это бесплатный сервис, предоставляющий доступ к ChatGPT без регистрации, платных лимитов, VPN, блокировок и прочих сложностей. Присутствует возможность настройки модели под ваши задачи. Все основные параметры запросов настроены за вас - вам остается лишь отрегулировать лишь некоторые параметры:</p>
                     <ul>
