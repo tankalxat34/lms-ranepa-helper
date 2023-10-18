@@ -40,8 +40,8 @@ var ApiEndpointSelector = {
     }
 }
 
-// https://api.openai.com/v1/chat/completions
-// https://ai.qidianym.net/api/chat-process
+// helper-chatgpt-provider-openai : https://api.openai.com/v1/chat/completions
+// helper-chatgpt-provider-qidianym : https://ai.qidianym.net/api/chat-process
 
 /**
  * Объект для реализации простейшего функционала ChatGPT
