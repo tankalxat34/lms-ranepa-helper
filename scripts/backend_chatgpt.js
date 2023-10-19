@@ -19,6 +19,29 @@ function translateString(str, first_array, second_array) {
     return result
 }
 
+/**
+ * Возвращает эндпонит для запросов в ChatGPT
+ */
+async function getGPTApiEndpoint() {
+    return await chrome.storage.sync.get(["helper-chatgpt-provider_type"]);
+}
+
+
+var ApiEndpointSelector = {
+    "https://api.openai.com/v1/chat/completions": {
+        url: "https://api.openai.com/v1/chat/completions",
+        get_headers: function () {
+            return {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '.concat(this.uo.accessToken.trim()),
+            };
+        },
+
+    }
+}
+
+// helper-chatgpt-provider-openai : https://api.openai.com/v1/chat/completions
+// helper-chatgpt-provider-qidianym : https://ai.qidianym.net/api/chat-process
 
 /**
  * Объект для реализации простейшего функционала ChatGPT
@@ -138,9 +161,11 @@ var ChatGPT = {
      * Попытаться получить данные аккаунта OpenAI и загрузить их в этот объект. Работает на ChromeAPI. В случае успеха результат записывается в поле `this.uo`.
      */
     load_uo: function () { 
-        chrome.storage.sync.get(["chatgpt_user_object", "helper-chatgpt-model"], (option) => {
+        chrome.storage.sync.get(["chatgpt_user_object", "helper-chatgpt-model", "helper-chatgpt-access_token"], (option) => {
             this.uo = JSON.parse(option["chatgpt_user_object"]);
             this.model = option["helper-chatgpt-model"];
+            // явно указываем получение токена из хранилища браузера
+            this.uo.accessToken = option["helper-chatgpt-access_token"];
         })
     }
 }

@@ -45,101 +45,173 @@ function clearResponseForm() {
 }
 
 
-
-function exportAnswers() {
-    if (window.location.href.includes("mod/quiz/attempt.php")) {
-
-        let exportData = new Object()
-        let questionsObject = new Object()
-
-        var _test_id = null;
-
-        let filename = `attempt${M.cfg.sesskey}_${new Date().getTime()}.json`
+function getQuestionNumber(selector) {
+    return new Number(regex_findall(/[\:](\d+)[\_]/gm, selector)[1]);
+}
 
 
-        for (const entry of new FormData(document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM))) {
-            // output = entry[0] + "=" + entry[1] + "\r";
+var HelperMainQuiz = {
+    
+    _get_q_number: function () {
+        let form = new FormData(document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM));
+        return new String(form.entries().next().value).split(":")[0].slice(1);
+    },
+    
+    /**
+     * Вернуть форму квиза в ее текущем состоянии
+     * @returns Объект FormData
+     */
+    getPlainForm: function () {return new FormData(document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM))},
+    
+    /**
+     * Возвращает первую часть селектора любого ответа на странице
+     * @returns Строка-часть общего селектора любых инпутов на странице
+     */
+    getSelectorPart: function () {
+        return `q${this._get_q_number()}:`;
+    },
 
-            let id = entry[0]
-            let value = entry[1]
+    /**
+     * Вернуть объект с данными формы 
+     */
+    _getForm: function () {
+        var resultObject = new Object();
+        let form = new FormData(document.querySelector(M.mod_quiz.autosave.SELECTORS.QUIZ_FORM));
 
-            if (id.slice(0, 1) === "q" && "0123456789".includes(id.slice(1, 2)) && !id.includes("sequencecheck")) {
+        for (const entry of form) {
+            if (!entry[0].includes("sequencecheck") && entry[0].includes(":")) {
 
-                questionsObject[id] = {
-                    backend_number: id.split("_")[0].split(":")[1],
-                    selected: value,
-                    querySelector: "0123456789".includes(id.slice(-1)) ? "#" + (id).replace(":", "\\:") : "#" + (id + value).replace(":", "\\:"),
-                }
-
-                _test_id = id.split(":")[0].slice(1)
-
-            } else if (id !== "sesskey" && !(id.slice(0, 1) === "q" && "0123456789".includes(id.slice(1, 2)) && id.includes("sequencecheck"))) {
-                exportData[id] = value
+                let selector = entry[0].split(":")[1];
+                let value = entry[1];
+                resultObject[selector] = value;
             }
         }
+        return resultObject;
+    },
 
-        exportData.test_id = _test_id
-        exportData.questions = questionsObject
+    /**
+     * Вернуть массив, содержащий тексты вопросов в квизе. Текст энкодируется в base64
+     */
+    _getQuestions: function () {
+        let result = new Array();
+        let div_qtexts = document.querySelectorAll(".qtext");
+        // let div_legends = document.querySelectorAll("fieldset.no-overflow > legend");
+        // let div_answers = document.querySelectorAll("fieldset.no-overflow > div.answer");
 
-        showAlert("Скачанный файл вы можете отправить своим одногруппникам, у которых установлен LMS RANEPA Helper. С помощью расширения они смогут в этот тест загрузить все ответы из полученного json файла. Скачать расширение можно <a href=\"https://github.com/tankalxat34/lms-ranepa-helper\" target=\"_blank\">здесь</a>. Также можно <a href=\"https://vk.com/share.php?url=https://github.com/tankalxat34/lms-ranepa-helper\" target=\"_blank\">поделиться расширением</a>.")
+        for (let index = 0; index < div_qtexts.length; index++) {
 
-        downloadFileFromText(filename, JSON.stringify(exportData, null, 4))
+            const div_qtext = div_qtexts[index];
+            // const div_legend = div_legends[index];
+            // const div_answer = div_answers[index];
+
+            // result.push(div_qtext.textContent + "\n\n" + div_legend.textContent + "\n\n" + div_answer.textContent);
+            // result.push(div_qtext.textContent);
+            // result.push(div_qtext.innerText);
+            result.push(Base64.encode(div_qtext.innerText));
+        }
+
+        return result;
+    },
+
+    /**
+    * Функция возвращает объект, ключами которого является Текст вопроса, а значениями - другие объекты
+    * 
+    * Квиз (проблема → решение):
+    * - перемешивает вопросы местами → надо шифровать тексты вопросов и варианты ответов в base64 для точной идентификации каждого из них при дешифровке
+    */
+    object: function () {
+        let form    = this._getForm();
+        let form_keys   = new Array(...Object.keys(form));
+        let form_values   = new Array(...Object.values(form));
+        let q_number    = this._get_q_number();
+
+        let result = {};
+
+        let div_qtexts      = [...document.querySelectorAll(".qtext")].map(value => value.innerText);
+        let div_legends     = [...document.querySelectorAll("fieldset.no-overflow > legend")].map(value => value.innerText);
+        let div_answers     = [...document.querySelectorAll("fieldset.no-overflow > div.answer")];
+
+        for (let index = 0; index < div_qtexts.length; index++) {
+            let q = Base64.encode(div_qtexts[index]);
+            let l = Base64.encode(div_legends[index]);
+            let a = [...div_answers[index].childNodes].filter(function(value) {
+                return value.tagName === "DIV"
+            });
+            
+            result[q] = {
+                legend: l,
+                answers: {}
+            }
+
+            a.forEach((value, index) => {
+                let childNodes = [...value.childNodes];
+                
+                childNodes.forEach(childElement => {
+                    if (childElement.tagName === "INPUT" && childElement.getAttribute("type").toLowerCase() !== "hidden") {
+                        result[q].answers[Base64.encode(value.innerText)] = {
+                            value: childElement?.value,
+                            checked: childElement?.checked
+                        }
+                    }
+                })
+            })
+        }
+        return result;
+    }
+}
+
+
+
+/**
+ * Функция экспортирует ответы на тест
+ * 
+ * Pull request: https://github.com/tankalxat34/lms-ranepa-helper/pull/1
+ */
+function exportAnswers() {
+    if (window.location.href.includes("mod/quiz/attempt.php")) {
+        let quizheader = document.querySelector("#page-header > div.w-100 > div.d-flex.align-items-center > div.mr-auto > div > div.page-header-headings > h1").innerText;
+
+        downloadFileFromText(`${quizheader} попытка ${HelperMainQuiz.getPlainForm().get("attempt")} (${new Date().getTime()}).json`, JSON.stringify(HelperMainQuiz.object()));
 
     } else {
-        showAlert("Здесь нет ответов для экспорта! Перейдите в тест, чтобы экспортировать ответы", "warning")
+        showAlert("Здесь нет ответов для экспорта! Перейдите в тест, чтобы экспортировать ответы", "warning");
     }
 }
 
 
 
 function importAnswers_Handler(json_object) {
-    /* 
-        q9827138:1_answer0    
-    */
 
     // проверка на то, на какой странице находится пользователь
     // if (document.querySelector("input[name='thispage']").value === json_object.thispage) {
 
     // Очищаем форму
     clearResponseForm()
-    // console.log(json_object)
-    for (const name of Object.keys(json_object.questions)) {
 
-        let obj = json_object.questions[name]
-        let local_selector = `input[name='${name}'][value='${obj.selected}']`
-        console.log(local_selector)
-        // let input = document.querySelector(obj.querySelector)
-        let input = document.querySelector(local_selector)
+    let div_qtexts      = [...document.querySelectorAll(".qtext")].map(value => value.innerText);
+    let div_legends     = [...document.querySelectorAll("fieldset.no-overflow > legend")].map(value => value.innerText);
+    let div_answers     = [...document.querySelectorAll("fieldset.no-overflow > div.answer")];
 
-        switch (input.type) {
-            case "radio":
-                input.click()
-                break;
+    for (let index = 0; index < div_qtexts.length; index++) {
+        let a = [...div_answers[index].childNodes].filter(function(value) {
+            return value.tagName === "DIV"
+        });
 
-            case "checkbox":
-                input.checked = false
-                if (obj.selected === "1") {
-                    input.checked = true
+        a.forEach(value => {
+            let childNodes = [...value.childNodes];
+
+            childNodes.forEach(childElement => {
+                if (childElement.tagName === "INPUT" && childElement.getAttribute("type").toLowerCase() !== "hidden") {
+                    childElement.checked = json_object[Base64.encode(div_qtexts[index])].answers[Base64.encode(value.innerText)].checked;
+                    if (childElement.value !== json_object[Base64.encode(div_qtexts[index])].answers[Base64.encode(value.innerText)].value) childElement.value = json_object[Base64.encode(div_qtexts[index])].answers[Base64.encode(value.innerText)].value;
                 }
-                break;
+            })
 
-            case "text":
-                input.value = obj.selected
-                break;
-
-            default:
-                input.value = obj.selected
-                break;
-        }
+        })
     }
 
-    showAlert(`<p>Ответы из файла успешно импортированы!</p><p><span style="color: red;">Перед отправкой не забудьте ВНИМАТЕЛЬНО проверить проставленные ответы!</span></p>`)
+    showAlert(`<p>Ответы успешно импортированы!</p><p><span style="color: red;">Перед отправкой не забудьте ВНИМАТЕЛЬНО проверить проставленные ответы!</span></p>`)
 
-    // } else {
-
-    //     showAlert(`<p>Этот файл не содержит ответы для данной страницы</p><p>Ответы предназначены для страницы: ${json_object.thispage}. Текущая страница: ${document.querySelector("input[name='thispage']").value}</p>`, "warning")
-
-    // }
 }
 
 
@@ -178,103 +250,12 @@ function deleteMessagesGPTConversation(count) {
     }
 }
 
-function requestToChatGPT(content, uo, openai_model = "gpt-3.5-turbo") {
-    /*
-    curl https://api.openai.com/v1/chat/completions \
-    -H "Authorization: Bearer $OPENAI_API_KEY" \
-    -H "Content-Type: application/json" \
-    -d '{
-    "model": "gpt-3.5-turbo",
-    "messages": [{"role": "user", "content": "What is the OpenAI mission?"}] 
-    }'
-    */
-    CONVERSATION.push({"role": "user", "content": content});
-    FULL_CONVERSATION.push({"role": "user", "content": content});
-
-    $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="user" style="border-radius: 10px; background-color: #E2E2E2;">
-    <h6>${uo.user.email} (${new Date().toLocaleTimeString()})</h6>
-    ${markdown(content)}
-    </div>`;
-    $("#helper-chatgpt_input")[0].value = "";
-    $("#helper-chatgpt_input")[0].disabled = true;
-    $("#helper-btn-chatgpt_send")[0].disabled = true;
-
-    $.ajax({
-        url: 'https://api.openai.com/v1/chat/completions',
-        type: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${uo.accessToken}`
-        },
-        data: JSON.stringify({
-            model: openai_model,
-            messages: CONVERSATION
-        }),
-        success: function (data) {
-            console.log(data);
-            CONVERSATION.push({"role": "assistant", "content": data.choices[0].message.content});
-            FULL_CONVERSATION.push({"role": "assistant", "content": data.choices[0].message.content});
-            
-            let html = markdown(data.choices[0].message.content);
-            $("#helper-chatgpt_input")[0].disabled = false;
-            $("#helper-btn-chatgpt_send")[0].disabled = false;
-            $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="assistant" style="border-radius: 10px; background-color: #E2E2E2;">
-            <h6>${data.choices[0].message.role[0] + data.choices[0].message.role.slice(1)} (${new Date().toLocaleTimeString()})</h6>
-            ${html}
-            <div class="buttons" style="display: flex;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Markdown-mark.svg" alt="Скопировать ответ в Markdown" title="Скопировать ответ в Markdown" width=20px style="cursor: pointer;" onclick="copyGPTMessage(${CONVERSATION.length - 1})">
-            </div>
-            </div>`;
-        },
-        error: function (xhr, status, error) {
-            console.log(xhr.responseJSON);
-            let resp = xhr.responseJSON.error;
-            $("#helper-chatgpt_input")[0].disabled = false;
-            $("#helper-btn-chatgpt_send")[0].disabled = false;
-
-            let html_hint_tokenlimit = `<b>Совет:</b> попробуйте удалить несколько первых сообщений из беседы, чтобы продолжить общение с ботом. Контекст беседы может незначительно измениться, однако, освободив место для диалога, вы сможете продолжить общение. Удаление сообщений не скроет их из вашего диалога, не затронет возможности копирования текста или функцию экспорта всего диалога. После очистки сообщений напишите боту "продолжи" или "продолжай", чтобы получить ответ до конца. <b>Обратите внимание! Очистив всю беседу вы потеряете заданный контекст беседы!</b>`
-
-            let CONV_NUMBER = CONVERSATION.length - 1
-
-            if (resp.code === "context_length_exceeded") {
-                $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="assistant" style="border-radius: 10px; background-color: #E2E2E2;">
-                <h6>${status} - ${resp.type}.${resp.code} (${new Date().toLocaleTimeString()})</h6>
-                <div style="color: red;">
-                ${markdown(resp.message)}
-                </div>
-                
-                <div>
-                    <p>${html_hint_tokenlimit}</p>
-
-                    <div style="display: flex;">
-                        <button class="btn btn-outline-secondary helper-class-chatgpt-message_keyboard-clear_conversation" style="margin-right: 10px;" onclick="deleteMessagesGPTConversation($('#helper-chatgpt-clear_conversation-${CONV_NUMBER}').val()); showAlert('Указанные сообщения удалены!');">Удалить сообщений: </button>
-                        <input type="number" id="helper-chatgpt-clear_conversation-${CONV_NUMBER}" class="form-control", style="max-width: 10%; margin-right: 10px;" value="4" min="1" max="${CONVERSATION.length}">
-                        <button class="btn btn-outline-primary" style="margin-right: 10px;" onclick="CONVERSATION.length = 0; showAlert('Беседа успешно очищена!')">Очистить всю беседу</button>
-                    </div>
-
-                </div>
-
-                </div>`;
-
-            } else {
-                $("#helper-chatgpt_response")[0].innerHTML += `<div class="mb-4 p-3" data-message_sender="assistant" style="border-radius: 10px; background-color: #E2E2E2;">
-                <h6>${status} - ${resp.type}.${resp.code} (${new Date().toLocaleTimeString()})</h6>
-                <div style="color: red;">
-                ${markdown(resp.message)}
-                </div>
-                </div>`;
-            }
-        }
-    });
-}
-
-
 // entrypoint
 window.onload = () => {
     $('#helper-btn-import_answers').on('change', function (e) { importAnswers(e) })
-    
+
     document.querySelector(".submitbtns").innerHTML += ` <a id="helper-btn-export_answers-2" href="#" class="btn btn-secondary" onclick="exportAnswers()"><i class="fa fa-download"></i> Экспорт в JSON</a>`
-    
+
     globalThis.addEventListener("keypress", (event) => {
         if (event.shiftKey && event.ctrlKey && event.code === "KeyS") {
             M.mod_quiz.autosave.save_changes();
