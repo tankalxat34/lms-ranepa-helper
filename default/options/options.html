@@ -210,100 +210,40 @@
     
                 <h5><img src="../../openai.png" alt="logopng" width="20px" style="border-radius: 20%;"> ChatGPT</h5>
 
+                <p>В поле ниже отображен ваш accessToken для ChatGPT. accessToken - это уникальный ключ, который позволяет нейросети идентифицировать вас как пользователя и дать вам ответ. Если поле пустое, попробуйте сделать что-нибудь из перечисленного ниже. Если access token получить не удается - подождите некоторое время и повторите все операции снова.</p>
+                <ol>
+                    <li>Перейдите на <a href="https://chat.openai.com" target="_blank">главную страницу</a> ChatGPT и дождитесь ее окончательной загрузки. Затем обновите эту страницу с настройками;</li>
+                    <li>Перелогиньтесь (выйдите и зайдите снова в свой аккаунт OpenAI);</li>
+                    <li>Вручную скопируйте accessToken с <a href="https://chat.openai.com/api/auth/session" target="_blank">этой страницы</a> и вставьте его в поле ниже;</li>
+                    <li>Отключите и включите снова тумблер <label for="helper-settings-show_chatgpt" style="cursor: pointer;"><b>Включить возможности ChatGPT</b></label>;</li>
+                </ol>
+
+                <div class="custom-control custom-switch" id="helper-settings-div-get_localuser_token" title="Если у вас есть собственный accessToken, вы можете включить этот тумблер и вставить имеющийся accessToken в поле ниже">
+                    <input type="checkbox" class="custom-control-input" id="helper-settings-get_localuser_token">
+                    <label class="custom-control-label" for="helper-settings-get_localuser_token">Использовать указанный мной токен</label>
+                </div>
                 
-                <p style="font-style: italic;">Теперь вы можете выбрать поставщика ChatGPT - это может быть как официальный веб-ресурс от OpenAI, так и сторонний. Сторонние поставщики ChatGPT могут предлагать использовать нейронную сеть бесплатно, без регистрации и без авторизации через accessToken. Расширение <b>никогда</b> не передает ваши токены и ключи авторизации третьим лицам.</p>
-
-                <select name="helper-chatgpt-provider" id="helper-chatgpt-provider_type" class="form-select custom-select" style="width: 100%;">
-                    <option value="helper-chatgpt-provider-openai"><b>OpenAI</b> (официальный поставщик, можно выбрать модель)</option>
-                    <option value="helper-chatgpt-provider-qidianym"><b>Qidianym</b> (неофициальный поставщик, gpt-3.5-turbo, свободная настройка)</option>
-                    <!-- <option value="_custom_provider_">Мой поставщик (для искушенных, свободная настройка)</option> -->
-                </select>
-
-                <div class="helper-chatgpt-provider_section" id="helper-chatgpt-provider-openai" hidden>
-                    <h5>OpenAI</h5>
-        
-                    <p>В поле ниже отображен ваш accessToken для ChatGPT. accessToken - это уникальный ключ, который позволяет нейросети идентифицировать вас как пользователя и дать вам ответ. Если поле пустое, попробуйте сделать что-нибудь из перечисленного ниже. Если access token получить не удается - подождите некоторое время и повторите все операции снова.</p>
-                    <ol>
-                        <li>Перейдите на <a href="https://chat.openai.com" target="_blank">главную страницу</a> ChatGPT и дождитесь ее окончательной загрузки. Затем обновите эту страницу с настройками;</li>
-                        <li>Перелогиньтесь (выйдите и зайдите снова в свой аккаунт OpenAI);</li>
-                        <li>Вручную скопируйте accessToken с <a href="https://chat.openai.com/api/auth/session" target="_blank">этой страницы</a> и вставьте его в поле ниже;</li>
-                        <li>Отключите и включите снова тумблер <label for="helper-settings-show_chatgpt" style="cursor: pointer;"><b>Включить возможности ChatGPT</b></label>;</li>
-                    </ol>
-
-                    <p>Теперь у вас есть возможность использовать личный access token. Просто включите тумблер <label for="helper-settings-get_localuser_token" class="bold">"Использовать указанный мной токен"</label> и вставьте токен в поле ниже. Эта функция предназначена для того, чтобы вы могли использовать ваш новый accessToken, полученный на этой <a href="https://platform.openai.com/account/api-keys" target="_blank">официальной странице</a> (может понадобиться VPN).</p>
-                    
-                    <div class="custom-control custom-switch" id="helper-settings-div-get_localuser_token" title="Если у вас есть собственный accessToken, вы можете включить этот тумблер и вставить имеющийся accessToken в поле ниже">
-                        <input type="checkbox" class="custom-control-input" id="helper-settings-get_localuser_token">
-                        <label class="custom-control-label" for="helper-settings-get_localuser_token">Использовать указанный мной токен</label>
-                    </div>
-                    
-                    <div style="display: flex;">
-                        <input type="text" class="form-control" id="helper-chatgpt-access_token">
-                    </div>
-        
+                <div style="display: flex;">
+                    <input type="text" class="form-control" id="helper-chatgpt-access_token">
+                </div>
     
-                    <div class="custom-control custom-switch" id="helper-settings-div-show_chatgpt" title="Включает возможности ChatGPT в тестах и на главной странице!">
-                        <input type="checkbox" class="custom-control-input" id="helper-settings-show_chatgpt">
-                        <label class="custom-control-label" for="helper-settings-show_chatgpt">Включить возможности ChatGPT <span id="helper-chatgpt-access_token_span" style="font-family: monospace;"></span></label>
-                        <p id="helper-chatgpt-access_token_descr"></p>
-                    </div>
-        
-                    <span for="helper-chatgpt-model" title="OpenAI предоставляет бесплатный доступ к моделям третьего поколения. Для моделей четвертого поколения доступ предоставляется при покупке ежемесячного тарифа">Используемая языковая модель <b>(рекомендуется <code>gpt-3.5-turbo</code>)</b>. О моделях <a href="https://platform.openai.com/docs/models/models" target="_blank">читайте тут</a>.</span>
-                    <select id="helper-chatgpt-model" class="form-select custom-select"
-                        aria-label="Выбрать языковую модель">
-                        <option value="gpt-3.5-turbo" selected>gpt-3.5-turbo</option>
-                        <option value="gpt-3.5-turbo-0301">gpt-3.5-turbo-0301</option>
-                        <option value="gpt-4">gpt-4</option>
-                        <option value="gpt-4-0314">gpt-4-0314</option>
-                        <option value="gpt-4-32k">gpt-4-32k</option>
-                        <option value="gpt-4-32k-0314">gpt-4-32k-0314</option>
-                    </select>
+
+                <div class="custom-control custom-switch" id="helper-settings-div-show_chatgpt" title="Включает возможности ChatGPT в тестах и на главной странице!">
+                    <input type="checkbox" class="custom-control-input" id="helper-settings-show_chatgpt">
+                    <label class="custom-control-label" for="helper-settings-show_chatgpt">Включить возможности ChatGPT <span id="helper-chatgpt-access_token_span" style="font-family: monospace;"></span></label>
+                    <p id="helper-chatgpt-access_token_descr"></p>
                 </div>
-
-                <div class="helper-chatgpt-provider_section" id="helper-chatgpt-provider-qidianym" hidden>
-                    <h5>Qidianym</h5>
-                    <p>Qidianym - это бесплатный сервис, предоставляющий доступ к ChatGPT без регистрации, платных лимитов, VPN, блокировок и прочих сложностей. Присутствует возможность настройки модели под ваши задачи. Все основные параметры запросов настроены за вас - вам остается отрегулировать поведение нейросети:</p>
-                    <ul>
-                        <li><code>temperature</code> - это параметр, контролирующий "креативность" или случайность текста, генерируемого GPT-3. Более высокая температура (например, 0,7) приводит к более разнообразному и творческому результату, в то время как более низкая температура (например, 0,2) делает результат более детерминированным и целенаправленным.</li>
-                        <li><code>top_p</code> - осуществляет динамический отбор лексики в зависимости от контекста.</li>
-                        <li><code>systemMessage</code> - стартовое сообщение, задающее начальный контекст поведения чат-бота в процессе диалога с вами. Обычно в таком тексте говорится о поведении бота в диалоге, запрещенных темах, текущей дате и времени. Нейронная сеть обучена огромной выборке данных, что позволяет ей сыграть почти любую "роль" в диалоге. Задав системное сообщение вы сможете предложить чат-боту свой вариант поведения в диалоге, <span style="text-decoration: line-through;">открыв запрещенные темы и социальные роли</span> увеличив шансы на получение более точного ответа на вопрос.</li>
-                    </ul>
-
-                    <details>
-                        <summary>Показать таблицу...</summary>
-                        <p>В таблице ниже показана комбинация параметров для достижения максимально ожидаемого результата</p>
-                        <table><thead><tr><th>Use Case</th><th>Temperature</th><th>Top_p</th><th>Description</th></tr></thead><tbody><tr><td>Code Generation</td><td>0.2</td><td>0.1</td><td>Generates code that adheres to established patterns and conventions. Output is more deterministic and focused. Useful for generating syntactically correct code.</td></tr><tr><td>Creative Writing</td><td>0.7</td><td>0.8</td><td>Generates creative and diverse text for storytelling. Output is more exploratory and less constrained by patterns.</td></tr><tr><td>Chatbot Responses</td><td>0.5</td><td>0.5</td><td>Generates conversational responses that balance coherence and diversity. Output is more natural and engaging.</td></tr><tr><td>Code Comment Generation</td><td>0.3</td><td>0.2</td><td>Generates code comments that are more likely to be concise and relevant. Output is more deterministic and adheres to conventions.</td></tr><tr><td>Data Analysis Scripting</td><td>0.2</td><td>0.1</td><td>Generates data analysis scripts that are more likely to be correct and efficient. Output is more deterministic and focused.</td></tr><tr><td>Exploratory Code Writing</td><td>0.6</td><td>0.7</td><td>Generates code that explores alternative solutions and creative approaches. Output is less constrained by established patterns.</td></tr></tbody></table>
-                    </details>
-                    <br>
-                    <p>Подробнее про параметры можно прочесть на <a href="https://community.openai.com/t/cheat-sheet-mastering-temperature-and-top-p-in-chatgpt-api-a-few-tips-and-tricks-on-controlling-the-creativity-deterministic-output-of-prompt-responses/172683" target="_blank">официальном форуме</a>.</p>
-                
-                
-                    <div>
-                        <label for="helper-chatgpt-qidianym-temperature" style="margin-right: 10px;">Параметр <code>temperature</code>: </label>
-                        <span id="helper-chatgpt-qidianym-temperature-value"></span>
-                        <input type="range" id="helper-chatgpt-qidianym-temperature" name="helper-chatgpt-qidianym-temperature" min="0" max="1" step="0.1">
-                    </div>
-                    
-                    <div>
-                        <label for="helper-chatgpt-qidianym-top_p" style="margin-right: 10px;">Параметр <code>top_p</code>: </label>
-                        <span id="helper-chatgpt-qidianym-top_p-value"></span>
-                        <input type="range" id="helper-chatgpt-qidianym-top_p" name="helper-chatgpt-qidianym-top_p" min="0" max="1" step="0.1">
-                    </div> 
-                    
-                    <div>
-                        <label for="helper-chatgpt-qidianym-systemMessage">Параметр <code>systemMessage</code>: </label>
-                        <textarea name="helper-chatgpt-qidianym-systemMessage" id="helper-chatgpt-qidianym-systemMessage" cols="30" rows="10" class="form-control"></textarea>
-                    </div>
-
-                    <div>
-                        <button class="btn btn-secondary" id="helper-chatgpt-qidianym-btn_reset_params">Параметры по умолчанию</button>
-                    </div>
-                </div>
-
-                <div class="helper-chatgpt-provider_section" id="_custom_provider_" hidden>
-                    <h5>Мой поставщик</h5>
-                    <p>Здесь вы можете настроить своего поставщика ChatGPT. Для этого необходимо указать заголовки и структуру тела запроса.</p>
-                </div>
+    
+                <span for="helper-chatgpt-model" title="OpenAI предоставляет бесплатный доступ к моделям третьего поколения. Для моделей четвертого поколения доступ предоставляется при покупке ежемесячного тарифа">Используемая языковая модель <b>(рекомендуется <code>gpt-3.5-turbo</code>)</b>. О моделях <a href="https://platform.openai.com/docs/models/models" target="_blank">читайте тут</a>.</span>
+                <select id="helper-chatgpt-model" class="form-select custom-select"
+                    aria-label="Выбрать языковую модель">
+                    <option value="gpt-3.5-turbo" selected>gpt-3.5-turbo</option>
+                    <option value="gpt-3.5-turbo-0301">gpt-3.5-turbo-0301</option>
+                    <option value="gpt-4">gpt-4</option>
+                    <option value="gpt-4-0314">gpt-4-0314</option>
+                    <option value="gpt-4-32k">gpt-4-32k</option>
+                    <option value="gpt-4-32k-0314">gpt-4-32k-0314</option>
+                </select>
     
                 <div class="separator"></div>
                 

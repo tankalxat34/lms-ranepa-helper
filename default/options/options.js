@@ -178,35 +178,4 @@ document.querySelector("#helper-settings-options").addEventListener("click", sav
 document.querySelector("#helper-settings-btn_clear").addEventListener("click", clearOptions);
 window.addEventListener("load", () => {
     loadOptions()
-        .then(
-            chatgptCloseAllProviderSections
-        )
-        .then(
-            function (result) {
-                document.getElementById(result["helper-chatgpt-provider_type"]).hidden = false
-            }
-        )
-        .catch(
-            function (error) { console.error(error) }
-        )
 });
-
-
-document.querySelector("#helper-chatgpt-provider_type").addEventListener("change", () => {
-    chatgptCloseAllProviderSections();
-    document.getElementById(document.querySelector("#helper-chatgpt-provider_type").value).hidden = false;
-});
-
-document.querySelector("#helper-chatgpt-qidianym-temperature").addEventListener("input", function() {
-    document.querySelector("#helper-chatgpt-qidianym-temperature-value").innerText = document.querySelector("#helper-chatgpt-qidianym-temperature").value;
-});
-document.querySelector("#helper-chatgpt-qidianym-top_p").addEventListener("input", function() {
-    document.querySelector("#helper-chatgpt-qidianym-top_p-value").innerText = document.querySelector("#helper-chatgpt-qidianym-top_p").value;
-});
-document.querySelector("#helper-chatgpt-qidianym-btn_reset_params").addEventListener("click", () => {
-    document.querySelector("#helper-chatgpt-qidianym-temperature").value = "0.8";
-    document.querySelector("#helper-chatgpt-qidianym-top_p").value = "1";
-    document.querySelector("#helper-chatgpt-qidianym-systemMessage").value = DEFAULT_OPTIONS["helper-chatgpt-qidianym-systemMessage"];
-
-    window.location.reload();
-})
