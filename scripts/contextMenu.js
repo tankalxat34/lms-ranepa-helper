@@ -22,6 +22,10 @@ chrome.runtime.onMessage.addListener(function (request) {
             newCopyToClipboard(request.currentTab.url);
             break;
 
+        case 'copyToClipboardURL-decodeURI':
+            newCopyToClipboard(decodeURIComponent(request.currentTab.url));
+            break;
+
         case 'copyToClipboard-openIcon':
             window.open(resp.favIconUrl, "_blank");
             break;

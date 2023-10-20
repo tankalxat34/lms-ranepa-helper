@@ -35,6 +35,11 @@ chrome.runtime.onInstalled.addListener(function (details) {
         id: 'copyToClipboardURL',
         parentId: 'parent'
     });
+    chrome.contextMenus.create({
+        title: "Ссылку на страницу (без %)",
+        id: 'copyToClipboardURL-decodeURI',
+        parentId: 'parent'
+    });
 
     chrome.contextMenus.create({
         id: "copyToClipboardSeparator1",
