@@ -26,6 +26,14 @@ chrome.runtime.onMessage.addListener(function (request) {
             newCopyToClipboard(decodeURIComponent(request.currentTab.url));
             break;
 
+        case 'copyToClipboardGOST-4_decodeURI':
+            newCopyToClipboard(`${resp.title}. — Текст : электронный // ${new URL(resp.url).host} : [сайт]. — URL: ${decodeURI(resp.url)} (дата обращения: ${date.toLocaleDateString()}).`);
+            break;
+
+        case 'copyToClipboardGOST-EN_decodeURI':
+            newCopyToClipboard(`${resp.title}, ${decodeURI(resp.url)} (accessed: ${new Date().toLocaleDateString('en-us', { year:"numeric", month:"long", day:"numeric"})}).`);
+            break;
+
         case 'copyToClipboard-openIcon':
             window.open(resp.favIconUrl, "_blank");
             break;

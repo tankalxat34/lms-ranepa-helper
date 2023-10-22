@@ -1,7 +1,6 @@
 const MANIFEST = chrome.runtime.getManifest()
 
 
-chrome.contextMenus.onClicked.addListener(genericOnClick);
 async function getCurrentTab() {
     let queryOptions = { active: true };
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
@@ -17,6 +16,8 @@ async function genericOnClick(info) {
     })
 }
 
+chrome.contextMenus.onClicked.addListener(genericOnClick);
+
 chrome.runtime.onInstalled.addListener(function (details) {
 
     
@@ -24,7 +25,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
         title: "Скопировать...",
         id: 'parent',
     })
-    
+
     chrome.contextMenus.create({
         title: "Заголовок страницы",
         id: 'copyToClipboardTitle',
@@ -36,7 +37,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
         parentId: 'parent'
     });
     chrome.contextMenus.create({
-        title: "Ссылку на страницу (без %)",
+        title: "Декодированная Ссылку на страницу",
         id: 'copyToClipboardURL-decodeURI',
         parentId: 'parent'
     });
@@ -64,9 +65,20 @@ chrome.runtime.onInstalled.addListener(function (details) {
         id: 'copyToClipboardGOST-4',
         parentId: 'parent'
     });
+
+    chrome.contextMenus.create({
+        title: "📔 Декодированный Интернет-источник (РФ ГОСТ 7.0.5-2008)",
+        id: 'copyToClipboardGOST-4_decodeURI',
+        parentId: 'parent'
+    });
     chrome.contextMenus.create({
         title: "Англоязычный Интернет-источник (РФ ГОСТ 7.0.5-2008)",
         id: 'copyToClipboardGOST-EN',
+        parentId: 'parent'
+    });
+    chrome.contextMenus.create({
+        title: "📔 Декодированный англоязычный Интернет-источник (РФ ГОСТ 7.0.5-2008)",
+        id: 'copyToClipboardGOST-EN_decodeURI',
         parentId: 'parent'
     });
 
