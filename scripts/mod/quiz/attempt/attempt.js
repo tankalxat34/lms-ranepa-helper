@@ -55,7 +55,11 @@ function getQuestionTexts() {
         const div_legend = div_legends[index];
         const div_answer = div_answers[index];
         
-        result.push(div_qtext?.textContent ?? "" + "\n\n" + div_legend?.textContent ?? "" + "\n\n" + div_answer?.textContent ?? "");      
+        result.push(`${div_qtext.innerText}
+        
+${div_legend?.innerText}
+
+${div_answer?.innerText}`);      
     }
     
     return result;
