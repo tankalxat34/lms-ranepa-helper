@@ -1,0 +1,24 @@
+{
+  "name": "lms-ranepa-helper",
+  "version": "1.0.0",
+  "description": "Браузерное расширение для Chrome, улучшающее работу с СДО РАНХиГС (встроенный ChatGPT, скачивание любых видео, сохранение ответов и др.)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "(if not exist build mkdir build) && crx3 src -o build/build.crx -z build/build.zip"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tankalxat34/lms-ranepa-helper.git"
+  },
+  "keywords": [],
+  "author": "tankalxat34",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tankalxat34/lms-ranepa-helper/issues"
+  },
+  "homepage": "https://github.com/tankalxat34/lms-ranepa-helper#readme",
+  "dependencies": {
+    "crx3": "^1.1.3"
+  }
+}
