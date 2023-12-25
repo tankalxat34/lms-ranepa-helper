@@ -1,4 +1,4 @@
-function newCopyToClipboard(data) {
+function newCopyToClipboard(data: string) {
     // https://stackoverflow.com/questions/3436102/copy-to-clipboard-in-chrome-extension
     const copySource = document.createElement('textarea');
     copySource.textContent = data;
@@ -49,4 +49,6 @@ chrome.runtime.onMessage.addListener(function (request) {
         default:
             break;
     }
+
+    return true;
 })

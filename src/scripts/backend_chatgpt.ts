@@ -6,7 +6,7 @@
  * @param second_array подстроки на что заменяем
  * @returns {String}
  */
-function translateString(str, first_array, second_array) {
+function translateString(str: string, first_array: string[], second_array: string[]) {
     let result = str;
     for (let i = 0; i < first_array.length; i++) {
         let counter = 0;
@@ -29,11 +29,12 @@ async function getGPTApiEndpoint() {
 
 var ApiEndpointSelector = {
     "https://api.openai.com/v1/chat/completions": {
+        uo: new Object() as IOpenAIUserObject,
         url: "https://api.openai.com/v1/chat/completions",
-        get_headers: function () {
+        get_headers: function (): Object {
             return {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer '.concat(this.uo.accessToken.trim()),
+                'Authorization': 'Bearer '.concat((this.uo as IOpenAIUserObject).accessToken.trim()),
             };
         },
 
@@ -52,7 +53,7 @@ var ChatGPT = {
      * 
      * Перед использованием необходимо задать!
      */
-    uo: new Object(),
+    uo: new Object() as IOpenAIUserObject,
     /**
      * Используемая языковая модель.
      * 
@@ -63,14 +64,11 @@ var ChatGPT = {
      * Хранит историю переписки с пользователем.
      * @returns `Array`
      */
-    conversation: new Array(),
-    /**
-     * `true`, если нужно сохранять историю разговора. По умолчанию `false`
-     */
+    conversation: new Array() as IChatGPTMessage[],
     do_saving_conv: false,
     /**
      * `true`, если нужно очищать контекст беседы после каждого запроса. По умолчанию `false`.
-     */    
+     */
     do_cleaning_after_request: false,
     /**
      * Создает правильные заголовки для запроса. Возвращает объект.
@@ -95,11 +93,11 @@ var ChatGPT = {
      * @param {save_conversation} save_conversation `true`, если необходимо сохранять контекст беседы
      * @returns промис `r.json()`
      */
-    ask: async function (s) {
+    ask: async function (s: string) {
         const url = "https://api.openai.com/v1/chat/completions";
 
         if (this.do_saving_conv) this.save_conversation({ role: "user", content: s });
-    
+
         const request = new Request(url, {
             method: 'POST',
             headers: this.get_headers(),
@@ -108,7 +106,7 @@ var ChatGPT = {
                 messages: this.conversation,
             })
         });
-    
+
         try {
             const response = await fetch(request);
             const data = await response.json();
@@ -131,14 +129,14 @@ var ChatGPT = {
      * Устанавливает токен доступа к ChatGPT
      * @param {s} s строковый токен
      */
-    set_token: function (s) {
+    set_token: function (s: string) {
         this.uo.accessToken = s.trim();
     },
     /**
      * Сохраняет сообщение в разговор с ботом ChatGPT
      * @param {section}  `{ "role": "user", "content": s }`
      */
-    save_conversation: function (section) {
+    save_conversation: function (section: IChatGPTMessage) {
         this.conversation.push(section);
     },
     /**
@@ -160,7 +158,7 @@ var ChatGPT = {
     /**
      * Попытаться получить данные аккаунта OpenAI и загрузить их в этот объект. Работает на ChromeAPI. В случае успеха результат записывается в поле `this.uo`.
      */
-    load_uo: function () { 
+    load_uo: function () {
         chrome.storage.sync.get(["chatgpt_user_object", "helper-chatgpt-model", "helper-chatgpt-access_token"], (option) => {
             this.uo = JSON.parse(option["chatgpt_user_object"]);
             this.model = option["helper-chatgpt-model"];
@@ -193,7 +191,7 @@ var ChatCore = {
 
     /**
      * Строковый селектор кнопки для отправки сообщений 
-     */    
+     */
     chat_usersend_field_selector: "#helper-btn-chatgpt_send",
 
     _html: `<div class="row">
@@ -220,31 +218,31 @@ var ChatCore = {
      * @param {String}   `msg_text_markdown` Текст сообщения в формате Markdown.
      * @param {String}  `avatar_src` Путь к фото профиля.
      */
-    _drawMessage: function(username, msg_text_markdown, avatar_src) {
+    _drawMessage: function (username: string, msg_text_markdown: string, avatar_src: string) {
         let msg_index = this.chatgpt_object.conversation.length - 1;
 
         /**
          * Input блок ввода сообщения
          */
-        let ib = document.querySelector(this.chat_userinput_field_selector);
+        let ib: any = document.querySelector(this.chat_userinput_field_selector);
 
         /**
          * ChatField. Место, где отрисовываются все сообщения
          */
-        let cf = document.querySelector(this.chat_field_selector)
-        
+        let cf: any = document.querySelector(this.chat_field_selector)
+
         let ts = translateString(this._html,
-            [ 
-                "%username%", 
-                "%message_html_text%", 
-                "%avatar_path%", 
-                "%iid_btn%" 
+            [
+                "%username%",
+                "%message_html_text%",
+                "%avatar_path%",
+                "%iid_btn%"
             ],
-            [ 
-                username, 
-                markdown(msg_text_markdown), 
-                avatar_src, 
-                `${msg_index}` 
+            [
+                username,
+                markdown(msg_text_markdown),
+                avatar_src,
+                `${msg_index}`
             ]
         )
         cf.innerHTML += ts;
@@ -258,21 +256,21 @@ var ChatCore = {
      * Добавляет внутрь графического чата новое сообщение
      * @param {Object} json_response объект, содержащий имя отправителя и само сообщение в формате Markdown. Если не задан - считается, что сообщение отправил пользователь и объект генерируется внутри этой функции.
      */
-    add: function (json_response) {
+    add: function (json_response: IChatGPTMessage) {
         /**
          * Input блок ввода сообщения
          */
-        let ib = document.querySelector(this.chat_userinput_field_selector);
+        let ib: any = document.querySelector(this.chat_userinput_field_selector);
 
         /**
          * Кнопка для отправки сообщений нейросети
          */
-        let sb = document.querySelector(this.chat_usersend_field_selector);
+        let sb: any = document.querySelector(this.chat_usersend_field_selector);
 
         /**
          * Блок, где отрисовываются все сообщения чата
          */
-        let cf = document.querySelector(this.chat_field_selector)
+        let cf: any = document.querySelector(this.chat_field_selector)
 
         console.log(json_response)
 
@@ -297,10 +295,11 @@ var ChatCore = {
         sb.disabled = !sb.disabled;
 
         this._drawMessage(
-                o.role === "user" ? this.chatgpt_object.uo.user.name : o.role, 
-                o.content, 
-                o.role === "user" ? this.chatgpt_object.uo.user.picture : "https://raw.githubusercontent.com/tankalxat34/lms-ranepa-helper/main/openai.png"
-            );
+            o.role === "user" ? this.chatgpt_object.uo.user.name : o.role,
+            o.content,
+            o.role === "user" ? this.chatgpt_object.uo.user.picture : "https://raw.githubusercontent.com/tankalxat34/lms-ranepa-helper/main/openai.png"
+        );
     }
 }
 
+export { ChatGPT, ChatCore };

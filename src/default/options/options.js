@@ -104,7 +104,7 @@ async function loadOptions() {
         } else {
             try {
                 document.querySelector("#helper-chatgpt-access_token_span").innerText = `${chatgpt_user_object.user.email} (используется указанный вами токен)`;
-            } catch {
+            } catch (error) {
                 document.querySelector("#helper-chatgpt-access_token_span").innerText = `Данные аккаунта ChatGPT не найдены. Авторизуйтесь и попробуйте снова!`;
             }
             document.querySelector("#helper-chatgpt-access_token_span").style.color = "grey";

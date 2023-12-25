@@ -48,5 +48,5 @@ function downloadFileFromText(filename, content) {
     a.style.display = 'none';
     document.body.appendChild(a);
     a.click();
-    delete a;
+    a.remove();
 }

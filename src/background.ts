@@ -3,14 +3,12 @@ const MANIFEST = chrome.runtime.getManifest()
 
 async function getCurrentTab() {
     let queryOptions = { active: true };
-    // `tab` will either be a `tabs.Tab` instance or `undefined`.
-    // let [tab] = await chrome.tabs.query(queryOptions);
     return await chrome.tabs.query(queryOptions);
 }
 
-async function genericOnClick(info) {
+async function genericOnClick(info: { menuItemId: any; }) {
     let currentTab = await getCurrentTab();
-    chrome.tabs.sendMessage(currentTab[0].id, {
+    chrome.tabs.sendMessage(currentTab[0].id as number, {
         action: info.menuItemId,
         currentTab: currentTab[0]
     })
