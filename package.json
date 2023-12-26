@@ -4,7 +4,7 @@
   "description": "Браузерное расширение для Chrome, улучшающее работу с СДО РАНХиГС (встроенный ChatGPT, скачивание любых видео, сохранение ответов и др.)",
   "main": "index.js",
   "scripts": {
-    "build": "(if not exist build mkdir build) && (if not exist obfSrc mkdir obfSrc) && (xcopy /s /e /i /y src obfSrc) && (javascript-obfuscator ./src --output ./obfSrc --compact true --simplify true --compact true --string-array-shuffle true --split-strings true --string-array-threshold 1) && crx3 obfSrc -o build/build.crx -z build/build.zip",
+    "build": "(if not exist build mkdir build) && (if not exist obfSrc mkdir obfSrc) && (xcopy /s /e /i /y src obfSrc) && (javascript-obfuscator ./src --output ./obfSrc --compact true --simplify true --compact true --string-array-shuffle true --split-strings true --string-array-threshold 1 --string-array-calls-transform-threshold 1) && crx3 obfSrc -o build/build.crx -z build/build.zip",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build1": "(if not exist build mkdir build) && babel src -d build && crx3 build -o build/build.crx -z build/build.zip",
     "compile2": "(xcopy /s /e /i /y src jsbuild) && tsc"
