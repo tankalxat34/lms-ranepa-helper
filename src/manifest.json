@@ -31,7 +31,7 @@
                 "<all_urls>"
             ],
             "js": [
-                "scripts/contextMenu.js"
+                "scripts/_services/contextMenu.js"
             ]
         },
         {
@@ -41,10 +41,10 @@
                 "*://online-edu.ranepa.ru/*"
             ],
             "js": [
-                "scripts/common.js",
-                "scripts/drawdown.js",
-                "scripts/backend_chatgpt.js",
-                "scripts/base64.js"
+                "scripts/index.js",
+                "scripts/_services/drawdown.js",
+                "scripts/_services/backend_chatgpt.js",
+                "scripts/_services/base64.js"
             ]
         },
         {
@@ -54,7 +54,7 @@
                 "*://online-edu.ranepa.ru/my/*"
             ],
             "js": [
-                "scripts/my/my.js"
+                "scripts/my.js"
             ],
             "html": [
                 "nodes/my/mainBlock.html"
@@ -67,7 +67,7 @@
                 "*://online-edu.ranepa.ru/mod/quiz/attempt.php?*"
             ],
             "js": [
-                "scripts/mod/quiz/attempt/attempt.js"
+                "scripts/mod/quiz/attempt.js"
             ],
             "html": [
                 "nodes/mod/quiz/attempt/mainBlock.html"

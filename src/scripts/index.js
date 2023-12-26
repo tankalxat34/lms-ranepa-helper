@@ -90,7 +90,13 @@ function addSrcScript(src) {
     } else {
         _script.src = src
     }
-    document.head.appendChild(_script)
+
+    try {
+        document.head.appendChild(_script);
+        console.log("Добавлен скрипт", src);
+    } catch {
+        console.log("❌Ошибка добавления скрипта", src);
+    }
 }
 
 function addSrcCss(src) {
@@ -182,14 +188,27 @@ function binarySearch(arr, target) {
     return -1; // not found in array
 }
 
+/**
+ * Возвращает путь до front-скрипта по его расположению
+ * 
+ * @param {string} url Строковый url.pathname страницы
+ * @returns строку в формате `scripts/%some_path%.font.js`
+ */
+function getFrontScript(url) {
+    var result;
+    if (url.includes(".php")) result = [...url.split("/").slice(1, -1), url.split("/").slice(-1)[0].split(".")[0]];
+    else result = url.split("/").slice(1, -1)
 
+    return `scripts/${result.join("/")}.front.js`;
+}
 
 
 try {
-
     // common scripts and functions
-    addSrcScript("scripts/common.front.js")
-    addSrcScript("scripts/drawdown.js");
+    addSrcScript("scripts/index.front.js");
+    addSrcScript("scripts/_services/drawdown.js");
+    addSrcScript("scripts/_services/base64.js");
+    addSrcScript(getFrontScript(new URL(window.location.href).pathname));
     addMenuItems()
 
     // get option names from Chrome Storage
@@ -208,32 +227,8 @@ try {
         })
     });
 
-
-    // bootstrap addons
-    // addSrcScript("https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js")
-
-    // scripts in cases
-    switch (new URL(window.location.href).pathname) {
-
-        case "/mod/quiz/attempt.php":
-            addSrcScript("scripts/mod/quiz/attempt/attempt.front.js");
-            addSrcScript("scripts/base64.js");
-            break;
-
-        case "/my/":
-            addSrcScript("scripts/my/my.front.js")
-            break;
-        
-        case "/mod/page/view.php":
-            addSrcScript("scripts/mod/page/view/view.front.js")
-            break;
-
-        default:
-            break;
-    }
-
 } catch (error) {
-    // console.log(error)
+    console.log(error)
     null;
 }
 

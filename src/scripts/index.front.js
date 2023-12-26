@@ -1,4 +1,4 @@
-console.log("common front enabled!")
+console.log("%cПишете на JavaScript? Сделайте свой вклад во всероссийский проект здесь → https://github.com/tankalxat34/lms-ranepa-helper","font-family:sans-serif; font-size: 20px");
 
 /**
  * Выполнить регулярное выражение в строке и вернуть `Array`
