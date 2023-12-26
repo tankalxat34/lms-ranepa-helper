@@ -1,14 +1,30 @@
 
 // привязка события для перемотки видео на 10 секунд
-document.body.addEventListener("keyup", (e) => {
-    console.log(e)
-    if (e.code === 39) {
-        document.querySelector("video").currentTime += 10
-    }
-    else if (e.code === 37) {
-        document.querySelector("video").currentTime -= 10
-    }
-})
+if (document.querySelectorAll("div.video-js, video, source").length) {
+    document.body.addEventListener("keydown", (e) => {
+        const VIDEO = document.querySelector("video");
+
+        switch (e.code.toLowerCase()) {
+            case "arrowright":
+                VIDEO.currentTime += 10
+                break;
+
+            case "arrowleft":
+                VIDEO.currentTime -= 10
+                break;
+
+            case "space":
+                VIDEO.paused
+                ? VIDEO.play()
+                : VIDEO.pause();
+                break;
+
+            default:
+                break;
+        }
+
+    })
+}
 
 
 chrome.storage.sync.get(["_option_names_array"], (options) => {
