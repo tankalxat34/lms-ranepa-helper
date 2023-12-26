@@ -4,9 +4,11 @@
   "description": "Браузерное расширение для Chrome, улучшающее работу с СДО РАНХиГС (встроенный ChatGPT, скачивание любых видео, сохранение ответов и др.)",
   "main": "index.js",
   "scripts": {
+    "build": "(if not exist build mkdir build) && crx3 src -o build/build.crx -z build/build.zip",
+
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "(if not exist build mkdir build) && babel src -d build && crx3 build -o build/build.crx -z build/build.zip",
-    "compile": "(if exist tsbuild rmdir tsbuild) && tsc"
+    "build1": "(if not exist build mkdir build) && babel src -d build && crx3 build -o build/build.crx -z build/build.zip",
+    "compile2": "(xcopy /s /e /i /y src jsbuild) && tsc"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,7 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2"
+    "@types/jquery": "^3.5.29",
+    "onchange": "^7.1.0"
   }
 }

@@ -8,3 +8,4 @@ yui_combo.css
 node_modules/
 build/
 tsbuild/
+.old.*

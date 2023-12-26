@@ -92,16 +92,6 @@
             "js": [
                 "scripts/mod/page/view.js"
             ]
-        },
-        {
-            "matches": [
-                "*://lms.ranepa.ru/user/preferences.php",
-                "*://lms.ranepa.ru/user/preferences.php",
-                "*://online-edu.ranepa.ru/user/preferences.php"
-            ],
-            "js": [
-                "scripts/user/preferences/preferences.js"
-            ]
         }
     ],
     "web_accessible_resources": [

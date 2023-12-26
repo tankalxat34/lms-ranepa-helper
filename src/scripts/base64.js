@@ -2,8 +2,7 @@
 *
 *  Base64 encode / decode
 *  http://www.webtoolkit.info/
-*  
-*  Modified by Alexander Podstrechnyy
+*
 **/
 
 var Base64 = {
@@ -12,7 +11,7 @@ var Base64 = {
 	_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
 
 	// public method for encoding
-	encode : function (input: string) {
+	encode : function (input) {
 		var output = "";
 		var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
 		var i = 0;
@@ -46,7 +45,7 @@ var Base64 = {
 	},
 
 	// public method for decoding
-	decode : function (input: string) {
+	decode : function (input) {
 		var output = "";
 		var chr1, chr2, chr3;
 		var enc1, enc2, enc3, enc4;
@@ -83,7 +82,7 @@ var Base64 = {
 	},
 
 	// private method for UTF-8 encoding
-	_utf8_encode : function (string: string) {
+	_utf8_encode : function (string) {
 		string = string.replace(/\r\n/g,"\n");
 		var utftext = "";
 
@@ -110,13 +109,10 @@ var Base64 = {
 	},
 
 	// private method for UTF-8 decoding
-	_utf8_decode : function (utftext: string) {
+	_utf8_decode : function (utftext) {
 		var string = "";
 		var i = 0;
-		var c1: number;
-		var c2: number;
-		var c3: number;
-		var c: number = c1 = c2 = 0;
+		var c = c1 = c2 = 0;
 
 		while ( i < utftext.length ) {
 
