@@ -189,7 +189,6 @@ try {
 
     // common scripts and functions
     addSrcScript("scripts/common_front.js")
-    addSrcScript("scripts/helper_cookies.js")
     addSrcScript("scripts/drawdown.js");
     addMenuItems()
 
@@ -236,6 +235,8 @@ try {
         default:
             break;
     }
+
+    console.log(MANIFEST)
 
 } catch (error) {
     // console.log(error)
