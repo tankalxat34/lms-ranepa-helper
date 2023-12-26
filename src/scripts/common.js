@@ -188,7 +188,7 @@ function binarySearch(arr, target) {
 try {
 
     // common scripts and functions
-    addSrcScript("scripts/common_front.js")
+    addSrcScript("scripts/common.front.js")
     addSrcScript("scripts/drawdown.js");
     addMenuItems()
 
@@ -216,27 +216,21 @@ try {
     switch (new URL(window.location.href).pathname) {
 
         case "/mod/quiz/attempt.php":
-            addSrcScript("scripts/mod/quiz/attempt/attempt_front.js");
+            addSrcScript("scripts/mod/quiz/attempt/attempt.front.js");
             addSrcScript("scripts/base64.js");
             break;
 
         case "/my/":
-            addSrcScript("scripts/my/my_front.js")
-            break;
-
-        case "/user/preferences.php":
-            addSrcScript("scripts/user/preferences/preferences_front.js")
+            addSrcScript("scripts/my/my.front.js")
             break;
         
         case "/mod/page/view.php":
-            addSrcScript("scripts/mod/page/view/view_front.js")
+            addSrcScript("scripts/mod/page/view/view.front.js")
             break;
 
         default:
             break;
     }
-
-    console.log(MANIFEST)
 
 } catch (error) {
     // console.log(error)
