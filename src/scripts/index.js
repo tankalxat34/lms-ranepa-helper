@@ -160,33 +160,9 @@ function addMenuItems() {
     let sep = document.createElement("div")
     sep.classList = "dropdown-divider"
     menu.before(sep)
-
-
-
-    // menu.append(document.createElement("div"))
-    // menu.innerHTML += `<a href="https://lms.ranepa.ru/user/preferences.php" class="dropdown-item" role="menuitem" tabindex="-1">Настройки профиля</a>`
 }
 
 
-
-function binarySearch(arr, target) {
-    let start = 0;
-    let end = arr.length - 1;
-
-    while (start <= end) {
-        let mid = Math.floor((start + end) / 2);
-
-        if (arr[mid] === target) {
-            return mid;
-        } else if (arr[mid] < target) {
-            start = mid + 1;
-        } else {
-            end = mid - 1;
-        }
-    }
-
-    return -1; // not found in array
-}
 
 /**
  * Возвращает путь до front-скрипта по его расположению
