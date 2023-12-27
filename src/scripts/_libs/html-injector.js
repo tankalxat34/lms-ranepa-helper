@@ -85,16 +85,6 @@ class HTMLComp {
         return new HTMLComp(document.querySelector(selector).innerHTML);
     }
 
-    _injectParams() {
-        let str = this.strHtml
-        if (Object.keys(this.paramsObject).length) {
-            this.params.tags.forEach((tag, index) => {
-                str = str.replace(tag, this.params.names[index]);
-            })
-        }
-        return str;
-    }
-
     /**
      * Вставляет текущий компонент в родителя
      * @param {string} parentSelector Родитель, в которого надо вставить этот компонент
