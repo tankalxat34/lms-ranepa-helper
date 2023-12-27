@@ -25,19 +25,6 @@ async function fetchDoc(path) {
     return await result.text();
 }
 
-class DocWorker {
-    static async fetch(path) {
-        const modPath = chrome.runtime.getURL(path);
-        const result = await fetch(modPath);
-        this.text = await result.text()
-        return this.text;
-    }
-
-    static inject(parentNodeSelector, method = "append") {
-        document.querySelector(parentNodeSelector)[method]();
-    }
-}
-
 /**
  * Заменяет подстроки из первого массива на подстроки из второго массива. Возвращает новую строку
  * @param str исходная строка

@@ -53,7 +53,7 @@ class HTMLEJSParams {
 class HTMLComp {
     /**
      * @param {string} strHtml HTML код компонента
-     * @param {object} params Объект, ключи которого являются именами параметров, а значения - значениями. Имена параметров будут заменены на значения. По умолчанию - пустой объект.
+     * @param {object} paramsObject Объект, ключи которого являются именами параметров, а значения - значениями. Имена параметров будут заменены на значения. По умолчанию - пустой объект.
      */
     constructor(strHtml, paramsObject = {}) {
         /**
@@ -66,7 +66,10 @@ class HTMLComp {
 
         if (Object.keys(paramsObject).length) {
             this.params.tags.forEach((tag, index) => {
-                this.strHtml = this.strHtml.replace(tag, paramsObject[this.params.names[index]]);
+                const value = paramsObject[this.params.names[index]];
+                value 
+                ? this.strHtml = this.strHtml.replace(tag, value)
+                : this.strHtml = this.strHtml.replace(tag, '');
             })
         }
 
@@ -139,5 +142,18 @@ class HTMLHelper {
      */
     static inject(parentSelector, component, method = "appendChild") {
         document.querySelector(parentSelector)[method](component.html);
+    }
+
+    /**
+     * Асинхронная функция, загружающая HTML разметку из файла компонента
+     * @param {string} path Путь до html файла компонента, находящегося внутри расширения
+     * @param {object} paramsObject Объект, ключи которого являются именами параметров, а значения - значениями. Имена параметров будут заменены на значения. По умолчанию - пустой объект.
+     * @returns экземпляр класса `HTMLComp`
+     */
+    static async loadComp(path, paramsObject = {}) {
+        const modPath = chrome.runtime.getURL(path);
+        const result = await fetch(modPath);
+        const markup = await result.text();
+        return new HTMLComp(markup, paramsObject);
     }
 }
