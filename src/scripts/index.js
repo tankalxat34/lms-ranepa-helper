@@ -202,9 +202,6 @@ try {
     addSrcScript(getFrontScript());
     addMenuItems()
 
-    console.log(FIREBASE_CONFIG);
-    console.log(FIRESTORE_APP);
-
     // get option names from Chrome Storage
     chrome.storage.sync.get(["_option_names_array"], (options) => {
 

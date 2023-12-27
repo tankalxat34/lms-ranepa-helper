@@ -42,7 +42,6 @@
                 "*://online-edu.ranepa.ru/*"
             ],
             "js": [
-                "scripts/_libs/firebase-app.js",
                 "scripts/_libs/html-injector.js",
 
                 "scripts/index.js",
