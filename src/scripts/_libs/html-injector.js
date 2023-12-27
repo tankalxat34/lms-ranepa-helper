@@ -17,9 +17,15 @@ const matchTagName = (markup) => {
     return markup.match(pattern)[1]
 }
 
-const matchParams = (markup) => {
+/**
+ * Возвращает имена параметров в синтаксисе EJS (`<% paramName1 %>`), найденные в разметке
+ * @param {string} markup Разметка
+ * @returns `[["<% paramName1 %>", "paramName1"], ...]`
+ */
+const matchEJSParams = (markup) => {
     const pattern = /<%\ *(\w+)\ *%>/g;
-
+    const matching = [...markup.matchAll(pattern)];
+    return matching;
 }
 
 
@@ -29,24 +35,43 @@ const parseHTMLMarkup = (markup) => {
     return _html.firstElementChild;
 }
 
+
+class HTMLEJSParams {
+    constructor(markup) {
+        const pattern = /<%\ *(\w+)\ *%>/g;
+
+        this.tags = [...markup.matchAll(pattern)].map((value) => value[0]);
+        this.names = [...markup.matchAll(pattern)].map((value) => value[1]);
+    }
+}
+
+
+
 /**
  * Внедряемый компонент
  */
 class HTMLComp {
     /**
-     * 
      * @param {string} strHtml HTML код компонента
+     * @param {object} params Объект, ключи которого являются именами параметров, а значения - значениями. Имена параметров будут заменены на значения. По умолчанию - пустой объект.
      */
-    constructor(strHtml) {
+    constructor(strHtml, paramsObject = {}) {
         /**
          * Строковый HTML код компонента
          */
         this.strHtml = strHtml;
-        this.tagName = matchTagName(strHtml);
-        this.html = parseHTMLMarkup(strHtml);
-        // const _html = document.createElement(this.tagName);
-        // _html.innerHTML = strHtml;
-        // this.html = _html.firstElementChild;
+        this.paramsObject = paramsObject;
+        
+        this.params = new HTMLEJSParams(this.strHtml);
+
+        if (Object.keys(paramsObject).length) {
+            this.params.tags.forEach((tag, index) => {
+                this.strHtml = this.strHtml.replace(tag, paramsObject[this.params.names[index]]);
+            })
+        }
+
+        this.tagName = matchTagName(this.strHtml);
+        this.html = parseHTMLMarkup(this.strHtml);
     }
 
     /**
@@ -55,6 +80,16 @@ class HTMLComp {
      */
     static querySelector(selector) {
         return new HTMLComp(document.querySelector(selector).innerHTML);
+    }
+
+    _injectParams() {
+        let str = this.strHtml
+        if (Object.keys(this.paramsObject).length) {
+            this.params.tags.forEach((tag, index) => {
+                str = str.replace(tag, this.params.names[index]);
+            })
+        }
+        return str;
     }
 
     /**

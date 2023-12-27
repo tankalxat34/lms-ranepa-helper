@@ -1,8 +1,9 @@
 const MANIFEST = chrome.runtime.getManifest();
 
 
-// const buttonComp = new HTMLComp(`<button class="btn btn-primary">Это INJECT кнопка</button>`);
+// const buttonComp = new HTMLComp(`<button class="btn btn-primary"><%name1%></button>`, {name1: "Этот текст должен быть в кнопке"});
 // HTMLHelper.inject("#inst4066", buttonComp);
+
 // buttonComp.html.textContent = "А это измененный текст!";
 // buttonComp.set("textContent", "И снова поменял текст!");
 
