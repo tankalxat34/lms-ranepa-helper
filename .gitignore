@@ -11,3 +11,4 @@ tsbuild/
 .old.*
 jsbuild/
 obfSrc/
+constants.js

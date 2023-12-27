@@ -31,7 +31,8 @@
                 "<all_urls>"
             ],
             "js": [
-                "scripts/_services/contextMenu.js"
+                "scripts/_services/contextMenu.js",
+                "scripts/constants.js"
             ]
         },
         {
@@ -41,7 +42,11 @@
                 "*://online-edu.ranepa.ru/*"
             ],
             "js": [
+                "scripts/_libs/firebase-app.js",
+                "scripts/_libs/html-injector.js",
+
                 "scripts/index.js",
+                "scripts/constants.js",
                 "scripts/_services/drawdown.js",
                 "scripts/_services/backend_chatgpt.js",
                 "scripts/_services/base64.js"
@@ -78,6 +83,16 @@
                 "*://lms.ranepa.ru/mod/resource/view.php?*",
                 "*://lms-dpo.ranepa.ru/mod/resource/view.php?*",
                 "*://online-edu.ranepa.ru/mod/resource/view.php?*"
+            ],
+            "js": [
+                "scripts/mod/resource/view.js"
+            ]
+        },
+        {
+            "matches": [
+                "*://lms.ranepa.ru/mod/video/view.php?*",
+                "*://lms-dpo.ranepa.ru/mod/video/view.php?*",
+                "*://online-edu.ranepa.ru/mod/video/view.php?*"
             ],
             "js": [
                 "scripts/mod/resource/view.js"

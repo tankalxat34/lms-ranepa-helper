@@ -13,6 +13,30 @@ const menu_items_dropdown = [
     }
 ]
 
+/**
+ * Асинхронный запрос к файлу внутри расширения и вернуть его содержимое в виде текста
+ * 
+ * @param {string} path Путь до HTML или файла
+ * @returns {string} строка, содержащая текст документа
+ */
+async function fetchDoc(path) {
+    const modPath = chrome.runtime.getURL(path);
+    const result = await fetch(modPath);
+    return await result.text();
+}
+
+class DocWorker {
+    static async fetch(path) {
+        const modPath = chrome.runtime.getURL(path);
+        const result = await fetch(modPath);
+        this.text = await result.text()
+        return this.text;
+    }
+
+    static inject(parentNodeSelector, method = "append") {
+        document.querySelector(parentNodeSelector)[method]();
+    }
+}
 
 /**
  * Заменяет подстроки из первого массива на подстроки из второго массива. Возвращает новую строку
@@ -83,7 +107,7 @@ function downloadFileFromText(filename, content) {
 /**
  * Добавить скрипт в head
 */
-function addSrcScript(src) {
+function addSrcScript(src, crossorign = false) {
     _script = document.createElement("script")
     if (!src.includes("http")) {
         _script.src = chrome.runtime.getURL(src)
@@ -92,6 +116,7 @@ function addSrcScript(src) {
     }
 
     try {
+        _script.crossorign = crossorign;
         document.head.appendChild(_script);
         console.log("Добавлен скрипт", src);
     } catch {
@@ -170,7 +195,7 @@ function addMenuItems() {
  * @param {string} url Строковый url.pathname страницы
  * @returns строку в формате `scripts/%some_path%.font.js`
  */
-function getFrontScript(url) {
+function getFrontScript(url = new URL(window.location.href).pathname) {
     var result;
     if (url.includes(".php")) result = [...url.split("/").slice(1, -1), url.split("/").slice(-1)[0].split(".")[0]];
     else result = url.split("/").slice(1, -1)
@@ -184,8 +209,14 @@ try {
     addSrcScript("scripts/index.front.js");
     addSrcScript("scripts/_services/drawdown.js");
     addSrcScript("scripts/_services/base64.js");
-    addSrcScript(getFrontScript(new URL(window.location.href).pathname));
+    // addSrcScript("scripts/_libs/react.production.min.js");
+    // addSrcScript("scripts/_libs/react-dom.production.min.js");
+
+    addSrcScript(getFrontScript());
     addMenuItems()
+
+    console.log(FIREBASE_CONFIG);
+    console.log(FIRESTORE_APP);
 
     // get option names from Chrome Storage
     chrome.storage.sync.get(["_option_names_array"], (options) => {

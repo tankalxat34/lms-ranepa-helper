@@ -1,10 +1,11 @@
+const MANIFEST = chrome.runtime.getManifest();
 
-const MANIFEST = chrome.runtime.getManifest()
 
+// const buttonComp = new HTMLComp(`<button class="btn btn-primary">Это INJECT кнопка</button>`);
+// HTMLHelper.inject("#inst4066", buttonComp);
+// buttonComp.html.textContent = "А это измененный текст!";
+// buttonComp.set("textContent", "И снова поменял текст!");
 
-// const PATTERNS = {
-//     s0: `${author} ${title} / ${author}, ${author2}. — ${num_redaction}. — ${city} : ${publisher}, ${year}. — ${pages_count} c. — Текст : непосредственный.`
-// }
 
 /**
  * Объект, содержащий в себе объекты (сервисы), которые в себе содержат методы управления этими сервисами.
@@ -202,6 +203,10 @@ function addListenersToServices() {
      */
     document.querySelector("#helper-rugost_s4").addEventListener("keyup", Services.rugost.s4);
 }
+
+fetchDoc("nodes/my/mainBlock.html")
+.then(resp => console.log(resp))
+.catch(e => console.log(e));
 
 
 
