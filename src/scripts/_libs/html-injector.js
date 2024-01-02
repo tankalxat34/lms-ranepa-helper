@@ -40,7 +40,14 @@ class HTMLEJSParams {
     constructor(markup) {
         const pattern = /<%\ *(\w+)\ *%>/g;
 
+        /**
+         * @type string[]
+         */
         this.tags = [...markup.matchAll(pattern)].map((value) => value[0]);
+
+        /**
+         * @type string[]
+         */
         this.names = [...markup.matchAll(pattern)].map((value) => value[1]);
     }
 }
@@ -57,13 +64,18 @@ class HTMLComp {
      */
     constructor(strHtml, paramsObject = {}) {
         /**
-         * Строковый HTML код компонента
+         * Строковый HTML код компонента. В нем заменяются параметры `<% param1 %>`
+         * @type string
          */
         this.strHtml = strHtml;
         this.paramsObject = paramsObject;
         
+        /**
+         * @type HTMLEJSParams
+         */
         this.params = new HTMLEJSParams(this.strHtml);
 
+        // подстановка параметров
         if (Object.keys(paramsObject).length) {
             this.params.tags.forEach((tag, index) => {
                 const value = paramsObject[this.params.names[index]];
@@ -74,6 +86,9 @@ class HTMLComp {
         }
 
         this.tagName = matchTagName(this.strHtml);
+        /**
+         * @type HTMLElement
+         */
         this.html = parseHTMLMarkup(this.strHtml);
     }
 
@@ -88,10 +103,11 @@ class HTMLComp {
     /**
      * Вставляет текущий компонент в родителя
      * @param {string} parentSelector Родитель, в которого надо вставить этот компонент
-     * @param {string} method Метод, с помощью которого вставляем компонент
+     * @param {string} method Метод, с помощью которого вставляем компонент (по умолчанию `appendChild`)
      */
     _injectInto(parentSelector, method = "appendChild") {
-        document.querySelector(parentSelector)[method](this.html);
+        // document.querySelector(parentSelector)[method](this.html);
+        HTMLHelper.inject(parentSelector, method);
     }
 
     /**
@@ -102,6 +118,7 @@ class HTMLComp {
      */
     set(propertyName, newValue) {
         this.html[propertyName] = newValue;
+        this.strHtml = `${this.html.outerHTML}`;
         return newValue;
     }
 
@@ -147,3 +164,19 @@ class HTMLHelper {
         return new HTMLComp(markup, paramsObject);
     }
 }
+
+
+
+/**
+ * Возвращает глубокую копию элемента дерева как компонент `HTMLComp`
+ * @param {object} paramsObject Объект, ключи которого являются именами параметров, а значения - значениями. Имена параметров будут заменены на значения. По умолчанию - пустой объект.
+ * @returns `HTMLComp`
+ */
+HTMLElement.prototype.getAsComp = function(paramsObject = {}) {
+    return new HTMLComp(this.outerHTML, paramsObject);
+}
+
+
+Document.prototype.HTMLComp = HTMLComp;
+Document.prototype.HTMLEJSParams = HTMLEJSParams;
+Document.prototype.HTMLHelper = HTMLHelper;

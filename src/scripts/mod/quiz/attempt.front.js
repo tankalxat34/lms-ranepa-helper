@@ -119,7 +119,7 @@ var HelperMainQuiz = {
     * Квиз (проблема → решение):
     * - перемешивает вопросы местами → надо шифровать тексты вопросов и варианты ответов в base64 для точной идентификации каждого из них при дешифровке
     */
-    object: function () {
+    object: function (encode = true) {
         let form    = this._getForm();
         let form_keys   = new Array(...Object.keys(form));
         let form_values   = new Array(...Object.values(form));
@@ -132,8 +132,8 @@ var HelperMainQuiz = {
         let div_answers     = [...document.querySelectorAll("fieldset.no-overflow > div.answer")];
 
         for (let index = 0; index < div_qtexts.length; index++) {
-            let q = Base64.encode(div_qtexts[index]);
-            let l = Base64.encode(div_legends[index]);
+            let q = encode ? Base64.encode(div_qtexts[index]) : div_qtexts[index];
+            let l = encode ? Base64.encode(div_legends[index]) : div_legends[index];
             let a = [...div_answers[index].childNodes].filter(function(value) {
                 return value.tagName === "DIV"
             });
@@ -148,7 +148,7 @@ var HelperMainQuiz = {
                 
                 childNodes.forEach(childElement => {
                     if (childElement.tagName === "INPUT" && childElement.getAttribute("type").toLowerCase() !== "hidden") {
-                        result[q].answers[Base64.encode(value.innerText)] = {
+                        result[q].answers[encode ? Base64.encode(value.innerText) : value.innerText] = {
                             value: childElement?.value,
                             checked: childElement?.checked
                         }

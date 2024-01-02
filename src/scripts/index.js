@@ -190,6 +190,14 @@ function getFrontScript(url = new URL(window.location.href).pathname) {
     return `scripts/${result.join("/")}.front.js`;
 }
 
+/**
+ * Возвращает путь до универсального front-скрипта, который будет выполняться на всех страницах в выбранной категории
+ * @param {*} url путь к скрипту ufront
+ * @returns {string} строку в формате `scripts/%some_path%.ufont.js`
+ */
+function getUniversalScript(url = new URL(window.location.href).pathname) {
+    return `scripts/${url.split("/").slice(1, -1).join("/")}.u.front.js`;
+}
 
 try {
     // common scripts and functions
@@ -198,8 +206,10 @@ try {
     addSrcScript("scripts/_services/base64.js");
     // addSrcScript("scripts/_libs/react.production.min.js");
     // addSrcScript("scripts/_libs/react-dom.production.min.js");
+    addSrcScript("scripts/_libs/html-injector.js");
 
     addSrcScript(getFrontScript());
+    addSrcScript(getUniversalScript());
     addMenuItems()
 
     // get option names from Chrome Storage
