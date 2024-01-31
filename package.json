@@ -1,0 +1,33 @@
+{
+  "name": "lms-ranepa-helper",
+  "version": "0.3.2",
+  "description": "Браузерное расширение для Chrome, улучшающее работу с СДО РАНХиГС (встроенный ChatGPT, скачивание любых видео, сохранение ответов и др.)",
+  "main": "index.js",
+  "scripts": {
+    "build": "(if not exist build mkdir build) && (if not exist obfSrc mkdir obfSrc) && (xcopy /s /e /i /y src obfSrc) && (javascript-obfuscator ./src --output ./obfSrc --compact true --simplify true --compact true --string-array-shuffle true --split-strings true --string-array-threshold 1 --string-array-calls-transform-threshold 1) && (crx3 obfSrc -o build/build.crx -z build/build.zip)",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile2": "(xcopy /s /e /i /y src jsbuild) && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tankalxat34/lms-ranepa-helper.git"
+  },
+  "keywords": [],
+  "author": "tankalxat34",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tankalxat34/lms-ranepa-helper/issues"
+  },
+  "homepage": "https://github.com/tankalxat34/lms-ranepa-helper#readme",
+  "dependencies": {
+    "chrome-types": "^0.1.246",
+    "crx3": "^1.1.3",
+    "tsc": "^2.0.4",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.29",
+    "javascript-obfuscator": "^4.1.0",
+    "onchange": "^7.1.0"
+  }
+}

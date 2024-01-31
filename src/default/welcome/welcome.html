@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <title>Спасибо за установку LMS RANEPA Helper!</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://lms.ranepa.ru/theme/styles.php/boost/1676663955_1676269551/all" />
+</head>
+
+<style>
+    :root {
+        --bg-color: #f1f1f1;
+        --fg-color: #131313;
+        --border-color: var(--fg-color);
+        --m-20: 20%;
+        --m-10: 10%;
+    }
+    * {
+        background-color: var(--bg-color);
+        color: var(--fg-color);
+    }
+    body {
+        background-color: var(--bg-color); 
+    }
+    
+    .block,.card {
+        border-color: var(--border-color);
+    }
+
+    .separator {
+        display: flex; align-items: center;
+        justify-content: space-between;
+    }
+    .separator::before,
+    .separator::after {
+        content: ""; flex: 1;
+        border: .1px ridge var(--fg-color);
+    }
+
+    .m-20 {
+        margin: var(--m-20) var(--m-20) 0% var(--m-20);
+    }
+    .mt-20 {
+        margin-top: var(--m-20);
+    }
+    .mb-20 {
+        margin-bottom: var(--m-20);
+    }
+    .ml-20 {
+        margin-left: var(--m-20);
+    }
+    .mr-20 {
+        margin-right: var(--m-20);
+    }
+    
+    .m-10 {
+        margin: var(--m-10) var(--m-10) 0% var(--m-10);
+    }
+    .mt-10 {
+        margin-top: var(--m-10);
+    }
+    .mb-10 {
+        margin-bottom: var(--m-10);
+    }
+    .ml-10 {
+        margin-left: var(--m-10);
+    }
+    .mr-10 {
+        margin-right: var(--m-10);
+    }
+
+    .slide {
+        margin: var(--m-20) var(--m-20) 0% var(--m-20);
+    }
+    .slide.center {
+        justify-content: center;
+        text-align: center;
+    }
+    .slide > p.descr {
+        font-size: 20px;
+    }
+
+    .kb-slide-main > a {
+        width: 30%;
+    }
+
+    .navbar-collapse {
+        z-index: 1; 
+        position: absolute; 
+        left: 0; 
+        top: 0;
+        width: 100%;
+        padding: 20px;
+        box-shadow: 0px 0 10px #b4b4b4;
+    }
+
+    .nav-item .active {
+        font-weight: 800;
+    }
+</style>
+
+<nav id="nav" class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">LMS RANEPA Helper</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Главная</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../options/options.html">Настройки</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="../chatgpt/chatgpt.html">ChatGPT</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://lms.ranepa.ru/" target="_blank">СДО</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://lms-dpo.ranepa.ru/" target="_blank">ДПО</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+
+
+<body>
+    <div class="slide center">
+        <img src="../../icon.png" width="65px">
+        <h1>LMS RANEPA Helper</h1>
+        <p>Теперь внутри СДО/ДПО РАНХиГС Вам доступны несколько десятков полезных функций!</p>
+
+        <div class="kb-slide-main">
+            <a class="btn btn-outline-secondary" href="https://vk.com/public207930377" target="_blank">Cообщество ВКонтакте</a>
+            <a class="btn btn-outline-secondary" href="../options/options.html" target="_blank">Настройки расширения</a>
+            <p style="color: #707070;">О том, как настроить расширение, читайте ниже 👇</p>
+        </div>
+    </div>
+
+    <div class="ml-20 mr-20 mt-10">
+        <h2>Что дальше?</h2>
+        <p>Необходимо настроить расширение, включив необходимые Вам функции:</p>
+        <ol>
+            <li>Подпишитесь на <a href="https://vk.com/public207930377" target="_blank">сообщество</a>, где будут размещаться все последние новости о работе расширения;</li>
+            <li>Перейдите в <a href="../options/options.html" target="_blank">настройки</a>;</li>
+            <li>Включите необходимые функции;</li>
+            <li>Перезагрузите страницу СДО/ДПО, если она была открыта ранее;</li>
+        </ol>
+    </div>
+
+    <div class="ml-20 mr-20">
+        <h2>Нейронная сеть ChatGPT</h2>
+        <p>Если вы планируете использовать ChatGPT - вам необходимо сделать следующее:</p>
+        <ol>
+            <li>Перейдите в <a href="../options/options.html" target="_blank">настройки</a>;</li>
+            <li>Включите тумблер "Возможности ChatGPT";</li>
+            <li>Выберите языковую модель в зависимости от используемого тарифа ChatGPT: для бесплатного доступны модели <b>третьего</b> поколения. Для пользователей ChatGPT Plus доступны самые мощные на данный момент модели <b>четвертого</b> поколения;</li>
+            <li>Перезайдите в свой аккаунт OpenAI, если это будет необходимо;</li>
+            <li><i>Иногда OpenAI может подвисать, ввиду чего предупреждение об ошибке входа на странице настроек может быть ошибочным.</i></li>
+        </ol>
+        <p>На данный момент возможности ChatGPT доступны только в тестах. Планируется интегрировать нейросеть и в другие элементы СДО/ДПО.</p>
+    </div>
+    <div class="ml-20 mr-20">
+        <h2>Обновление расширения</h2>
+        <p>Иногда на главной странице СДО/ДПО будет появляться надпись о том, что появилась новая версия расширения. Обновить расширение можно следующим образом:</p>
+        <ol>
+            <li>Скачайте последнюю <a href="https://github.com/tankalxat34/lms-ranepa-helper/releases/latest" target="_blank">стабильную</a> версию.</li>
+            <li>Скачанный архив <code>build.zip</code> распакуйте в папку с уже установленным расширением, <b>подтверждая замену файлов</b>;</li>
+            <li>Перейдите в раздел установленных расширений вашего браузера;</li>
+            <li>Обновите расширение, нажав на "↻" (см. скриншот ниже);</li>
+            <li>Перезагрузите вкладки СДО/ДПО, если необходимо;</li>
+        </ol>
+
+        <img src="static/ext-card.png" alt="">
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <h3>Приятного использования!</h3>
+    </div>
+
+    <div style="text-align: center; margin: 30px;">
+        <p>© tankalxat34 - 2024</p>
+    </div>
+
+    <script src="welcome.js"></script>
+    <script src="../_common_static/navbar.js"></script>
+</body>
+
+
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+  <head>
+    <title>Настройки</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://lms.ranepa.ru/theme/styles.php/boost/1676663955_1676269551/all" />
+  </head>
+
+  <style>
+    :root {
+      --bg-color: #f1f1f1;
+      --fg-color: #131313;
+      --border-color: var(--fg-color);
+    }
+    * {
+      background-color: var(--bg-color);
+      color: var(--fg-color);
+    }
+    div.helper-settings div {
+      margin: 20px 0px;
+    }
+    /* p,h1,h2,h3,h4,h5,h6 {
+        cursor: default;
+    } */
+    /* input,label {
+        cursor: pointer;
+    } */
+    body {
+      background-color: var(--bg-color);
+    }
+
+    .bold {
+      font-weight: 700;
+    }
+
+    .separator {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .separator::before,
+    .separator::after {
+      content: "";
+      flex: 1;
+      border: 0.1px ridge var(--fg-color);
+    }
+
+    .navbar-collapse {
+      z-index: 1;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      padding: 20px;
+      box-shadow: 0px 0 10px #b4b4b4;
+    }
+
+    .nav-item .active {
+      font-weight: 800;
+    }
+
+    code {
+      font-size: 17px;
+    }
+
+    /* Стилизация таблицы */
+    table {
+      border-collapse: collapse; /* Объединение границ ячеек */
+      width: 100%; /* Растяжение таблицы по ширине контейнера */
+      border: 1px solid #ccc; /* Граница всей таблицы */
+      margin: 10px 0; /* Отступ сверху и снизу */
+      font-family: Arial, sans-serif;
+    }
+    /* Стилизация заголовков ячеек */
+    th {
+      background-color: #f5f5f5; /* Цвет фона заголовков */
+      font-weight: bold; /* Жирный шрифт */
+      border: 1px solid #ccc; /* Граница ячеек заголовка */
+      padding: 8px; /* Внутренний отступ */
+      text-align: left; /* Выравнивание текста влево */
+    }
+    /* Стилизация ячеек данных */
+    td {
+      border: 1px solid #ccc; /* Граница ячеек данных */
+      padding: 8px; /* Внутренний отступ */
+    }
+    /* Чередование цветов строк */
+    tr:nth-child(2n) {
+      background-color: #f9f9f9; /* Цвет фона четных строк */
+    }
+    /* Стили для input[type="range"] */
+    input[type="range"] {
+      -webkit-appearance: none; /* Убираем стандартный стиль для WebKit (Safari, Chrome) */
+      appearance: none;
+      width: 100%; /* Растягиваем элемент по ширине контейнера */
+      height: 10px; /* Высота ползунка */
+      background: #ccc; /* Цвет фона ползунка (серый по умолчанию) */
+      border: none; /* Убираем границу */
+      border-radius: 5px; /* Скругление углов ползунка */
+      outline: none; /* Убираем выделение при фокусе */
+    }
+
+    /* Стили для ползунка */
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; /* Убираем стандартный стиль для WebKit (Safari, Chrome) */
+      appearance: none;
+      width: 20px; /* Ширина ползунка */
+      height: 20px; /* Высота ползунка */
+      background: #962e2f; /* Цвет фона ползунка */
+      border: 2px solid #8f3d3e; /* Граница ползунка */
+      border-radius: 50%; /* Скругление углов ползунка (для круглой формы) */
+      cursor: pointer; /* Курсор указывает на возможность перетаскивания ползунка */
+    }
+  </style>
+
+  <nav id="nav" class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">LMS RANEPA Helper</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="../welcome/welcome.html">Главная</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="../options/options.html">Настройки</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../chatgpt/chatgpt.html">ChatGPT</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://lms.ranepa.ru/" target="_blank">СДО</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://lms-dpo.ranepa.ru/" target="_blank">ДПО</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <body class="" style="background-color: var(--bg-color); overflow: auto">
+    <div style="margin: 10%">
+      <h2>Настройки LMS RANEPA Helper</h2>
+      <p>
+        Наведите курсор на настройку, чтобы узнать о ней подробнее. Настройки сохраняются
+        автоматически.
+      </p>
+      <div class="block card" id="helper-settings-card" style="background-color: var(--bg-color)">
+        <div class="card-body helper-settings" id="helper-settings-options">
+          <!-- <h4>Общее</h4> -->
+          <h4>Сервисы и возможности</h4>
+
+          <h5>Общее</h5>
+
+          <div
+            class="custom-control custom-switch"
+            id="helper-settings-div-disable_yametrika"
+            title="Включив эту настройку ваши действия в СДО больше не будут отправляться разработчикам СДО. Обычно Яндекс Метрика нужна для сбора данных о действиях пользователей на сайте">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="helper-settings-disable_yametrika" />
+            <label class="custom-control-label" for="helper-settings-disable_yametrika"
+              >Отключить Яндекс Метрику</label
+            >
+          </div>
+
+          <div class="separator"></div>
+
+          <h5>Главная страница</h5>
+
+          <div
+            class="custom-control custom-switch"
+            id="helper-settings-div-show_todo"
+            title="При включении этого сервиса у вас появится возможность вести свой список дел на главной странице СДО/ДПО">
+            <input type="checkbox" class="custom-control-input" id="helper-settings-show_todo" />
+            <label class="custom-control-label" for="helper-settings-show_todo"
+              >Отображать список дел</label
+            >
+          </div>
+
+          <div
+            class="custom-control custom-switch"
+            id="helper-settings-div-show_clock"
+            title="Включает отображение текущей даты и времени на главной странице">
+            <input type="checkbox" class="custom-control-input" id="helper-settings-show_clock" />
+            <label class="custom-control-label" for="helper-settings-show_clock"
+              >Отображать часы</label
+            >
+          </div>
+
+          <div class="custom-control custom-switch" id="helper-settings-div-show_clck">
+            <input type="checkbox" class="custom-control-input" id="helper-settings-show_clck" />
+            <label class="custom-control-label" for="helper-settings-show_clck"
+              >Отображать сокращатель ссылок</label
+            >
+          </div>
+
+          <div class="custom-control custom-switch" id="helper-settings-div-show_rugost">
+            <input type="checkbox" class="custom-control-input" id="helper-settings-show_rugost" />
+            <label class="custom-control-label" for="helper-settings-show_rugost"
+              >Отображать генератор библиографического описания</label
+            >
+          </div>
+
+          <div
+            class="custom-control custom-switch"
+            id="helper-settings-div-show_searchinput_courses">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="helper-settings-show_searchinput_courses" />
+            <label class="custom-control-label" for="helper-settings-show_searchinput_courses"
+              >Отображать поиск по вашим курсам</label
+            >
+          </div>
+
+          <div
+            class="custom-control custom-switch"
+            id="helper-settings-div-show_courses_filters"
+            title="Включите эту настройку, чтобы получить доступ к расширенному набору фильтров курсов для главной страницы">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="helper-settings-show_courses_filters" />
+            <label class="custom-control-label" for="helper-settings-show_courses_filters"
+              >Отображать фильтры по курсам</label
+            >
+          </div>
+
+          <div class="separator"></div>
+
+          <h5>
+            <img src="../../openai.png" alt="logopng" width="20px" style="border-radius: 20%" />
+            ChatGPT
+          </h5>
+
+          <p>
+            В поле ниже отображен ваш accessToken для ChatGPT. accessToken - это уникальный ключ,
+            который позволяет нейросети идентифицировать вас как пользователя и дать вам ответ. Если
+            поле пустое, попробуйте сделать что-нибудь из перечисленного ниже. Если access token
+            получить не удается - подождите некоторое время и повторите все операции снова.
+          </p>
+          <ol>
+            <li>
+              Перейдите на
+              <a href="https://chat.openai.com" target="_blank">главную страницу</a> ChatGPT и
+              дождитесь ее окончательной загрузки. Затем обновите эту страницу с настройками;
+            </li>
+            <li>Перелогиньтесь (выйдите и зайдите снова в свой аккаунт OpenAI);</li>
+            <li>
+              Вручную скопируйте accessToken с
+              <a href="https://chat.openai.com/api/auth/session" target="_blank">этой страницы</a> и
+              вставьте его в поле ниже;
+            </li>
+            <li>
+              Отключите и включите снова тумблер
+              <label for="helper-settings-show_chatgpt" style="cursor: pointer"
+                ><b>Включить возможности ChatGPT</b></label
+              >;
+            </li>
+          </ol>
+
+          <div
+            class="custom-control custom-switch"
+            id="helper-settings-div-get_localuser_token"
+            title="Если у вас есть собственный accessToken, вы можете включить этот тумблер и вставить имеющийся accessToken в поле ниже">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="helper-settings-get_localuser_token" />
+            <label class="custom-control-label" for="helper-settings-get_localuser_token"
+              >Использовать указанный мной токен</label
+            >
+          </div>
+
+          <div style="display: flex">
+            <input type="text" class="form-control" id="helper-chatgpt-access_token" />
+          </div>
+
+          <div
+            class="custom-control custom-switch"
+            id="helper-settings-div-show_chatgpt"
+            title="Включает возможности ChatGPT в тестах и на главной странице!">
+            <input type="checkbox" class="custom-control-input" id="helper-settings-show_chatgpt" />
+            <label class="custom-control-label" for="helper-settings-show_chatgpt"
+              >Включить возможности ChatGPT
+              <span id="helper-chatgpt-access_token_span" style="font-family: monospace"></span
+            ></label>
+            <p id="helper-chatgpt-access_token_descr"></p>
+          </div>
+
+          <span
+            for="helper-chatgpt-model"
+            title="OpenAI предоставляет бесплатный доступ к моделям третьего поколения. Для моделей четвертого поколения доступ предоставляется при покупке ежемесячного тарифа"
+            >Используемая языковая модель <b>(рекомендуется <code>gpt-3.5-turbo</code>)</b>. О
+            моделях
+            <a href="https://platform.openai.com/docs/models/models" target="_blank">читайте тут</a
+            >.</span
+          >
+          <select
+            id="helper-chatgpt-model"
+            class="form-select custom-select"
+            aria-label="Выбрать языковую модель">
+            <option value="gpt-3.5-turbo" selected>gpt-3.5-turbo</option>
+            <option value="gpt-3.5-turbo-0301">gpt-3.5-turbo-0301</option>
+            <option value="gpt-4">gpt-4</option>
+            <option value="gpt-4-0314">gpt-4-0314</option>
+            <option value="gpt-4-32k">gpt-4-32k</option>
+            <option value="gpt-4-32k-0314">gpt-4-32k-0314</option>
+          </select>
+
+          <div class="separator"></div>
+
+          <h5>Страница с попыткой</h5>
+          <div
+            class="custom-control custom-switch"
+            id="helper-settings-div-show_btns_quick_question"
+            title="Включить отображение кнопок для быстрого поиска в популярных поисковых системах для каждого вопроса">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="helper-settings-show_btns_quick_question" />
+            <label class="custom-control-label" for="helper-settings-show_btns_quick_question"
+              >Отображать кнопки быстрого поиска вопросов в поисковых системах</label
+            >
+          </div>
+
+          <div
+            class="custom-control custom-switch"
+            id="helper-settings-div-show_operate_btns_block"
+            title="Включить отображение кнопок для оперирования тестом (импорт/экспорт ответов, сохранение ответов в Moodle, скачивание страницы и т.д.)">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="helper-settings-show_operate_btns_block" />
+            <label class="custom-control-label" for="helper-settings-show_operate_btns_block"
+              >Показывать кнопки оперирования тестом</label
+            >
+          </div>
+
+          <div class="separator"></div>
+
+          <h5>Страница с ресурсом</h5>
+
+          <div
+            class="custom-control custom-switch"
+            id="helper-settings-div-disable_video_title"
+            title="Отключает отображение тега title при наведении курсора на видео (такой прямоугольник, какой вы видите сейчас, будет отключен)">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="helper-settings-disable_video_title" />
+            <label class="custom-control-label" for="helper-settings-disable_video_title"
+              >Скрывать всплывающее название видео</label
+            >
+          </div>
+
+          <div
+            class="custom-control custom-switch"
+            id="helper-settings-div-show_download_video_button"
+            title="">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="helper-settings-show_download_video_button" />
+            <label class="custom-control-label" for="helper-settings-show_download_video_button"
+              >Включить кнопку скачивания видео</label
+            >
+          </div>
+
+          <div
+            class="custom-control custom-switch"
+            id="helper-settings-div-show_targetblank_video_button"
+            title="">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="helper-settings-show_targetblank_video_button" />
+            <label class="custom-control-label" for="helper-settings-show_targetblank_video_button"
+              >Включить кнопку "Открыть видео в новой вкладке"</label
+            >
+          </div>
+
+          <div class="separator"></div>
+
+          <h4>Провинутые настройки</h4>
+          <div
+            class="custom-control custom-switch"
+            id="helper-settings-div-changeable_form_action"
+            title="Включить возможность изменения ссылки для отправки теста. Функция полезна в том случае, если вы хотите изучить тело запроса формы с тестом. Для таких целей подходит webhook.site">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="helper-settings-changeable_form_action" />
+            <label class="custom-control-label" for="helper-settings-changeable_form_action"
+              >Включить возможность изменения URL для POST запроса в тестах</label
+            >
+          </div>
+
+          <div
+            class="custom-control custom-switch"
+            id="helper-settings-div-show_hidden_inputs"
+            title="Всегда отображать скрытые поля ввода в тестах. Обычно в таких полях содержится информация, необходимая для отправки формы. Не рекомендуется редактировать эти поля!">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="helper-settings-show_hidden_inputs" />
+            <label class="custom-control-label" for="helper-settings-show_hidden_inputs"
+              >Отображать скрытые input теги в тестах</label
+            >
+          </div>
+        </div>
+
+        <!-- <button id="helper-settings-btn_save" class="btn btn-primary m-3" style="max-width: 30%;">Сохранить</button> -->
+        <button
+          id="helper-settings-btn_clear"
+          class="btn btn-outline-secondary m-3"
+          style="max-width: 30%">
+          Сбросить
+        </button>
+      </div>
+    </div>
+
+    <script src="options.js"></script>
+    <script src="../_common_static/navbar.js"></script>
+  </body>
+</html>
