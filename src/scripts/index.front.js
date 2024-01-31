@@ -50,3 +50,19 @@ function downloadFileFromText(filename, content) {
     a.click();
     a.remove();
 }
+
+/**
+ * Возвращает значение по ключу из `sessionStorage`. Таким образом можно получить распарсенную информацию о текущем курсе
+ * 
+ * Работает по принципу: если переданный key является подстрокой одного из существующих ключей в `sessionStorage`, то вернуть значение.
+ * @param {string} key Ключ. По умолчанию равен строке `staticState`
+ * @returns {object}
+ */
+function getFromSessionStorage(key = "staticState") {
+    const session = {...sessionStorage};
+
+    for (let keyName in session) {
+        if (keyName.includes(key)) return JSON.parse(session[keyName]);
+    }
+    return {};
+}
