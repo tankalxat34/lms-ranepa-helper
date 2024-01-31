@@ -12,7 +12,7 @@
 
 <!-- [![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Ftankalxat34%2Flms-ranepa-helper%2Fnpm%2Fsrc%2Fmanifest.json&query=%24.version&prefix=Скачать &style=for-the-badge&label=%C2%A0&color=228900)](https://github.com/tankalxat34/lms-ranepa-helper/releases/latest) -->
 
-[![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Ftankalxat34%2Flms-ranepa-helper%2Fnpm%2Fsrc%2Fmanifest.json&query=%24.version&style=for-the-badge&logo=googlechrome&logoColor=white&label=%D0%A1%D0%9A%D0%90%D0%A7%D0%90%D0%A2%D0%AC%20&color=228900)](https://github.com/tankalxat34/lms-ranepa-helper/releases/latest)
+[![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Ftankalxat34%2Flms-ranepa-helper%2Fmain%2Fsrc%2Fmanifest.json&query=%24.version&style=for-the-badge&logo=googlechrome&logoColor=white&label=%D0%A1%D0%9A%D0%90%D0%A7%D0%90%D0%A2%D0%AC%20&color=228900)](https://github.com/tankalxat34/lms-ranepa-helper/releases/latest)
 
 Поддерживаются браузеры:
 
