@@ -1,124 +1,86 @@
 {
-    "manifest_version": 3,
-    "name": "LMS RANEPA Helper",
-    "description": "Облегчает работу с СДО/ДПО РАНХиГС",
-    "author": "tankalxat34",
-    "version": "0.3.2",
-    "homepage_url": "https://bit.ly/lms-ranepa-helper",
-    "key": "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",
-    "action": {
-        "default_icon": "icon.png",
-        "default_popup": "default/popup/popup.html"
+  "manifest_version": 3,
+  "name": "LMS RANEPA Helper",
+  "description": "Облегчает работу с СДО/ДПО РАНХиГС",
+  "author": "tankalxat34",
+  "version": "0.4.0",
+  "homepage_url": "https://bit.ly/lms-ranepa-helper",
+  "key": "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",
+  "action": {
+    "default_icon": "icon.png",
+    "default_popup": "default/popup/popup.html"
+  },
+  "icons": {
+    "128": "icon.png"
+  },
+  "host_permissions": ["<all_urls>"],
+  "permissions": ["contextMenus", "storage", "scripting", "cookies", "downloads"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["scripts/_services/contextMenu.js"]
     },
-    "icons": {
-        "128": "icon.png"
-    },
-    "host_permissions": [
-        "<all_urls>"
-    ],
-    "permissions": [
-        "contextMenus",
-        "storage",
-        "scripting",
-        "cookies",
-        "downloads"
-    ],
-    "background": {
-        "service_worker": "background.js"
-    },
-    "content_scripts": [
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "scripts/_services/contextMenu.js"
-            ]
-        },
-        {
-            "matches": [
-                "*://lms.ranepa.ru/*",
-                "*://lms-dpo.ranepa.ru/*",
-                "*://online-edu.ranepa.ru/*"
-            ],
-            "js": [
-                "scripts/_libs/html-injector.js",
+    {
+      "matches": ["*://lms.ranepa.ru/*", "*://lms-dpo.ranepa.ru/*", "*://online-edu.ranepa.ru/*"],
+      "js": [
+        "scripts/_libs/html-injector.js",
 
-                "scripts/index.js",
-                "scripts/_services/drawdown.js",
-                "scripts/_services/backend_chatgpt.js",
-                "scripts/_services/base64.js"
-            ]
-        },
-        {
-            "matches": [
-                "*://lms.ranepa.ru/my/*",
-                "*://lms-dpo.ranepa.ru/my/*",
-                "*://online-edu.ranepa.ru/my/*"
-            ],
-            "js": [
-                "scripts/my.js"
-            ],
-            "html": [
-                "nodes/my/mainBlock.html"
-            ]
-        },
-        {
-            "matches": [
-                "*://lms.ranepa.ru/mod/quiz/attempt.php?*",
-                "*://lms-dpo.ranepa.ru/mod/quiz/attempt.php?*",
-                "*://online-edu.ranepa.ru/mod/quiz/attempt.php?*"
-            ],
-            "js": [
-                "scripts/mod/quiz/attempt.js"
-            ],
-            "html": [
-                "nodes/mod/quiz/attempt/mainBlock.html"
-            ]
-        },
-        {
-            "matches": [
-                "*://lms.ranepa.ru/mod/resource/view.php?*",
-                "*://lms-dpo.ranepa.ru/mod/resource/view.php?*",
-                "*://online-edu.ranepa.ru/mod/resource/view.php?*"
-            ],
-            "js": [
-                "scripts/mod/resource/view.js"
-            ]
-        },
-        {
-            "matches": [
-                "*://lms.ranepa.ru/mod/video/view.php?*",
-                "*://lms-dpo.ranepa.ru/mod/video/view.php?*",
-                "*://online-edu.ranepa.ru/mod/video/view.php?*"
-            ],
-            "js": [
-                "scripts/mod/resource/view.js"
-            ]
-        },
-        {
-            "matches": [
-                "*://lms.ranepa.ru/mod/page/view.php?*",
-                "*://lms-dpo.ranepa.ru/mod/page/view.php?*",
-                "*://online-edu.ranepa.ru/mod/page/view.php?*"
-            ],
-            "js": [
-                "scripts/mod/page/view.js"
-            ]
-        }
-    ],
-    "web_accessible_resources": [
-        {
-            "resources": [
-                "*.js",
-                "*.html",
-                "*.css",
-                "scripts/*",
-                "nodes/*"
-            ],
-            "matches": [
-                "<all_urls>"
-            ]
-        }
-    ]
+        "scripts/index.js",
+        "scripts/_services/drawdown.js",
+        "scripts/_services/backend_chatgpt.js",
+        "scripts/_services/base64.js"
+      ]
+    },
+    {
+      "matches": [
+        "*://lms.ranepa.ru/my/*",
+        "*://lms-dpo.ranepa.ru/my/*",
+        "*://online-edu.ranepa.ru/my/*"
+      ],
+      "js": ["scripts/my.js"],
+      "html": ["nodes/my/mainBlock.html"]
+    },
+    {
+      "matches": [
+        "*://lms.ranepa.ru/mod/quiz/attempt.php?*",
+        "*://lms-dpo.ranepa.ru/mod/quiz/attempt.php?*",
+        "*://online-edu.ranepa.ru/mod/quiz/attempt.php?*"
+      ],
+      "js": ["scripts/mod/quiz/attempt.js"],
+      "html": ["nodes/mod/quiz/attempt/mainBlock.html"]
+    },
+    {
+      "matches": [
+        "*://lms.ranepa.ru/mod/resource/view.php?*",
+        "*://lms-dpo.ranepa.ru/mod/resource/view.php?*",
+        "*://online-edu.ranepa.ru/mod/resource/view.php?*"
+      ],
+      "js": ["scripts/mod/resource/view.js"]
+    },
+    {
+      "matches": [
+        "*://lms.ranepa.ru/mod/video/view.php?*",
+        "*://lms-dpo.ranepa.ru/mod/video/view.php?*",
+        "*://online-edu.ranepa.ru/mod/video/view.php?*"
+      ],
+      "js": ["scripts/mod/resource/view.js"]
+    },
+    {
+      "matches": [
+        "*://lms.ranepa.ru/mod/page/view.php?*",
+        "*://lms-dpo.ranepa.ru/mod/page/view.php?*",
+        "*://online-edu.ranepa.ru/mod/page/view.php?*"
+      ],
+      "js": ["scripts/mod/page/view.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["*.js", "*.html", "*.css", "scripts/*", "nodes/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

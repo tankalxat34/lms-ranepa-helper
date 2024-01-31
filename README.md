@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/tankalxat34/lms-ranepa-helper/main/icon.png" width=30px> LMS RANEPA Helper
+# <img src="https://raw.githubusercontent.com/tankalxat34/lms-ranepa-helper/main/src/icon.png" width=30px> LMS RANEPA Helper
 
 <!-- <img src="https://img.shields.io/badge/dynamic/json?url=https://api.github.com/repos/tankalxat34/lms-ranepa-helper/releases&label=Версия&query=$[0].name&color=%23990000&style=for-the-badge"> -->
 
